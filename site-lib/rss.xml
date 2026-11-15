@@ -1,502 +1,97 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[计算机组成原理项目作业]]></title><description><![CDATA[Obsidian digital garden]]></description><link>http://github.com/dylang/node-rss</link><image><url>site-lib/media/favicon.png</url><title>计算机组成原理项目作业</title><link></link></image><generator>Webpage HTML Export plugin for Obsidian</generator><lastBuildDate>Sun, 15 Nov 2026 12:17:50 GMT</lastBuildDate><atom:link href="site-lib/rss.xml" rel="self" type="application/rss+xml"/><pubDate>Sun, 15 Nov 2026 12:17:47 GMT</pubDate><ttl>60</ttl><dc:creator></dc:creator><item><title><![CDATA[Jetson Orin Nano Super 8B 使用指南]]></title><description><![CDATA[<a data-href="Canvas教学视频" href="canvas教学视频.html" class="internal-link" target="_self" rel="noopener nofollow">Canvas教学视频</a><br>以下是官方的英文版本：<a class="internal-link" data-href="attachments/Jetson_Orin_Nano_DevKit_Carrier_Board_Specification_SP-11324-001_v1.0.pdf" href="attachments/jetson_orin_nano_devkit_carrier_board_specification_sp-11324-001_v1.0.html" target="_self" rel="noopener nofollow">Jetson_Orin_Nano_DevKit_Carrier_Board_Specification_SP-11324-001_v1.0.pdf</a><br>AI搞的中文版：<a class="internal-link" data-href="attachments/Jetson_Orin_Nano_硬件教学手册.pdf" href="attachments/jetson_orin_nano_硬件教学手册.html" target="_self" rel="noopener nofollow">Jetson<em></em>硬件教学手册.pdf</a>Orin_Nano]]></description><link>jetson-orin-nano-super-8b-使用指南.html</link><guid isPermaLink="false">Jetson Orin Nano Super 8B 使用指南.md</guid><pubDate>Sun, 15 Nov 2026 12:15:32 GMT</pubDate></item><item><title><![CDATA[GPU实验方案]]></title><description><![CDATA[
-云端实验对象是 原尺寸 SVD UNet 的前向，不是完整 SVD 视频生成管线。
-不在云端报告中加入 VAE 解码、视频采样器或端到端视频质量结论。
-Baseline 与 Treatment 必须使用同一输入级别、同一 dtype、同一模型代码和同一测量口径。
-云端 Baseline 是原尺寸 SVD UNet；边缘 Baseline 是降配 UNet。两侧只比较变化方向，不直接比较绝对 FLOPs 或算术强度。
-Roofline 主图使用云端实测 FP16 吞吐和实测可达带宽；标称值只作虚线对照。
-云端没有可靠的整板/GPU 功耗采集能力，因此 RQ4 不在云端作定量回答。
-输入的 latent shape 必须由 config、VAE 下采样倍率和实际 forward 签名反算。当前文档中的示例 (1,4,14,32,32) 仅是形状示例，不能未经核对直接当成 512×256 输入的最终 shape。
-每名成员固定一个主责，同时承担交叉复核任务。
-C 负责 Baseline，D 负责 Treatment；B 负责模型结构正确性，E 负责数据独立性。
-任何人不得直接覆盖原始 run_*.json；修正结果只能新增文件并写明原因。
-每个关键结果至少有两名成员看到原始输出：一名执行者、一名复核者。
-所有最终主结论必须能追溯到 run ID、代码 commit、模型哈希和平台校准版本。
-建议使用 4 个实验日：每张任务卡只规定最小可验收闭环。任务卡通过后才能进入下一张。需要准备的材料
-课程《计组作业大纲》v5.0、《实验计划》云 GPU 分册。
-项目 RQ、数据字典草案、实验命名规则、共享目录。
-当前模型仓库、权重来源和 config 的路径记录。
-需要进行的最小步骤
-由全组逐条确认 RQ1、RQ2、RQ3 的边界。
-写明云端只测原尺寸 SVD UNet 前向，不测完整生成管线和视频质量。
-约定 run ID：cloud_&lt;baseline|treatment&gt;_&lt;level&gt;_rNN。
-约定原始数据不可覆盖、修正留痕。
-在项目看板上标注交付给跨平台组的字段。
-需要的分工成员
-A：说明云资源与实验周期限制。
-B：解释 SVD UNet、FFN 和 attention 的模型边界。
-C：确认 Baseline 测量口径。
-D：确认 Treatment 及复核方案。
-E：整理 RQ 与数据字典，检查边界是否自洽。
-实验阶段性成功标志
-五人对实验对象、输入级别和禁止项没有歧义。
-run ID、数据目录和交付字段已经冻结。
-形成一页《云端对照组实验章程》，五人确认。
-需要准备的材料
-云 GPU 账号、项目配额、SSH 或平台终端、持久化存储。
-安全说明、成本预算、镜像/容器仓库、实验目录。
-需要进行的最小步骤
-启动已确认实际型号的 GPU 实例，记录实例区域和规格。
-建立共享数据目录和每人只写自己子目录的权限规则。
-检查至少可容纳模型、输入缓存和至少 20 组 run 的磁盘空间。
-确认网络、SSH、进程终止和实例关闭流程。
-禁止把账号密钥、访问令牌和下载凭据提交到代码仓库。
-需要的分工成员
-A：创建实例、分配存储和记录资源开销。
-B：检查模型安装所需网络和磁盘空间。
-C：确认能够保存 Baseline 日志。
-D：确认能够保存 Treatment 和复核日志。
-E：检查权限、脱敏和备份规则。
-实验阶段性成功标志
-GPU 实例可登录，存储路径可写，磁盘余量满足实验。
-A、C、D、E 均能在约定路径读写日志，且不能覆盖他人原始数据。
-身份凭据没有进入仓库或报告。
-资源成本、实例编号和关闭责任人已记录。
-需要准备的材料
-nvidia-smi、PyTorch、GPU 官方规格页或来源记录。
-platform_inventory.md、平台参数表。
-需要进行的最小步骤
-执行 nvidia-smi --query-gpu=name,memory.total,memory.used,compute_cap,clocks.max.sm,clocks.max.mem,power.limit --format=csv。
-记录 CUDA、驱动和 PyTorch 版本。
-记录 GPU 是否处于 MIG、共享实例或受限配额。
-从官方来源填写标称 FP16 算力和带宽。
-同时记录实例实际可用显存，而不只记录硬件总显存。
-需要的分工成员
-A：执行硬件查询并确认 MIG/共享状态。
-B：确认 CUDA 与 PyTorch 编译环境匹配。
-C：准备后续 Baseline 测量目录。
-D：记录测量注意事项和实例限制。
-E：核对型号、单位、来源和可追溯性。
-实验阶段性成功标志
-实际 GPU 型号、显存和编译版本已确定。
-标称参数有明确来源，不把租户配额写成硬件规格。
-若 GPU 为 MIG 或共享切片，已明确后续只用实测参数画主图。
-需要准备的材料
-NVIDIA 容器或云实例镜像、锁文件、代码 commit。
-environment.lock、launch.sh、只读配置目录。
-需要进行的最小步骤
-固化镜像 digest 或完整依赖版本。
-为模型代码建立固定 commit，关闭实验期间的自动拉取。
-检查 Python、PyTorch、CUDA、cuDNN、torchvision 版本。
-运行一次 CUDA FP16 矩阵乘自检。
-把启动命令和 GPU 编号写入 launch.sh，确保 Baseline/Treatment 可直接重放。需要的分工成员 A：确认镜像与 GPU 驱动兼容。
-B：建立模型入口和启动脚本。
-C：检查 Baseline 启动命令不含随机变化项。
-D：准备 Treatment 启动脚本的唯一差异项。
-E：保存全部版本和命令哈希。
-实验阶段性成功标志
-新进程能从冻结命令启动模型。
-CUDA 可用，FP16 GEMM 可以运行。
-Baseline 和 Treatment 的启动差异只有模型变体参数。
-镜像/依赖清单可重新创建相同环境。
-需要准备的材料
-SVD UNet 代码、FP16 权重分片或等效权重文件。
-config、tokenizer/condition 配置、文件哈希脚本。
-需要进行的最小步骤
-记录代码 commit 和 config 文件哈希。
-记录所有权重文件的 SHA-256。
-检查权重是 FP16 版本，而不是误用 FP32 单文件。
-读取 in_channels、condition 维度、VAE 缩放因子的来源。
-把 config 中的关键字段复制到 model_manifest.json。
-需要的分工成员
-A：确认存储空间和文件完整性。
-B：核对代码/config 的模型结构。
-C：准备 Baseline 权重加载记录。
-D：确认 Treatment 使用同一权重来源。
-E：独立计算哈希并检查 manifest 完整性。
-实验阶段性成功标志
-代码、权重和 config 都有哈希。
-权重精度与实验声明一致。
-关键 shape 字段来自 config，而不是凭猜测填写。
-Baseline/Treatment 只有目标结构差异。
-需要准备的材料
-VideoUNet 入口、权重加载器、固定随机种子。
-输入适配脚本、config 读取脚本、最小 forward 日志。
-需要进行的最小步骤
-打印实际 VideoUNet.forward() 签名。
-根据 config 构造 x、时间步 t 和 conditioning 输入。
-在 CUDA 上加载 FP16 UNet，执行一次 no_grad/inference_mode forward。
-记录输入形状、参数量、输出形状、dtype 和 device。
-明确本实验不做 VAE decode。
-需要的分工成员
-B：完成模型入口和输入构造。
-A：确认显存余量和 GPU 运行状态。
-C：记录 Baseline 最小 forward 证据。
-D：独立复现一次相同 forward。
-E：复核 shape、dtype、路径和指令。
-实验阶段性成功标志
-最小 UNet forward 在 CUDA 上完成。
-所有关键输入输出 shape 可解释。
-C 与 D 两次最小 forward 的输出 shape 一致。
-没有把 VAE 或完整采样管线混入实验对象。
-需要准备的材料
-VAE downscale 记录、config、L0–L3 输入表。
-shape 计算表、错误案例日志。
-需要进行的最小步骤
-从 config 读取 latent channels 和空间下采样倍率。
-若要测试 512×256 像素，按倍率反算 latent 空间尺寸；倍率为 8 时得到 64×32，而不是无条件使用 32×32。
-将候选 L0–L3 转成内部 latent 尺寸。
-用每个候选尺寸检查模型是否接受。
-把最终 shape 写入配置，不在每次运行中临时计算。
-需要的分工成员
-B：解释 shape 与模型结构关系。
-C：准备 Baseline 候选配置。
-D：检查 Treatment 是否兼容同一 shape。
-A：监控显存和实例状态。
-E：交叉验证 shape 计算和记录。
-实验阶段性成功标志
-latent 尺寸来自 config 和实际 forward，不来自文档示例。
-L0–L3 每个候选输入都有可解释的内部 shape。
-发现 shape 不匹配时已修正，而不是继续运行错误实验。
-需要准备的材料
-L0–L3 配置表、显存统计脚本、独立进程运行脚本。
-memory_preflight.csv、OOM 错误日志、GPU 状态日志。
-需要进行的最小步骤
-从 L0 开始逐级执行一次 forward。
-每轮前重置峰值统计。
-记录 max_memory_allocated()、max_memory_reserved() 和是否 OOM。
-每级独立进程运行，失败后继续下一级。
-找到 Baseline 和 Treatment 共同可运行的候选配置。
-需要的分工成员
-C：执行 Baseline 显存预检。
-D：执行 Treatment 显存预检并旁证 Baseline。
-A：检查 GPU 使用率和租户配额。
-B：确认每级输入到达正确模型入口。
-E：整理 OOM 记录和共同可运行集合。
-实验阶段性成功标志
-L0–L3 均有“通过/OOM/错误”的明确结果。
-Baseline 和 Treatment 的候选交集已列出。
-峰值显存与运行错误都有原始日志。
-没有把不同显存统计口径混在一起。
-需要准备的材料
-预检交集、配置模板、运行断言、selected_config.json。
-需要进行的最小步骤
-选择 Baseline 与 Treatment 都能运行的最高级别。
-对共同级别连续运行 5 次 forward。
-写入固定输入 shape、batch、帧数、dtype、seed。
-在脚本中加入 BASELINE_LEVEL == TREATMENT_LEVEL 断言。
-将配置文件设为共享只读。
-需要的分工成员
-C：验证 Baseline 连续运行。
-D：验证 Treatment 连续运行。
-B：审核输入配置与模型 config。
-A：检查 GPU 显存和实例容量。
-E：冻结配置哈希并记录共同级别。
-实验阶段性成功标志
-selected_config.json 唯一且只读。
-双方连续 5 次 forward 无 OOM。
-输入 shape、dtype、随机种子和 GPU 编号有记录。
-后续任何配置变化都需要新 run ID 和新数据目录。
-需要准备的材料
-named_modules() 输出、Linear/Conv 参数表、模型结构记录。
-ffn_catalog.json、FFN 前缀审计表。
-需要进行的最小步骤
-打印所有 Linear、Conv、attention 相关模块的完整名称和输入输出维度。
-找到 attention 后的连续线性层及其激活。
-排除 to_q、to_k、to_v、to_out 等注意力投影。
-把 FFN 模块完整前缀写入 ffn_catalog.json。
-由第二名成员独立核对模块数量。
-需要的分工成员
-B：主导 FFN 定位和结构解释。
-C：核对 Baseline 中 FFN 的覆盖范围。
-D：确认后续替换能在相同名称下工作。
-A：无需模型判断，负责运行资源。
-E：独立检查模块名和目录字段。
-实验阶段性成功标志
-FFN 前缀由实际模块树确定。
-注意力投影没有被列入 FFN。
-模块数量、Linear 维度和参数大小均有记录。
-ffn_catalog.json 能被另一名成员用于重建模块列表。
-需要准备的材料
-Baseline 分层 FLOPs、FFN 模块清单、占比公式和决策记录。
-ffn_decision.md。
-需要进行的最小步骤
-计算 FFN FLOPs 占整个 UNet 的比例。
-记录分子、分母、统计覆盖范围和计算脚本版本。
-若占比不低于 15%，执行纯 FFN 方案。
-若占比低于 15%，按项目文档在“通道压缩模块”中并入注意投影。
-将最终 RQ 表述和实验标签写入决策记录。
-需要的分工成员
-C：计算 Baseline 占比并提供原始数据。
-B：确认 FFN 分组没有漏掉结构。
-D：依据决策准备 Treatment 范围。
-A：确认测量环境没有改变。
-E：复算占比并审核是否达到决策阈值。
-实验阶段性成功标志
-FFN 占比和阈值判断可仅凭文件复算。
-纯 FFN 或扩展压缩模块的选择已明确。
-Treatment 的替换范围与决策一致。
-报告中不会把“通道压缩模块”误称为纯 FFN。### 任务卡 CL11：建立 hook/profiler 测量口径
-需要准备的材料
-ModuleProfiler、torch.profiler、小型 dry-run 模型。
-口径说明、输出 CSV 模板、独立复算脚本。
-需要进行的最小步骤
-用 hook 记录模块输入输出、dtype、device、参数量。
-统计整体/FFN/attention/conv 的 FLOPs 和 B_L1。
-用 profiler 做一次交叉检查；若 profiler 不提供 FLOPs，记录而不依赖。
-记录未覆盖算子、einsum、baddbmm 和自定义 attention。
-在 dummy 模型上由两人独立运行，核对结果。
-需要的分工成员
-C：实现并运行 Baseline hook。
-D：用相同口径独立运行 Treatment dry-run。
-B：解释非标准算子和模块覆盖。
-A：保证 dry-run 不发生 OOM 或资源争用。
-E：复核公式、单位和两人结果是否一致。
-实验阶段性成功标志
-hook 的模块覆盖范围、FLOPs 公式和字节公式已冻结。
-两人在 dry-run 中得到可解释的一致结果。
-未覆盖算子有比例或明确说明。
-后续 Baseline/Treatment 使用同一版脚本。
-需要准备的材料
-GPU 大张量复制脚本、CUDA Event、独立进程启动脚本。
-cloud_bandwidth.csv、GPU 状态日志。
-需要进行的最小步骤
-选择 256 MiB、512 MiB、1 GiB 或更大缓冲区，按实际显存调整。
-分配源/目标 GPU 张量并预热 3 次。
-复制重复 5 次，CUDA Event 计时。
-按读源+写目标计算总字节。
-计算可达带宽中位数，并记录最大/最小值。
-需要的分工成员
-A：启动独立实例和固定 GPU 环境。
-B：确认脚本不涉及模型输入。
-C：运行带宽基准。
-D：独立重跑一次主要尺寸。
-E：复算字节、中位数和单位。
-实验阶段性成功标志
-至少 3 组有效尺寸，每组至少 5 个计时样本。
-选择的主结果已进入平台阶段区间。
-C/D 结果在约 5% 范围内，或差异有资源/后台负载解释。
-CSV 可以从原始日志重算。
-需要准备的材料
-FP16 GEMM 基准、CUDA Event、GPU 显存监控。
-cloud_gemm.csv、实例状态日志。
-需要进行的最小步骤
-从 4096³ 或 8192³ 开始测试，按显存逐步增加尺寸。
-预热至少 5 次。
-每个尺寸运行至少 20 次，记录实际总耗时。
-按 2MNKR/t 计算实测吞吐。
-保留未达到饱和区间的尺寸，不强行用其替代主结果。
-需要的分工成员
-A：监控 GPU 显存和实例状态。
-B：确认 FP16 计算路径和 Torch 设置。
-C：执行主要 GEMM 标定。
-D：独立运行一个主尺寸作复测。
-E：核对 M/N/K、重复次数和 FLOPs 公式。
-实验阶段性成功标志
-至少一个尺寸进入可解释的饱和区间。
-取得 3 组有效吞吐结果。
-没有 OOM、MIG 误标称或 CPU fallback。
-C/D 同尺寸复测结果有记录。
-需要准备的材料
-带宽表、GEMM 表、GPU 官方规格页。
-cloud_roofline.json、单位换算表。
-需要进行的最小步骤
-统一带宽为 Byte/s、算力为 FLOP/s。
-计算 I*=π_measured/β_measured。
-计算标称屋脊点并标注来源。
-记录 GPU 是否 MIG、实例编号和测量日期。
-冻结云端平台参数版本。
-需要的分工成员
-A：确认 GPU 身份和实例限制。
-B：确认计算没有涉及模型 FLOPs。
-C：计算实测屋脊点。
-D：复算标称屋脊点和主口径。
-E：审核文件结构、单位和来源。
-实验阶段性成功标志
-cloud_roofline.json 同时包含实测和标称参数。
-每个参数都有测量尺寸或官方来源。
-后续模型实验使用同一冻结版本。
-需要准备的材料
-selected_config.json、Baseline 模型、冻结 hook。
-run_cloud_baseline_*.json、原始输出和随机种子。
-需要进行的最小步骤
-独立进程加载原尺寸 Baseline。
-warmup 2–3 次并丢弃首次正式结果。
-运行 5 次结构测量。
-记录整体/FFN/attention/conv 的 FLOPs 和 B_L1。
-计算各层算术强度并保存每次原始值。
-需要的分工成员
-C：执行 Baseline 全部结构测量。
-D：在场见证并检查运行配置。
-A：监控 GPU 和实例状态。
-B：核对模块 hook 是否命中。
-E：复核 JSON 字段和可复算性。
-实验阶段性成功标志
-5 次 Baseline 结构结果齐全。
-整体/FFN/attention/conv 均有明确统计。
-输出 shape 和 dtype 符合配置。
-D 对该轮“只属于 Baseline”给出见证记录。
-需要准备的材料
-不含 profiler 的计时脚本、独立进程、GPU 显存监控。
-cloud_time.csv、run_*_time.json。
-需要进行的最小步骤
-在独立进程加载 Baseline 并 warmup。
-用 CUDA Event 或同步前后计时测量至少 5 次前向。
-记录中位时间、最小/最大值和峰值显存。
-记录当前 GPU 是否共享、是否存在其他进程。
-与结构测量分开保存，不用 profiler 时间替代正式计时。
-需要的分工成员
-C：执行时间和显存测量。
-D：独立确认计时脚本没有 profiler。
-A：检查 GPU 无异常负载。
-B：确认前向输入和结构未变化。
-E：计算中位数并记录样本分布。
-实验阶段性成功标志
-至少 5 次有效前向时间。
-中位时间和峰值显存有原始数据。
-脚本中没有混入 profiler 开销。
-运行前后配置哈希一致。
-需要准备的材料
-ffn_catalog.json、FFNBottleneck、Baseline 模块映射备份。
-treatment_manifest.json、固定 seed。
-需要进行的最小步骤
-仅替换 FFN 目标 Linear，瓶颈比例设为 0.5。
-保持输入输出维度不变。
-记录被替换和未替换模块。
-运行一次形状验证 forward。
-计算 Treatment 参数量和模块数量差异。
-需要的分工成员
-D：实施替换。
-B：审核模型结构与 FFN 范围。
-C：确认 Baseline 未被改写。
-A：检查显存是否异常。
-E：逐项检查替换清单和维度。
-实验阶段性成功标志
-替换清单完整，输入输出维度一致。
-attention 投影没有被误替换。
-Treatment 输出 shape 与 Baseline 一致。
-Treatment manifest 可重新构造同一模型。
-需要准备的材料
-Treatment 模型、同一 hook、同一输入配置和独立日志目录。
-run_cloud_treatment_*.json、Baseline 复核配置。
-需要进行的最小步骤
-warmup 后执行 5 次结构测量。
-另起无 profiler 进程执行至少 5 次计时。
-记录整体/FFN/attention/conv 指标和峰值显存。
-由 C 独立复跑一次 Treatment 的主要配置。
-重跑 Baseline 一次，记录时间漂移。
-需要的分工成员
-D：执行 Treatment 主测量。
-C：进行 Treatment 独立复跑和 Baseline 复核。
-B：确认未引入非目标结构变化。
-A：保持 GPU 实例和环境不变。
-E：接收并复核两套独立输出。
-实验阶段性成功标志
-Treatment 至少 5 次结构和 5 次计时数据。
-C 的复跑与 D 的主结果可比较。
-Baseline 时间漂移原则上不超过约 5%。
-配置、代码、权重哈希均与门禁时一致。 Baseline/Treatment 全部 run、数据字典、异常日志。
-统计脚本、缺失字段检查表、备份目录。
-需要进行的最小步骤
-检查每个 run 的环境、配置、输入、模型变体和指标字段。
-复核 FLOPs、B_L1、算术强度、时间和显存。
-标记离群值并保留原始数据。
-对缺失、重复和单位错误逐项修正记录。
-生成 cloud_analysis_table.csv。
-需要的分工成员
-E：主导数据质控和缺失检查。
-C：解释 Baseline 异常。
-D：解释 Treatment 和复跑差异。
-B：审核模型结构字段。
-A：审核 GPU 平台字段和测量环境。
-实验阶段性成功标志
-每个结论字段有 run ID。
-所有缺失/离群值都有处理状态。
-Baseline/Treatment 行数、样本数和配置一一对应。
-分析表能从原始文件重新生成。
-需要准备的材料
-冻结平台参数、cloud_analysis_table.csv、绘图脚本。
-云端实测/标称屋脊点和图件模板。
-需要进行的最小步骤
-对整体和四个层级计算 I=FLOPs/B_L1。
-计算 q=I/I* 并标注 compute/memory-bound。
-用实测屋脊点画实线，标称值画虚线。
-用箭头连接 Baseline/Treatment。
-保存 CSV、SVG/PNG、图注和生成脚本。
-需要的分工成员
-E：主导数据表和图件生成。
-B：确认整体/FFN/attention/conv 的统计范围。
-C：复核 Baseline 点。
-D：复核 Treatment 点和箭头方向。
-A：确认实测平台屋脊点。
-实验阶段性成功标志
-整体和 FFN 点均出现在图上。
-实测/标称屋脊点清晰区分。
-每个点能追溯到 run ID。
-图可以由冻结 CSV 和脚本重新生成。
-需要准备的材料
-云端实验目录、云侧结论、跨平台交接表、README。
-关键文件 SHA-256、异常和限制清单。
-需要进行的最小步骤
-归档平台、环境、Baseline、Treatment、分析和图件。
-生成《云侧到边缘侧的交接表》，列出方向指标而不混淆绝对值。
-在干净进程重跑最小 forward 和一项平台基准。
-由非主要操作者检查缺少字段、未记录异常和不可复现命令。
-提交 A–E 五人联合验收。
-需要的分工成员
-A：确认平台参数和资源记录完整。
-B：确认模型代码、权重和 config 可重载。
-C：确认 Baseline 数据可追溯。
-D：确认 Treatment 和复核可追溯。
-E：确认数据包、README 和交接表完整。
-实验阶段性成功标志
-云端数据包可按 README 完成最小复现。
-交接表明确“方向可比较、绝对值不可直接比较”。
-所有主结论能定位到 CSV/JSON/图件。
-五人均完成签字或等效的在线确认。
-满足以下条件，云端对照组才可以向跨平台组交付：
-GPU 型号、显存、CUDA、驱动和 PyTorch 版本明确；
-环境和模型工件有哈希；
-SVD UNet 最小 forward 成功，实验范围不含 VAE 解码；
-latent shape 来自 config 和实际 forward；
-Baseline/Treatment 使用同一输入级别、FP16、同一模型代码口径；
-FFN 前缀经过独立复核；
-Baseline 至少 5 次结构测量和 5 次时间测量；
-Treatment 至少 5 次结构测量和 5 次时间测量；
-至少 1 次 Baseline 复核，漂移有量化说明；
-平台实测和标称屋脊点分开记录；
-原始日志、结构化结果和图件齐全；
-数据包通过 A–E 五人联合验收。
-交接表至少包含：云端组不向边缘组交接的东西：
-不交接“云端性能优于边缘”的绝对值结论；
-不交接云端功耗 /J 结论；
-不把完整 SVD 生成时间当作 UNet 性能；
-不把 MIG 实例标称参数当作全 GPU 参数。
-cloud/
-├── 00_charter/
-│ └── cloud_team_charter.md
-├── 01_platform/
-│ ├── platform_inventory.md
-│ ├── environment.lock
-│ ├── cloud_roofline.json
-│ ├── cloud_bandwidth.csv
-│ └── cloud_gemm.csv
-├── 02_model/
-│ ├── model_manifest.json
-│ ├── selected_config.json
-│ ├── ffn_catalog.json
-│ └── ffn_decision.md
-├── 03_gate/
-│ ├── memory_preflight.csv
-│ └── hook_validation.md
-├── 04_baseline/
-│ ├── run_cloud_baseline_*.json
-│ └── cloud_time.csv
-├── 05_treatment/
-│ ├── treatment_manifest.json
-│ └── run_cloud_treatment_*.json
-├── 06_analysis/
-│ ├── cloud_analysis_table.csv
-│ ├── cloud_roofline.svg
-│ └── cloud_conclusions.md
-├── 07_handoff/
-│ └── cloud_to_cross_platform.md
-└── README.md
-云端组的职责是建立一个可复现、可审计的“原尺寸 SVD UNet Baseline 与 FFN Treatment”参照系。最重要的不是追求某个漂亮的墙钟时间，而是保证：
-Baseline 和 Treatment 的结构、输入和统计口径严格一致；
-平台参数来自实际云端 GPU；
-所有数据能够回溯和复算；
-向跨平台组交付“方向数据”而不是未经说明的绝对性能比较。
-只要 CL0–CL21 全部通过，云端对照组就可以作为项目 v5.0 的合格对照平台，与边缘组的 8 GB 降配实验共同回答 FFN 压缩在不同算力—带宽约束下是否发生方向一致的瓶颈迁移。]]></description><link>gpu实验方案.html</link><guid isPermaLink="false">GPU实验方案.md</guid><pubDate>Sun, 15 Nov 2026 12:13:42 GMT</pubDate></item><item><title><![CDATA[边缘设备实验方案]]></title><description><![CDATA[在边缘设备上的实验将采用学校发的边缘大模型设备，也就是 NVIDIA Jetson Orin Nano Super，设备内存有8 GB，配备了电线和各种插件，相关资料请参考<a data-href="Jetson Orin Nano Super 8B 使用指南" href="jetson-orin-nano-super-8b-使用指南.html" class="internal-link" target="_self" rel="noopener nofollow">Jetson Orin Nano Super 8B 使用指南</a>本实验需要测量的指标有：
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[计算机组成原理项目作业]]></title><description><![CDATA[Obsidian digital garden]]></description><link>http://github.com/dylang/node-rss</link><image><url>site-lib/media/favicon.png</url><title>计算机组成原理项目作业</title><link></link></image><generator>Webpage HTML Export plugin for Obsidian</generator><lastBuildDate>Sun, 15 Nov 2026 12:49:36 GMT</lastBuildDate><atom:link href="site-lib/rss.xml" rel="self" type="application/rss+xml"/><pubDate>Sun, 15 Nov 2026 12:49:33 GMT</pubDate><ttl>60</ttl><dc:creator></dc:creator><item><title><![CDATA[Jetson Orin Nano Super 8B 使用指南]]></title><description><![CDATA[以下是官方的英文版本：<a class="internal-link" data-href="attachments/Jetson_Orin_Nano_DevKit_Carrier_Board_Specification_SP-11324-001_v1.0.pdf" href="attachments/jetson_orin_nano_devkit_carrier_board_specification_sp-11324-001_v1.0.html" target="_self" rel="noopener nofollow">Jetson_Orin_Nano_DevKit_Carrier_Board_Specification_SP-11324-001_v1.0.pdf</a><br>AI搞的中文版：<a class="internal-link" data-href="attachments/Jetson_Orin_Nano_硬件教学手册.pdf" href="attachments/jetson_orin_nano_硬件教学手册.html" target="_self" rel="noopener nofollow">Jetson<em></em>硬件教学手册.pdf</a>Orin_Nano]]></description><link>jetson-orin-nano-super-8b-使用指南.html</link><guid isPermaLink="false">Jetson Orin Nano Super 8B 使用指南.md</guid><pubDate>Sun, 15 Nov 2026 12:44:37 GMT</pubDate></item><item><title><![CDATA[GPU实验方案]]></title><description><![CDATA[本机单平台 SVD FFN Roofline 实验计划不再申请云 GPU，直接在本机 NVIDIA GeForce RTX 5060 Laptop GPU 8 GB 上测试 SVD UNet 的 FFN 通道压缩效果。实验正式名称调整为“本机 GPU 平台上的 SVD UNet FFN 压缩与 Roofline 分析”，平台类别固定为 local_rtx5060_laptop。调整后的研究范围：
+回答 RQ1：FFN 压缩后，整体和分层 FLOPs、访存下界、算术强度如何变化。
+回答 RQ2：该变化在本机实测算力和带宽约束下推向 compute-bound 还是 memory-bound。
+不回答完整 RQ3：没有云 GPU 和 Jetson 配对数据，不能声称得到跨平台一致性结论。
+不回答 RQ4：笔记本没有可靠的整板功耗采集，不使用 nvidia-smi 瞬时功耗冒充功耗实验。
+目标是在 1–2 个工作日内完成一个可复现的单平台实验包；如果原尺寸模型在 8 GB 显存下无法运行，则按预定降级路径交付结构分析和容量墙证据。在 local_svd_ffn_roofline/ 下建立独立实验目录，不修改现有课程资料。
+优先使用本机 Python 3.13、PyTorch 2.15.0+cu132 和已可用的 CUDA 13.2。
+通过隔离 venv 加载 PyTorch，避免污染全局 Python。
+如果官方 SVD 代码无法兼容当前 Python/Windows，则创建 Python 3.11 + Blackwell 兼容 PyTorch 环境。
+固定代码 commit、CUDA、驱动、PyTorch、attention backend、模型权重 SHA-256 和随机种子。
+当前 C 盘剩余约 41.5 GB；项目缓存和权重总计控制在 20 GB 内。
+权重下载需要 Hugging Face 许可确认、登录和网络授权；令牌不得写入项目或日志。
+正式实现优先使用 Stability-AI/generative-models 的 VideoUNet 和官方 stabilityai/stable-video-diffusion-img2vid-xt 权重。
+只测试 UNet FP16 前向，不运行 VAE 解码、采样器或完整视频生成。
+打印实际 forward() 签名，根据 config 和真实 VAE 空间倍率构造 latent 输入。
+使用固定 x/t/conditioning、固定 seed 和统一 attention backend。
+检查输出 shape、dtype、device、CUDA 可用性和 CPU fallback。
+官方实现无法运行时，迁移至 Diffusers 并作为独立实现保存；官方和 Diffusers 数据不得混用。
+若两套实现均无法完成最小 forward，停止性能实验，转入平台标定和静态结构分析降级路径。
+在模型测量前完成：
+记录 RTX 5060 Laptop 的显存、compute capability、驱动和运行状态。
+测试 256、512、1024 MiB GPU 复制带宽，预热 3 次，每个尺寸记录 10 次并取中位数。
+测试 2048³、4096³、8192³ FP16 GEMM，预热 5 次，每个尺寸重复 20 次。
+计算实测屋脊点 I* = FP16_GEMM_吞吐 / 可达带宽。
+同时保存厂商标称参数作为虚线参考，主图只使用本机实测值。
+关闭游戏、浏览器硬件加速、录屏和显卡超频；运行前后保存 GPU 状态日志。
+依次测试：
+每级使用独立 Python 进程，记录峰值分配、峰值保留、系统内存余量和完整 OOM 文本。
+选择 Baseline 与 Treatment 都能连续运行 5 次的最高级别。
+CPU offload 只允许用于 shape、hook 和结构验证，其运行时间不得进入性能或 Roofline 结论。
+如果全部级别 OOM，实验降级为平台标定、模型静态结构分析和容量墙分析。 输出所有 Linear、Conv 和 Attention 模块名称。
+排除 to_q/to_k/to_v/to_out，生成经过审计的 ffn_catalog.json。
+计算 FFN FLOPs 占总 FLOPs 的比例；低于 15% 时，按课程方案并入注意力投影并修改术语。
+Treatment 仅在审计通过的 FFN Linear 上应用 r=0.5 瓶颈层：
+h=max(1,int(0.5*d_out))。
+不新增激活函数，不改变输入输出维度，不替换注意力投影。
+逐层计算参数变化比例。若某层替换后参数或 FLOPs 增加，报告中必须如实标记。 结构测量：用统一 hook 统计整体、FFN、Attention、Conv 的 FLOPs、B_L1 和算术强度。
+正式计时：使用独立非 profiler 进程，预热 3 次，执行 10 次前向并保存全部样本。
+每个变体至少完成 5 次结构测量和 10 次有效计时样本。
+执行 Baseline → Treatment → Baseline 复核。
+Baseline 复核漂移超过约 5% 时，检查背景负载、显存、时钟和热状态后重跑。
+原始 run 只追加、不覆盖；每次运行必须有唯一 run_id 和配置哈希。
+对整体、FFN、Attention、Conv 分别计算：
+I = FLOPs / B_L1
+q = I / I*
+compute-bound 或 memory-bound 分类
+Treatment 相对 Baseline 的 FLOPs、字节和算术强度变化方向
+报告明确区分三种证据等级：
+GPU 完整前向加有效计时：可用于 RQ1、RQ2。
+降级输入、offload 或结构-only 运行：只用于结构和容量分析。
+仅静态分析：不能声称实测性能结论。
+固定命令：python scripts/smoke.py
+python scripts/platform_bench.py --suite all
+python scripts/inspect_model.py
+python scripts/memory_ladder.py --levels L0,L1,L2,L3
+python scripts/run.py --variant baseline --mode structure
+python scripts/run.py --variant baseline --mode timing
+python scripts/run.py --variant treatment --mode structure
+python scripts/run.py --variant treatment --mode timing
+python scripts/analyze.py
+python scripts/validate_package.py
+最终产出：local_svd_ffn_roofline/
+├── README.md
+├── environment.lock
+├── configs/selected_config.json
+├── platform/platform_inventory.json
+├── platform/bandwidth.csv
+├── platform/gemm.csv
+├── platform/local_roofline.json
+├── model/model_manifest.json
+├── model/ffn_catalog.json
+├── model/treatment_manifest.json
+├── runs/baseline/*.json
+├── runs/treatment/*.json
+├── analysis/analysis_table.csv
+├── analysis/fig_local_roofline.svg
+├── analysis/fig_local_roofline.png
+├── analysis/rq_results.md
+├── report/local_platform_report.md
+├── report/limitations.md
+└── manifest.sha256
+报告首页固定写明：平台类别：本机 RTX 5060 Laptop 8 GB
+实验角色：单平台替代实验
+不使用云 GPU 数据
+不包含完整跨平台 RQ3 或功耗 RQ4 结论 CUDA、FP16 GEMM 和最小 UNet forward 必须真实运行，不能静默回退 CPU。
+模型 commit、权重、配置和环境必须具有可追溯哈希。
+Baseline 与 Treatment 必须使用相同输入、精度、seed 和 attention backend。
+Treatment 必须证明没有替换注意力投影，且输出 shape 与 Baseline 一致。
+所有 OOM、降级、offload 和异常运行必须保留原始错误或状态。
+Roofline 图必须能由冻结 CSV/JSON 和绘图脚本重新生成。
+在干净进程中按 README 重跑最小 forward 和一项平台基准。
+validate_package.py 必须检查字段、哈希、run ID、样本数和平台标签。
+只有具备有效 GPU 计时数据的运行才能进入 RQ2 性能结论。
+]]></description><link>gpu实验方案.html</link><guid isPermaLink="false">GPU实验方案.md</guid><pubDate>Sun, 15 Nov 2026 12:25:48 GMT</pubDate></item><item><title><![CDATA[边缘设备实验方案]]></title><description><![CDATA[在边缘设备上的实验将采用学校发的边缘大模型设备，也就是 NVIDIA Jetson Orin Nano Super，设备内存有8 GB，配备了电线和各种插件，相关资料请参考<a data-href="Jetson Orin Nano Super 8B 使用指南" href="jetson-orin-nano-super-8b-使用指南.html" class="internal-link" target="_self" rel="noopener nofollow">Jetson Orin Nano Super 8B 使用指南</a>本实验需要测量的指标有：
 边缘平台可达带宽、FP16 GEMM 算力、功耗和热状态；
 降配 UNet 的 Baseline/Treatment FLOPs、访存下界、算术强度和 Roofline 区域；
 FFN 压缩引起的算术强度变化方向；
@@ -1202,7 +797,7 @@ NVIDIA, Jetson Orin Nano Developer Kit Carrier Board Specification, SP-11324-001
 •数据本地化：敏感数据不出园区/设备，天然满足隐私合规（医疗、金融、工业等场景）
 •高可靠与离线可用：断网或弱网时仍能独立工作，不依赖云端
 •分布式与弹性扩展：海量边缘节点可随业务灵活部署，就近服务，避免云端单点瓶颈
-•安全增强：数据本地处理减少暴露面，结合硬件可信执行环境（TEE）可进一步提升防护<br>本实验项目使用的边缘大模型设备型号是Jetson Orin Nano Super 8B，使用的模型是SVD视频生成扩散模型。关于Jetson Orin Nano Super 8B的使用方法，详见<a data-href="Canvas教学视频" href="canvas教学视频.html" class="internal-link" target="_self" rel="noopener nofollow">Canvas教学视频</a>与<a data-href="Jetson Orin Nano Super 8B 使用指南" href="jetson-orin-nano-super-8b-使用指南.html" class="internal-link" target="_self" rel="noopener nofollow">Jetson Orin Nano Super 8B 使用指南</a>.
+•安全增强：数据本地处理减少暴露面，结合硬件可信执行环境（TEE）可进一步提升防护<br>本实验项目使用的边缘大模型设备型号是Jetson Orin Nano Super 8B，使用的模型是SVD视频生成扩散模型。关于Jetson Orin Nano Super 8B的使用方法，详见<a data-href="Canvas教学视频" href=".html" class="internal-link" target="_self" rel="noopener nofollow">Canvas教学视频</a>与<a data-href="Jetson Orin Nano Super 8B 使用指南" href="jetson-orin-nano-super-8b-使用指南.html" class="internal-link" target="_self" rel="noopener nofollow">Jetson Orin Nano Super 8B 使用指南</a>.
 2017 前后：边缘计算概念兴起。由于边缘计算设备数据处理能力相对云端较弱，部署在边缘设备上的端侧 AI 只能做人脸、语音等单点小模型。 2021–2023：量化/蒸馏技术突破，边缘大模型参数量在蒸馏处理下降低，高通骁龙 8 Gen3 首次在手机跑通 10B 级模型 2024：手机厂商陆续引入边缘模型，iPhone 16 引入端侧模型，vivo/OPPO/荣耀/小米陆续发布自研端侧大模型，Apple Intelligence 落地 2025–2026：进入成长期，扩展到 AI PC、智能座舱、AIoT、机器人等各行各业；如今，30B 级模型可在手机流畅运行，国内已经有 7 款端侧产品完成备案。 阿里：Qwen2.5 / Qwen3 小尺寸（0.5B–4B） 微软：Phi-3 / Phi-4-mini Google：Gemma 2 / Gemma 4 边缘版 Meta：Llama 3.2（1B/3B） 面壁智能：MiniCPM（1.2B–2.4B，专为端侧设计） 其他：SmolLM、TinyLlama、GLM 小模型、DeepSeek 小尺寸蒸馏版 为了更好地理解这个项目相关的技术有哪些应用场景可以套，下面是一些例子：
 手机/PC：语音助手、本地摘要、写作续写、代码补全、相册搜索（Apple Intelligence、Copilot+ PC） 智能座舱：离线语音、随车问答、驾驶场景意图理解 工业边缘：产线质检、设备异音检测、机器人实时控制（数据不出车间） 安防/摄像头：本地人脸识别、行为分析，只回传告警结果 医疗/金融：CT 初筛、合同脱敏处理，满足数据不出域合规 IoT/可穿戴：智能音箱、玩具、眼镜里的轻量对话与感知 浏览器端：WebGPU 直接跑小模型，零后端成本 GPU（Graphics Processing Unit，图形处理器）​ 原本是为图像渲染设计的芯片，特点是海量小核心，擅长并行计算，一次能同时处理成千上万个简单运算。
 AI 训练里"矩阵乘法 × 百万次循环"的运算，正好也是 GPU 的强项，GPU于是慢慢不止服务于图像渲染设计功能，如今已经变成了AI训练的核心器件之一。我们的项目里只涉及到GPU芯片，但GPU和同类芯片有许多值得关注的区别，具体如下：<br>
@@ -1260,7 +855,4 @@ Roofline 图上 Baseline 到 Treatment 的箭头方向；
 边缘设备额外记录 VDD_IN 和 FLOP/J。
 跨云 GPU 和 Jetson 时，只比较变化方向，不要直接比较绝对 FLOPs 或算术强度。]]></description><link>ffn.html</link><guid isPermaLink="false">FFN.md</guid><pubDate>Sun, 15 Nov 2026 04:58:42 GMT</pubDate></item><item><title><![CDATA[扩散模型]]></title><description><![CDATA[<a data-tooltip-position="top" aria-label="https://zhuanlan.zhihu.com/p/637815071" rel="noopener nofollow" class="external-link is-unresolved" href="https://zhuanlan.zhihu.com/p/637815071" target="_self">深入浅出扩散模型(Diffusion Model)系列：基石DDPM（模型架构篇），最详细的DDPM架构图解 - 知乎</a>]]></description><link>扩散模型.html</link><guid isPermaLink="false">扩散模型.md</guid><pubDate>Sun, 15 Nov 2026 04:04:05 GMT</pubDate></item><item><title><![CDATA[Pytorch]]></title><description><![CDATA[相关资源：
 <a data-tooltip-position="top" aria-label="https://www.runoob.com/pytorch/pytorch-tutorial.html" rel="noopener nofollow" class="external-link is-unresolved" href="https://www.runoob.com/pytorch/pytorch-tutorial.html" target="_self">PyTorch 教程 | 菜鸟教程</a>]]></description><link>pytorch.html</link><guid isPermaLink="false">Pytorch.md</guid><pubDate>Sat, 14 Nov 2026 02:11:54 GMT</pubDate></item><item><title><![CDATA[机器学习]]></title><description><![CDATA[<a data-tooltip-position="top" aria-label="https://www.runoob.com/ml/ml-tutorial.html" rel="noopener nofollow" class="external-link is-unresolved" href="https://www.runoob.com/ml/ml-tutorial.html" target="_self">机器学习教程 | 菜鸟教程</a>]]></description><link>机器学习.html</link><guid isPermaLink="false">机器学习.md</guid><pubDate>Sat, 14 Nov 2026 02:10:37 GMT</pubDate></item><item><title><![CDATA[CUDA]]></title><description><![CDATA[相关资源：
-<a data-tooltip-position="top" aria-label="https://www.runoob.com/pytorch/pytorch-gpu-cuda.html" rel="noopener nofollow" class="external-link is-unresolved" href="https://www.runoob.com/pytorch/pytorch-gpu-cuda.html" target="_self">PyTorch GPU / CUDA 加速 | 菜鸟教程</a>]]></description><link>cuda.html</link><guid isPermaLink="false">CUDA.md</guid><pubDate>Sat, 14 Nov 2026 01:39:20 GMT</pubDate></item><item><title><![CDATA[Canvas教学视频]]></title><description><![CDATA[以下是Canvas教学视频的直达链接：
-我用夸克网盘给你分享了「Jetson Orin Nano CLB套件资料」，点击链接或复制整段内容，打开「夸克APP」即可获取。
-链接：<a rel="noopener nofollow" class="external-link is-unresolved" href="https://pan.quark.cn/s/ad0efb5853f5" target="_self">https://pan.quark.cn/s/ad0efb5853f5</a>
-提取码：6k9j]]></description><link>canvas教学视频.html</link><guid isPermaLink="false">Canvas教学视频.md</guid><pubDate>Fri, 13 Nov 2026 11:05:27 GMT</pubDate></item><item><title><![CDATA[Jetson_Orin_Nano_硬件教学手册]]></title><link>attachments/jetson_orin_nano_硬件教学手册.html</link><guid isPermaLink="false">attachments/Jetson_Orin_Nano_硬件教学手册.pdf</guid><pubDate>Tue, 10 Nov 2026 11:11:49 GMT</pubDate></item><item><title><![CDATA[Jetson_Orin_Nano_DevKit_Carrier_Board_Specification_SP-11324-001_v1.0]]></title><link>attachments/jetson_orin_nano_devkit_carrier_board_specification_sp-11324-001_v1.0.html</link><guid isPermaLink="false">attachments/Jetson_Orin_Nano_DevKit_Carrier_Board_Specification_SP-11324-001_v1.0.pdf</guid><pubDate>Mon, 09 Nov 2026 02:04:09 GMT</pubDate></item></channel></rss>
+<a data-tooltip-position="top" aria-label="https://www.runoob.com/pytorch/pytorch-gpu-cuda.html" rel="noopener nofollow" class="external-link is-unresolved" href="https://www.runoob.com/pytorch/pytorch-gpu-cuda.html" target="_self">PyTorch GPU / CUDA 加速 | 菜鸟教程</a>]]></description><link>cuda.html</link><guid isPermaLink="false">CUDA.md</guid><pubDate>Sat, 14 Nov 2026 01:39:20 GMT</pubDate></item><item><title><![CDATA[Jetson_Orin_Nano_硬件教学手册]]></title><link>attachments/jetson_orin_nano_硬件教学手册.html</link><guid isPermaLink="false">attachments/Jetson_Orin_Nano_硬件教学手册.pdf</guid><pubDate>Tue, 10 Nov 2026 11:11:49 GMT</pubDate></item><item><title><![CDATA[Jetson_Orin_Nano_DevKit_Carrier_Board_Specification_SP-11324-001_v1.0]]></title><link>attachments/jetson_orin_nano_devkit_carrier_board_specification_sp-11324-001_v1.0.html</link><guid isPermaLink="false">attachments/Jetson_Orin_Nano_DevKit_Carrier_Board_Specification_SP-11324-001_v1.0.pdf</guid><pubDate>Mon, 09 Nov 2026 02:04:09 GMT</pubDate></item></channel></rss>

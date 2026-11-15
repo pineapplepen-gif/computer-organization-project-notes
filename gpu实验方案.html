@@ -8,829 +8,144 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="gpu实验方案.html">
 <meta property="og:image" content="undefined">
-<meta charset="UTF-8"><meta property="og:site_name" content="计算机组成原理项目作业"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0, maximum-scale=5.0"><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="site-lib/rss.xml"><script async="" id="webpage-script" src="site-lib/scripts/webpage.js" onload="this.onload=null;this.setAttribute(&quot;loaded&quot;, &quot;true&quot;)"></script><script async="" id="graph-wasm-script" src="site-lib/scripts/graph-wasm.js" onload="this.onload=null;this.setAttribute(&quot;loaded&quot;, &quot;true&quot;)"></script><script async="" id="graph-render-worker-script" src="site-lib/scripts/graph-render-worker.js" onload="this.onload=null;this.setAttribute(&quot;loaded&quot;, &quot;true&quot;)"></script><link rel="icon" href="site-lib/media/favicon.png"><link rel="stylesheet" href="site-lib/styles/obsidian.css"><link rel="preload" href="site-lib/styles/global-variable-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/global-variable-styles.css"></noscript><link rel="preload" href="site-lib/styles/main-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/main-styles.css"></noscript><style>body{--line-width:40em;--line-width-adaptive:40em;--file-line-width:40em;--sidebar-width:min(20em, 80vw);--collapse-arrow-size:11px;--tree-vertical-spacing:1.3em;--sidebar-margin:12px}:root{background-color:#202124}.sidebar{height:100%;font-size:14px;z-index:10;min-width:calc(var(--sidebar-width) + var(--divider-width-hover));max-width:calc(var(--sidebar-width) + var(--divider-width-hover));position:relative;overflow:hidden;overflow:clip;transition:min-width ease-in-out,max-width ease-in-out;transition-duration:.2s;contain:size}#left-sidebar{left:0}#right-sidebar{right:0}.sidebar.is-collapsed{min-width:0;max-width:0}.sidebar.floating{position:absolute}.sidebar .leaf-content{height:100%;min-width:calc(var(--sidebar-width) - var(--divider-width-hover));top:0;padding:var(--sidebar-margin);padding-top:4em;line-height:var(--line-height-tight);background-color:var(--background-secondary);transition:background-color,border-right,border-left,box-shadow;transition-duration:var(--color-fade-speed);transition-timing-function:ease-in-out;position:absolute;display:flex;flex-direction:column}.sidebar:not(.is-collapsed) .leaf-content{min-width:calc(max(100%,var(--sidebar-width)) - 3px);max-width:calc(max(100%,var(--sidebar-width)) - 3px)}#left-sidebar-content{left:0;border-top-right-radius:var(--radius-l);border-bottom-right-radius:var(--radius-l)}#right-sidebar-content{right:0;border-top-left-radius:var(--radius-l);border-bottom-left-radius:var(--radius-l)}.sidebar #left-sidebar-content,.sidebar #right-sidebar-content{contain:none!important;container-type:normal!important;animation:none!important}.sidebar:has(.leaf-content:empty):has(.topbar-content:empty){display:none}.sidebar-topbar{height:calc(2.3em + 2 * var(--sidebar-margin));width:var(--sidebar-width);padding:var(--sidebar-margin);z-index:1;position:fixed;display:flex;align-items:center;transition:width ease-in-out;transition-duration:inherit}.sidebar.is-collapsed .sidebar-topbar{width:calc(2.3em + var(--sidebar-margin) * 2)}.sidebar .sidebar-topbar.is-collapsed{width:0}#left-sidebar .sidebar-topbar{left:0;flex-direction:row;border-top-right-radius:var(--radius-l)}#right-sidebar .sidebar-topbar{right:0;flex-direction:row-reverse;border-top-left-radius:var(--radius-l)}#left-sidebar .topbar-content{margin-right:calc(2.3em + var(--sidebar-margin));flex-direction:row}#right-sidebar .topbar-content{margin-left:calc(2.3em + var(--sidebar-margin));flex-direction:row-reverse}.topbar-content{overflow:hidden visible;overflow:clip visible;width:100%;height:100%;display:flex;align-items:center;transition:inherit}.sidebar.is-collapsed .topbar-content{width:0;transition:inherit}.clickable-icon.sidebar-collapse-icon{background-color:transparent;color:var(--icon-color-focused);padding:2px!important;margin:0!important;height:100%!important;width:2.3em!important;margin-inline:0.14em!important;position:absolute}#left-sidebar .clickable-icon.sidebar-collapse-icon{transform:rotateY(180deg);right:var(--sidebar-margin)}#right-sidebar .clickable-icon.sidebar-collapse-icon{transform:rotateY(180deg);left:var(--sidebar-margin)}.clickable-icon.sidebar-collapse-icon svg.svg-icon{width:100%;height:100%}.feature-title{margin-left:1px;text-transform:uppercase;letter-spacing:.06em;margin-top:.75em;margin-bottom:.75em}.feature-header{display:flex;align-items:center;padding-top:0;font-size:1em;padding-left:0}body.floating-sidebars .sidebar{position:absolute}body{transition:background-color var(--color-fade-speed) ease-in-out}#navbar:not(:empty){display:flex;align-items:center;justify-content:space-between;padding:.5em 1em;width:100%}#main{display:flex;flex-direction:column;height:100%;width:100%;align-items:stretch;justify-content:center}#main-horizontal{display:flex;flex-direction:row;flex-grow:1;width:100%;align-items:stretch;justify-content:center}#center-content{flex-basis:100%;max-width:100%;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;transition:opacity .2s ease-in-out;contain:inline-size}.hide{opacity:0!important;transition:opacity .2s ease-in-out;pointer-events:none}#center-content>.obsidian-document{padding-left:2em;padding-right:1em;margin-bottom:0;width:100%;width:-webkit-fill-available;width:-moz-available;width:fill-available;transition:background-color var(--color-fade-speed) ease-in-out;border-top-right-radius:var(--window-radius,var(--radius-m));border-top-left-radius:var(--window-radius,var(--radius-m));overflow-x:hidden!important;overflow-y:auto!important;display:flex!important;flex-direction:column!important;align-items:center!important;contain:inline-size}body #center-content>.obsidian-document>.markdown-preview-sizer{padding-bottom:80vh;width:100%;max-width:var(--line-width);flex-basis:var(--line-width);transition:background-color var(--color-fade-speed) ease-in-out;contain:inline-size}#center-content>.obsidian-document>div{width:100%!important;transition:background-color var(--color-fade-speed) ease-in-out;contain:inline-size}#center-content>.obsidian-document:not([data-type=markdown]).embed{display:flex;padding:1em;height:100%;width:100%;align-items:center;justify-content:center}#center-content>.obsidian-document:not([data-type=markdown]).embed>*{max-width:100%;max-height:100%;object-fit:contain}:not(h1,h2,h3,h4,h5,h6,li):has(> :is(.math,table)){overflow-x:auto!important}#center-content>.obsidian-document:not([data-type=markdown]){overflow-x:auto;contain:content;padding:0;margin:0;height:100%}.obsidian-document[data-type=attachment]{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;width:100%}.obsidian-document[data-type=attachment]>*{outline:0;border:none;box-shadow:none}.obsidian-document[data-type=attachment] :is(img){max-width:90%;max-height:90%;object-fit:contain}.obsidian-document[data-type=attachment]>:is(audio){width:100%;max-width:min(90%,var(--line-width))}.obsidian-document[data-type=attachment]>:is(embed,iframe,video){width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain}.canvas-wrapper>:is(.header,.footer){z-index:100;position:absolute;display:flex;justify-content:center;flex-direction:column;width:100%;align-items:center}.scroll-highlight{position:absolute;width:100%;height:100%;pointer-events:none;z-index:1000;background-color:hsla(var(--color-accent-hsl),.25);opacity:0;padding:1em;inset:50%;translate:-50% -50%;border-radius:var(--radius-s)}</style><script defer="">async function loadIncludes(){let e=document.querySelectorAll("link[itemprop='include']");for(const t of e){let e=t.getAttribute("href");try{let o="";if(e.startsWith("https:")||e.startsWith("http:")||"file:"!=window.location.protocol){const n=await fetch(e);if(!n.ok){console.log("Could not include file: "+e),t?.remove();continue}o=await n.text()}else{const t=document.getElementById(btoa(encodeURI(e)));if(t){const e=JSON.parse(decodeURI(atob(t.getAttribute("value")??"")));o=e?.data??""}}let n=document.createRange().createContextualFragment(o);t.before(n),t.remove(),console.log("Included text: "+o),console.log("Included file: "+e)}catch(o){t?.remove(),console.log("Could not include file: "+e,o);continue}}}document.addEventListener("DOMContentLoaded",(()=>{loadIncludes()}));let isFileProtocol="file:"==location.protocol;function waitLoadScripts(e,t){let o=e.map((e=>document.getElementById(e+"-script")));!function e(n){let l=o[n],c=n+1;l?(l&&"true"!=l.getAttribute("loaded")||n<o.length&&e(c),n<o.length&&l.addEventListener("load",(()=>e(c)))):n<o.length?e(c):t()}(0)}</script></head><body class="publish css-settings-manager styled-scrollbars show-inline-title show-ribbon"><script defer="">let theme=localStorage.getItem("theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");"dark"==theme?(document.body.classList.add("theme-dark"),document.body.classList.remove("theme-light")):(document.body.classList.add("theme-light"),document.body.classList.remove("theme-dark")),window.innerWidth<480?document.body.classList.add("is-phone"):window.innerWidth<768?document.body.classList.add("is-tablet"):window.innerWidth<1024?document.body.classList.add("is-small-screen"):document.body.classList.add("is-large-screen")</script><div class="parsed-feature-container" style="display: contents;"><link itemprop="include" href="site-lib/html/custom-head-content-content.html"></div><div id="main"><div id="navbar"></div><div id="main-horizontal"><div id="left-content" class="leaf" style="--sidebar-width: var(--sidebar-width-left);"><div id="left-sidebar" class="sidebar"><div class="sidebar-handle"></div><div class="sidebar-topbar"><div class="topbar-content"><div id="search-container"><div id="search-wrapper"><input enterkeyhint="search" type="search" spellcheck="false" placeholder="Search..."><div aria-label="Clear search" id="search-clear-button"></div></div></div></div><div class="clickable-icon sidebar-collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M21 3H3C1.89543 3 1 3.89543 1 5V19C1 20.1046 1.89543 21 3 21H21C22.1046 21 23 20.1046 23 19V5C23 3.89543 22.1046 3 21 3Z"></path><path d="M10 4V20"></path><path d="M4 7H7"></path><path d="M4 10H7"></path><path d="M4 13H7"></path></svg></div></div><div class="sidebar-content-wrapper"><div id="left-sidebar-content" class="leaf-content"><link itemprop="include" href="site-lib/html/file-tree-content.html"></div></div><script defer="">let ls = document.querySelector("#left-sidebar"); ls.classList.toggle("is-collapsed", window.innerWidth < 768); ls.style.setProperty("--sidebar-width", localStorage.getItem("sidebar-left-width"));</script></div></div><div id="center-content" class="leaf"><div class="obsidian-document markdown-preview-view markdown-rendered node-insert-event is-readable-line-width allow-fold-headings allow-fold-lists show-indentation-guide show-properties" data-type="markdown"><style id="MJX-CHTML-styles"></style><div class="markdown-preview-sizer markdown-preview-section"><div class="header"><h1 class="page-title heading inline-title" id="GPU实验方案_0">GPU实验方案</h1><div class="data-bar"></div></div><div class="markdown-preview-pusher" style="width: 1px; height: 0.1px; margin-bottom: 0px;"></div><div class="el-h2"><h2 data-heading="0. 实验边界与五人配置" dir="auto" class="heading" id="0._实验边界与五人配置_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>0. 实验边界与五人配置</h2></div><div class="el-h3"><h3 data-heading="0.1 必须锁定的边界" dir="auto" class="heading" id="0.1_必须锁定的边界_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>0.1 必须锁定的边界</h3></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">云端实验对象是 <strong>原尺寸 SVD UNet 的前向</strong>，不是完整 SVD 视频生成管线。</li>
-<li data-line="1" dir="auto">不在云端报告中加入 VAE 解码、视频采样器或端到端视频质量结论。</li>
-<li data-line="2" dir="auto">Baseline 与 Treatment 必须使用同一输入级别、同一 dtype、同一模型代码和同一测量口径。</li>
-<li data-line="3" dir="auto">云端 Baseline 是原尺寸 SVD UNet；边缘 Baseline 是降配 UNet。两侧只比较变化方向，不直接比较绝对 FLOPs 或算术强度。</li>
-<li data-line="4" dir="auto">Roofline 主图使用云端实测 FP16 吞吐和实测可达带宽；标称值只作虚线对照。</li>
-<li data-line="5" dir="auto">云端没有可靠的整板/GPU 功耗采集能力，因此 RQ4 不在云端作定量回答。</li>
-<li data-line="6" dir="auto">输入的 latent shape 必须由 config、VAE 下采样倍率和实际 forward 签名反算。当前文档中的示例 <code>(1,4,14,32,32)</code> 仅是形状示例，不能未经核对直接当成 512×256 输入的最终 shape。</li>
-</ol></div><div class="el-h3"><h3 data-heading="0.2 五名成员" dir="auto" class="heading" id="0.2_五名成员_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>0.2 五名成员</h3></div><div class="el-p"><p dir="auto">每名成员固定一个主责，同时承担交叉复核任务。</p></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<meta charset="UTF-8"><meta property="og:site_name" content="计算机组成原理项目作业"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0, maximum-scale=5.0"><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="site-lib/rss.xml"><script async="" id="webpage-script" src="site-lib/scripts/webpage.js" onload="this.onload=null;this.setAttribute(&quot;loaded&quot;, &quot;true&quot;)"></script><script async="" id="graph-wasm-script" src="site-lib/scripts/graph-wasm.js" onload="this.onload=null;this.setAttribute(&quot;loaded&quot;, &quot;true&quot;)"></script><script async="" id="graph-render-worker-script" src="site-lib/scripts/graph-render-worker.js" onload="this.onload=null;this.setAttribute(&quot;loaded&quot;, &quot;true&quot;)"></script><link rel="icon" href="site-lib/media/favicon.png"><link rel="stylesheet" href="site-lib/styles/obsidian.css"><link rel="preload" href="site-lib/styles/global-variable-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/global-variable-styles.css"></noscript><link rel="preload" href="site-lib/styles/main-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/main-styles.css"></noscript><style>body{--line-width:40em;--line-width-adaptive:40em;--file-line-width:40em;--sidebar-width:min(20em, 80vw);--collapse-arrow-size:11px;--tree-vertical-spacing:1.3em;--sidebar-margin:12px}:root{background-color:#202124}.sidebar{height:100%;font-size:14px;z-index:10;min-width:calc(var(--sidebar-width) + var(--divider-width-hover));max-width:calc(var(--sidebar-width) + var(--divider-width-hover));position:relative;overflow:hidden;overflow:clip;transition:min-width ease-in-out,max-width ease-in-out;transition-duration:.2s;contain:size}#left-sidebar{left:0}#right-sidebar{right:0}.sidebar.is-collapsed{min-width:0;max-width:0}.sidebar.floating{position:absolute}.sidebar .leaf-content{height:100%;min-width:calc(var(--sidebar-width) - var(--divider-width-hover));top:0;padding:var(--sidebar-margin);padding-top:4em;line-height:var(--line-height-tight);background-color:var(--background-secondary);transition:background-color,border-right,border-left,box-shadow;transition-duration:var(--color-fade-speed);transition-timing-function:ease-in-out;position:absolute;display:flex;flex-direction:column}.sidebar:not(.is-collapsed) .leaf-content{min-width:calc(max(100%,var(--sidebar-width)) - 3px);max-width:calc(max(100%,var(--sidebar-width)) - 3px)}#left-sidebar-content{left:0;border-top-right-radius:var(--radius-l);border-bottom-right-radius:var(--radius-l)}#right-sidebar-content{right:0;border-top-left-radius:var(--radius-l);border-bottom-left-radius:var(--radius-l)}.sidebar #left-sidebar-content,.sidebar #right-sidebar-content{contain:none!important;container-type:normal!important;animation:none!important}.sidebar:has(.leaf-content:empty):has(.topbar-content:empty){display:none}.sidebar-topbar{height:calc(2.3em + 2 * var(--sidebar-margin));width:var(--sidebar-width);padding:var(--sidebar-margin);z-index:1;position:fixed;display:flex;align-items:center;transition:width ease-in-out;transition-duration:inherit}.sidebar.is-collapsed .sidebar-topbar{width:calc(2.3em + var(--sidebar-margin) * 2)}.sidebar .sidebar-topbar.is-collapsed{width:0}#left-sidebar .sidebar-topbar{left:0;flex-direction:row;border-top-right-radius:var(--radius-l)}#right-sidebar .sidebar-topbar{right:0;flex-direction:row-reverse;border-top-left-radius:var(--radius-l)}#left-sidebar .topbar-content{margin-right:calc(2.3em + var(--sidebar-margin));flex-direction:row}#right-sidebar .topbar-content{margin-left:calc(2.3em + var(--sidebar-margin));flex-direction:row-reverse}.topbar-content{overflow:hidden visible;overflow:clip visible;width:100%;height:100%;display:flex;align-items:center;transition:inherit}.sidebar.is-collapsed .topbar-content{width:0;transition:inherit}.clickable-icon.sidebar-collapse-icon{background-color:transparent;color:var(--icon-color-focused);padding:2px!important;margin:0!important;height:100%!important;width:2.3em!important;margin-inline:0.14em!important;position:absolute}#left-sidebar .clickable-icon.sidebar-collapse-icon{transform:rotateY(180deg);right:var(--sidebar-margin)}#right-sidebar .clickable-icon.sidebar-collapse-icon{transform:rotateY(180deg);left:var(--sidebar-margin)}.clickable-icon.sidebar-collapse-icon svg.svg-icon{width:100%;height:100%}.feature-title{margin-left:1px;text-transform:uppercase;letter-spacing:.06em;margin-top:.75em;margin-bottom:.75em}.feature-header{display:flex;align-items:center;padding-top:0;font-size:1em;padding-left:0}body.floating-sidebars .sidebar{position:absolute}body{transition:background-color var(--color-fade-speed) ease-in-out}#navbar:not(:empty){display:flex;align-items:center;justify-content:space-between;padding:.5em 1em;width:100%}#main{display:flex;flex-direction:column;height:100%;width:100%;align-items:stretch;justify-content:center}#main-horizontal{display:flex;flex-direction:row;flex-grow:1;width:100%;align-items:stretch;justify-content:center}#center-content{flex-basis:100%;max-width:100%;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;transition:opacity .2s ease-in-out;contain:inline-size}.hide{opacity:0!important;transition:opacity .2s ease-in-out;pointer-events:none}#center-content>.obsidian-document{padding-left:2em;padding-right:1em;margin-bottom:0;width:100%;width:-webkit-fill-available;width:-moz-available;width:fill-available;transition:background-color var(--color-fade-speed) ease-in-out;border-top-right-radius:var(--window-radius,var(--radius-m));border-top-left-radius:var(--window-radius,var(--radius-m));overflow-x:hidden!important;overflow-y:auto!important;display:flex!important;flex-direction:column!important;align-items:center!important;contain:inline-size}body #center-content>.obsidian-document>.markdown-preview-sizer{padding-bottom:80vh;width:100%;max-width:var(--line-width);flex-basis:var(--line-width);transition:background-color var(--color-fade-speed) ease-in-out;contain:inline-size}#center-content>.obsidian-document>div{width:100%!important;transition:background-color var(--color-fade-speed) ease-in-out;contain:inline-size}#center-content>.obsidian-document:not([data-type=markdown]).embed{display:flex;padding:1em;height:100%;width:100%;align-items:center;justify-content:center}#center-content>.obsidian-document:not([data-type=markdown]).embed>*{max-width:100%;max-height:100%;object-fit:contain}:not(h1,h2,h3,h4,h5,h6,li):has(> :is(.math,table)){overflow-x:auto!important}#center-content>.obsidian-document:not([data-type=markdown]){overflow-x:auto;contain:content;padding:0;margin:0;height:100%}.obsidian-document[data-type=attachment]{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;width:100%}.obsidian-document[data-type=attachment]>*{outline:0;border:none;box-shadow:none}.obsidian-document[data-type=attachment] :is(img){max-width:90%;max-height:90%;object-fit:contain}.obsidian-document[data-type=attachment]>:is(audio){width:100%;max-width:min(90%,var(--line-width))}.obsidian-document[data-type=attachment]>:is(embed,iframe,video){width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain}.canvas-wrapper>:is(.header,.footer){z-index:100;position:absolute;display:flex;justify-content:center;flex-direction:column;width:100%;align-items:center}.scroll-highlight{position:absolute;width:100%;height:100%;pointer-events:none;z-index:1000;background-color:hsla(var(--color-accent-hsl),.25);opacity:0;padding:1em;inset:50%;translate:-50% -50%;border-radius:var(--radius-s)}</style><script defer="">async function loadIncludes(){let e=document.querySelectorAll("link[itemprop='include']");for(const t of e){let e=t.getAttribute("href");try{let o="";if(e.startsWith("https:")||e.startsWith("http:")||"file:"!=window.location.protocol){const n=await fetch(e);if(!n.ok){console.log("Could not include file: "+e),t?.remove();continue}o=await n.text()}else{const t=document.getElementById(btoa(encodeURI(e)));if(t){const e=JSON.parse(decodeURI(atob(t.getAttribute("value")??"")));o=e?.data??""}}let n=document.createRange().createContextualFragment(o);t.before(n),t.remove(),console.log("Included text: "+o),console.log("Included file: "+e)}catch(o){t?.remove(),console.log("Could not include file: "+e,o);continue}}}document.addEventListener("DOMContentLoaded",(()=>{loadIncludes()}));let isFileProtocol="file:"==location.protocol;function waitLoadScripts(e,t){let o=e.map((e=>document.getElementById(e+"-script")));!function e(n){let l=o[n],c=n+1;l?(l&&"true"!=l.getAttribute("loaded")||n<o.length&&e(c),n<o.length&&l.addEventListener("load",(()=>e(c)))):n<o.length?e(c):t()}(0)}</script></head><body class="publish css-settings-manager is-focused styled-scrollbars show-inline-title show-ribbon"><script defer="">let theme=localStorage.getItem("theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");"dark"==theme?(document.body.classList.add("theme-dark"),document.body.classList.remove("theme-light")):(document.body.classList.add("theme-light"),document.body.classList.remove("theme-dark")),window.innerWidth<480?document.body.classList.add("is-phone"):window.innerWidth<768?document.body.classList.add("is-tablet"):window.innerWidth<1024?document.body.classList.add("is-small-screen"):document.body.classList.add("is-large-screen")</script><div class="parsed-feature-container" style="display: contents;"><link itemprop="include" href="site-lib/html/custom-head-content-content.html"></div><div id="main"><div id="navbar"></div><div id="main-horizontal"><div id="left-content" class="leaf" style="--sidebar-width: var(--sidebar-width-left);"><div id="left-sidebar" class="sidebar"><div class="sidebar-handle"></div><div class="sidebar-topbar"><div class="topbar-content"><div id="search-container"><div id="search-wrapper"><input enterkeyhint="search" type="search" spellcheck="false" placeholder="Search..."><div aria-label="Clear search" id="search-clear-button"></div></div></div></div><div class="clickable-icon sidebar-collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M21 3H3C1.89543 3 1 3.89543 1 5V19C1 20.1046 1.89543 21 3 21H21C22.1046 21 23 20.1046 23 19V5C23 3.89543 22.1046 3 21 3Z"></path><path d="M10 4V20"></path><path d="M4 7H7"></path><path d="M4 10H7"></path><path d="M4 13H7"></path></svg></div></div><div class="sidebar-content-wrapper"><div id="left-sidebar-content" class="leaf-content"><link itemprop="include" href="site-lib/html/file-tree-content.html"></div></div><script defer="">let ls = document.querySelector("#left-sidebar"); ls.classList.toggle("is-collapsed", window.innerWidth < 768); ls.style.setProperty("--sidebar-width", localStorage.getItem("sidebar-left-width"));</script></div></div><div id="center-content" class="leaf"><div class="obsidian-document markdown-preview-view markdown-rendered node-insert-event is-readable-line-width allow-fold-headings allow-fold-lists show-indentation-guide show-properties" data-type="markdown"><style id="MJX-CHTML-styles"></style><div class="markdown-preview-sizer markdown-preview-section"><div class="header"><h1 class="page-title heading inline-title" id="GPU实验方案_0">GPU实验方案</h1><div class="data-bar"></div></div><div class="markdown-preview-pusher" style="width: 1px; height: 0.1px; margin-bottom: 0px;"></div><div class="el-p"><p dir="auto">本机单平台 SVD FFN Roofline 实验计划</p></div><div class="el-h2"><h2 data-heading="Summary" dir="auto" class="heading" id="Summary_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>Summary</h2></div><div class="el-p"><p dir="auto">不再申请云 GPU，直接在本机 <strong>NVIDIA GeForce RTX 5060 Laptop GPU 8 GB</strong> 上测试 SVD UNet 的 FFN 通道压缩效果。实验正式名称调整为“本机 GPU 平台上的 SVD UNet FFN 压缩与 Roofline 分析”，平台类别固定为 <code>local_rtx5060_laptop</code>。</p></div><div class="el-p"><p dir="auto">调整后的研究范围：</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>回答 RQ1：FFN 压缩后，整体和分层 FLOPs、访存下界、算术强度如何变化。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>回答 RQ2：该变化在本机实测算力和带宽约束下推向 compute-bound 还是 memory-bound。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>不回答完整 RQ3：没有云 GPU 和 Jetson 配对数据，不能声称得到跨平台一致性结论。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>不回答 RQ4：笔记本没有可靠的整板功耗采集，不使用 <code>nvidia-smi</code> 瞬时功耗冒充功耗实验。</li>
+</ul></div><div class="el-p"><p dir="auto">目标是在 1–2 个工作日内完成一个可复现的单平台实验包；如果原尺寸模型在 8 GB 显存下无法运行，则按预定降级路径交付结构分析和容量墙证据。</p></div><div class="el-h2"><h2 data-heading="Implementation" dir="auto" class="heading" id="Implementation_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>Implementation</h2></div><div class="el-h3"><h3 data-heading="1. 环境与平台冻结" dir="auto" class="heading" id="1._环境与平台冻结_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>1. 环境与平台冻结</h3></div><div class="el-p"><p dir="auto">在 <code>local_svd_ffn_roofline/</code> 下建立独立实验目录，不修改现有课程资料。</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>优先使用本机 Python 3.13、PyTorch 2.15.0+cu132 和已可用的 CUDA 13.2。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>通过隔离 venv 加载 PyTorch，避免污染全局 Python。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>如果官方 SVD 代码无法兼容当前 Python/Windows，则创建 Python 3.11 + Blackwell 兼容 PyTorch 环境。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>固定代码 commit、CUDA、驱动、PyTorch、attention backend、模型权重 SHA-256 和随机种子。</li>
+<li data-line="4" dir="auto"><span class="list-bullet"></span>当前 C 盘剩余约 41.5 GB；项目缓存和权重总计控制在 20 GB 内。</li>
+<li data-line="5" dir="auto"><span class="list-bullet"></span>权重下载需要 Hugging Face 许可确认、登录和网络授权；令牌不得写入项目或日志。</li>
+</ul></div><div class="el-h3"><h3 data-heading="2. 模型实现与入口门禁" dir="auto" class="heading" id="2._模型实现与入口门禁_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>2. 模型实现与入口门禁</h3></div><div class="el-p"><p dir="auto">正式实现优先使用 <code>Stability-AI/generative-models</code> 的 <code>VideoUNet</code> 和官方 <code>stabilityai/stable-video-diffusion-img2vid-xt</code> 权重。</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>只测试 UNet FP16 前向，不运行 VAE 解码、采样器或完整视频生成。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>打印实际 <code>forward()</code> 签名，根据 config 和真实 VAE 空间倍率构造 latent 输入。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>使用固定 <code>x/t/conditioning</code>、固定 seed 和统一 attention backend。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>检查输出 shape、dtype、device、CUDA 可用性和 CPU fallback。</li>
+<li data-line="4" dir="auto"><span class="list-bullet"></span>官方实现无法运行时，迁移至 Diffusers 并作为独立实现保存；官方和 Diffusers 数据不得混用。</li>
+<li data-line="5" dir="auto"><span class="list-bullet"></span>若两套实现均无法完成最小 forward，停止性能实验，转入平台标定和静态结构分析降级路径。</li>
+</ul></div><div class="el-h3"><h3 data-heading="3. 本机平台标定" dir="auto" class="heading" id="3._本机平台标定_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>3. 本机平台标定</h3></div><div class="el-p"><p dir="auto">在模型测量前完成：</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>记录 RTX 5060 Laptop 的显存、compute capability、驱动和运行状态。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>测试 256、512、1024 MiB GPU 复制带宽，预热 3 次，每个尺寸记录 10 次并取中位数。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>测试 2048³、4096³、8192³ FP16 GEMM，预热 5 次，每个尺寸重复 20 次。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>计算实测屋脊点 <code>I* = FP16_GEMM_吞吐 / 可达带宽</code>。</li>
+<li data-line="4" dir="auto"><span class="list-bullet"></span>同时保存厂商标称参数作为虚线参考，主图只使用本机实测值。</li>
+<li data-line="5" dir="auto"><span class="list-bullet"></span>关闭游戏、浏览器硬件加速、录屏和显卡超频；运行前后保存 GPU 状态日志。</li>
+</ul></div><div class="el-h3"><h3 data-heading="4. 输入级别与显存门禁" dir="auto" class="heading" id="4._输入级别与显存门禁_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>4. 输入级别与显存门禁</h3></div><div class="el-p"><p dir="auto">依次测试：</p></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
 <thead>
 <tr>
-<th dir="ltr">成员</th>
-<th dir="ltr">角色</th>
-<th dir="ltr">主责</th>
-<th dir="ltr">关键交叉义务</th>
+<th dir="ltr">级别</th>
+<th dir="ltr">像素分辨率</th>
+<th align="right" dir="ltr">帧数</th>
+<th align="right" dir="ltr">Batch</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td dir="ltr">A</td>
-<td dir="ltr">云平台与资源负责人</td>
-<td dir="ltr">GPU 实例、CUDA、驱动、存储、成本、配额、环境生命周期</td>
-<td dir="ltr">审核平台参数和资源记录</td>
+<td dir="ltr">L0</td>
+<td dir="auto">512×256</td>
+<td align="right" dir="auto">14</td>
+<td align="right" dir="auto">1</td>
 </tr>
 <tr>
-<td dir="ltr">B</td>
-<td dir="ltr">模型集成负责人</td>
-<td dir="ltr">SVD 代码、权重、config、模型适配、FFN 定位</td>
-<td dir="ltr">审核 Treatment 只修改目标 FFN</td>
+<td dir="ltr">L1</td>
+<td dir="auto">512×256</td>
+<td align="right" dir="auto">8</td>
+<td align="right" dir="auto">1</td>
 </tr>
 <tr>
-<td dir="ltr">C</td>
-<td dir="ltr">Baseline 测量负责人</td>
-<td dir="ltr">原尺寸 UNet Baseline、FLOPs/字节、计时和重复测量</td>
-<td dir="ltr">不得单独批准自己的最终 Baseline 数据</td>
+<td dir="ltr">L2</td>
+<td dir="auto">384×192</td>
+<td align="right" dir="auto">14</td>
+<td align="right" dir="auto">1</td>
 </tr>
 <tr>
-<td dir="ltr">D</td>
-<td dir="ltr">Treatment 与复现负责人</td>
-<td dir="ltr">FFN 瓶颈构造、Treatment 测量、A/B/A 复核</td>
-<td dir="ltr">负责发现 Baseline 与 Treatment 的非目标差异</td>
-</tr>
-<tr>
-<td dir="ltr">E</td>
-<td dir="ltr">数据质控与报告负责人</td>
-<td dir="ltr">原始日志、CSV/JSON、统计、图件、结果包和结论审计</td>
-<td dir="ltr">独立复算关键数字，维护数据字典</td>
+<td dir="ltr">L3</td>
+<td dir="auto">256×256</td>
+<td align="right" dir="auto">8</td>
+<td align="right" dir="auto">1</td>
 </tr>
 </tbody>
-</table></div><div class="el-h3"><h3 data-heading="0.3 数据职责分离原则" dir="auto" class="heading" id="0.3_数据职责分离原则_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>0.3 数据职责分离原则</h3></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>C 负责 Baseline，D 负责 Treatment；B 负责模型结构正确性，E 负责数据独立性。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>任何人不得直接覆盖原始 <code>run_*.json</code>；修正结果只能新增文件并写明原因。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>每个关键结果至少有两名成员看到原始输出：一名执行者、一名复核者。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>所有最终主结论必须能追溯到 run ID、代码 commit、模型哈希和平台校准版本。</li>
-</ul></div><div class="el-hr"><hr></div><div class="el-h2"><h2 data-heading="1. 实验阶段和最小交付" dir="auto" class="heading" id="1._实验阶段和最小交付_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>1. 实验阶段和最小交付</h2></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
-<thead>
-<tr>
-<th dir="ltr">阶段</th>
-<th dir="ltr">任务</th>
-<th dir="ltr">最小交付</th>
-<th dir="ltr">目标</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td dir="ltr">准备</td>
-<td dir="ltr">CL0–CL6</td>
-<td dir="ltr">项目章程、平台表、环境冻结文件</td>
-<td dir="ltr">确认云端平台与模型可运行</td>
-</tr>
-<tr>
-<td dir="ltr">Baseline 门禁</td>
-<td dir="ltr">CL7–CL11</td>
-<td dir="ltr">输入配置、显存阶梯、FFN 门禁表</td>
-<td dir="ltr">找到双方可跑的最终配置</td>
-</tr>
-<tr>
-<td dir="ltr">测量</td>
-<td dir="ltr">CL12–CL18</td>
-<td dir="ltr">Baseline/Treatment 原始数据、复核记录</td>
-<td dir="ltr">完成云侧对照</td>
-</tr>
-<tr>
-<td dir="ltr">分析</td>
-<td dir="ltr">CL19–CL20</td>
-<td dir="ltr">Roofline CSV、图和结论包</td>
-<td dir="ltr">回答 RQ1–RQ3 云侧部分</td>
-</tr>
-<tr>
-<td dir="ltr">验收</td>
-<td dir="ltr">CL21</td>
-<td dir="ltr">可复现数据包和交接单</td>
-<td dir="ltr">交给跨平台组</td>
-</tr>
-</tbody>
-</table></div><div class="el-p"><p dir="auto">建议使用 4 个实验日：</p></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
-<thead>
-<tr>
-<th dir="ltr">日期</th>
-<th dir="ltr">实验内容</th>
-<th dir="ltr">主要负责</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td dir="ltr">第 1 天</td>
-<td dir="ltr">CL0–CL6：资源和环境冻结</td>
-<td dir="ltr">A 主导，B/E 复核</td>
-</tr>
-<tr>
-<td dir="ltr">第 2 天</td>
-<td dir="ltr">CL7–CL11：模型加载、显存和算子门禁</td>
-<td dir="ltr">B 主导，C/D/E 参与</td>
-</tr>
-<tr>
-<td dir="ltr">第 3 天</td>
-<td dir="ltr">CL12–CL18：Baseline/Treatment 测量</td>
-<td dir="ltr">C、D 主导，A/B/E 复核</td>
-</tr>
-<tr>
-<td dir="ltr">第 4 天</td>
-<td dir="ltr">CL19–CL21：Roofline、报告和数据包</td>
-<td dir="ltr">E 主导，A/B/C/D 参与</td>
-</tr>
-</tbody>
-</table></div><div class="el-hr"><hr></div><div class="el-h2"><h2 data-heading="2. 可执行任务卡" dir="auto" class="heading" id="2._可执行任务卡_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>2. 可执行任务卡</h2></div><div class="el-p"><p dir="auto">每张任务卡只规定最小可验收闭环。任务卡通过后才能进入下一张。</p></div><div class="el-h3"><h3 data-heading="任务卡 CL0：冻结项目问题和实验对象" dir="auto" class="heading" id="任务卡_CL0：冻结项目问题和实验对象_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 CL0：冻结项目问题和实验对象</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>课程《计组作业大纲》v5.0、《实验计划》云 GPU 分册。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>项目 RQ、数据字典草案、实验命名规则、共享目录。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>当前模型仓库、权重来源和 config 的路径记录。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">由全组逐条确认 RQ1、RQ2、RQ3 的边界。</li>
-<li data-line="1" dir="auto">写明云端只测原尺寸 SVD UNet 前向，不测完整生成管线和视频质量。</li>
-<li data-line="2" dir="auto">约定 run ID：<code>cloud_&lt;baseline|treatment&gt;_&lt;level&gt;_rNN</code>。</li>
-<li data-line="3" dir="auto">约定原始数据不可覆盖、修正留痕。</li>
-<li data-line="4" dir="auto">在项目看板上标注交付给跨平台组的字段。</li>
-</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>A：说明云资源与实验周期限制。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>B：解释 SVD UNet、FFN 和 attention 的模型边界。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>C：确认 Baseline 测量口径。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>D：确认 Treatment 及复核方案。</li>
-<li data-line="4" dir="auto"><span class="list-bullet"></span>E：整理 RQ 与数据字典，检查边界是否自洽。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>五人对实验对象、输入级别和禁止项没有歧义。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>run ID、数据目录和交付字段已经冻结。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>形成一页《云端对照组实验章程》，五人确认。</li>
-</ul></div><div class="el-h3"><h3 data-heading="任务卡 CL1：申请与验收云 GPU 资源" dir="auto" class="heading" id="任务卡_CL1：申请与验收云_GPU_资源_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 CL1：申请与验收云 GPU 资源</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>云 GPU 账号、项目配额、SSH 或平台终端、持久化存储。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>安全说明、成本预算、镜像/容器仓库、实验目录。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">启动已确认实际型号的 GPU 实例，记录实例区域和规格。</li>
-<li data-line="1" dir="auto">建立共享数据目录和每人只写自己子目录的权限规则。</li>
-<li data-line="2" dir="auto">检查至少可容纳模型、输入缓存和至少 20 组 run 的磁盘空间。</li>
-<li data-line="3" dir="auto">确认网络、SSH、进程终止和实例关闭流程。</li>
-<li data-line="4" dir="auto">禁止把账号密钥、访问令牌和下载凭据提交到代码仓库。</li>
-</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>A：创建实例、分配存储和记录资源开销。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>B：检查模型安装所需网络和磁盘空间。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>C：确认能够保存 Baseline 日志。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>D：确认能够保存 Treatment 和复核日志。</li>
-<li data-line="4" dir="auto"><span class="list-bullet"></span>E：检查权限、脱敏和备份规则。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>GPU 实例可登录，存储路径可写，磁盘余量满足实验。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>A、C、D、E 均能在约定路径读写日志，且不能覆盖他人原始数据。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>身份凭据没有进入仓库或报告。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>资源成本、实例编号和关闭责任人已记录。</li>
-</ul></div><div class="el-h3"><h3 data-heading="任务卡 CL2：记录 GPU 身份和标称参数" dir="auto" class="heading" id="任务卡_CL2：记录_GPU_身份和标称参数_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 CL2：记录 GPU 身份和标称参数</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span><code>nvidia-smi</code>、PyTorch、GPU 官方规格页或来源记录。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span><code>platform_inventory.md</code>、平台参数表。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">执行 <code>nvidia-smi --query-gpu=name,memory.total,memory.used,compute_cap,clocks.max.sm,clocks.max.mem,power.limit --format=csv</code>。</li>
-<li data-line="1" dir="auto">记录 CUDA、驱动和 PyTorch 版本。</li>
-<li data-line="2" dir="auto">记录 GPU 是否处于 MIG、共享实例或受限配额。</li>
-<li data-line="3" dir="auto">从官方来源填写标称 FP16 算力和带宽。</li>
-<li data-line="4" dir="auto">同时记录实例实际可用显存，而不只记录硬件总显存。</li>
-</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>A：执行硬件查询并确认 MIG/共享状态。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>B：确认 CUDA 与 PyTorch 编译环境匹配。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>C：准备后续 Baseline 测量目录。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>D：记录测量注意事项和实例限制。</li>
-<li data-line="4" dir="auto"><span class="list-bullet"></span>E：核对型号、单位、来源和可追溯性。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>实际 GPU 型号、显存和编译版本已确定。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>标称参数有明确来源，不把租户配额写成硬件规格。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>若 GPU 为 MIG 或共享切片，已明确后续只用实测参数画主图。</li>
-</ul></div><div class="el-h3"><h3 data-heading="任务卡 CL3：冻结环境镜像和运行命令" dir="auto" class="heading" id="任务卡_CL3：冻结环境镜像和运行命令_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 CL3：冻结环境镜像和运行命令</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>NVIDIA 容器或云实例镜像、锁文件、代码 commit。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span><code>environment.lock</code>、<code>launch.sh</code>、只读配置目录。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">固化镜像 digest 或完整依赖版本。</li>
-<li data-line="1" dir="auto">为模型代码建立固定 commit，关闭实验期间的自动拉取。</li>
-<li data-line="2" dir="auto">检查 Python、PyTorch、CUDA、cuDNN、torchvision 版本。</li>
-<li data-line="3" dir="auto">运行一次 CUDA FP16 矩阵乘自检。</li>
-<li data-line="4" dir="auto">把启动命令和 GPU 编号写入 <code>launch.sh</code>，确保 Baseline/Treatment 可直接重放。<strong>需要的分工成员</strong></li>
-</ol></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>A：确认镜像与 GPU 驱动兼容。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>B：建立模型入口和启动脚本。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>C：检查 Baseline 启动命令不含随机变化项。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>D：准备 Treatment 启动脚本的唯一差异项。</li>
-<li data-line="4" dir="auto"><span class="list-bullet"></span>E：保存全部版本和命令哈希。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>新进程能从冻结命令启动模型。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>CUDA 可用，FP16 GEMM 可以运行。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>Baseline 和 Treatment 的启动差异只有模型变体参数。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>镜像/依赖清单可重新创建相同环境。</li>
-</ul></div><div class="el-h3"><h3 data-heading="任务卡 CL4：校验代码、权重和 config" dir="auto" class="heading" id="任务卡_CL4：校验代码、权重和_config_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 CL4：校验代码、权重和 config</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>SVD UNet 代码、FP16 权重分片或等效权重文件。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>config、tokenizer/condition 配置、文件哈希脚本。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">记录代码 commit 和 config 文件哈希。</li>
-<li data-line="1" dir="auto">记录所有权重文件的 SHA-256。</li>
-<li data-line="2" dir="auto">检查权重是 FP16 版本，而不是误用 FP32 单文件。</li>
-<li data-line="3" dir="auto">读取 <code>in_channels</code>、condition 维度、VAE 缩放因子的来源。</li>
-<li data-line="4" dir="auto">把 config 中的关键字段复制到 <code>model_manifest.json</code>。</li>
-</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>A：确认存储空间和文件完整性。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>B：核对代码/config 的模型结构。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>C：准备 Baseline 权重加载记录。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>D：确认 Treatment 使用同一权重来源。</li>
-<li data-line="4" dir="auto"><span class="list-bullet"></span>E：独立计算哈希并检查 manifest 完整性。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>代码、权重和 config 都有哈希。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>权重精度与实验声明一致。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>关键 shape 字段来自 config，而不是凭猜测填写。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>Baseline/Treatment 只有目标结构差异。</li>
-</ul></div><div class="el-h3"><h3 data-heading="任务卡 CL5：建立最小 SVD UNet forward" dir="auto" class="heading" id="任务卡_CL5：建立最小_SVD_UNet_forward_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 CL5：建立最小 SVD UNet forward</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span><code>VideoUNet</code> 入口、权重加载器、固定随机种子。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>输入适配脚本、config 读取脚本、最小 forward 日志。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">打印实际 <code>VideoUNet.forward()</code> 签名。</li>
-<li data-line="1" dir="auto">根据 config 构造 <code>x</code>、时间步 <code>t</code> 和 conditioning 输入。</li>
-<li data-line="2" dir="auto">在 CUDA 上加载 FP16 UNet，执行一次 <code>no_grad</code>/<code>inference_mode</code> forward。</li>
-<li data-line="3" dir="auto">记录输入形状、参数量、输出形状、dtype 和 device。</li>
-<li data-line="4" dir="auto">明确本实验不做 VAE decode。</li>
-</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>B：完成模型入口和输入构造。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>A：确认显存余量和 GPU 运行状态。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>C：记录 Baseline 最小 forward 证据。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>D：独立复现一次相同 forward。</li>
-<li data-line="4" dir="auto"><span class="list-bullet"></span>E：复核 shape、dtype、路径和指令。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>最小 UNet forward 在 CUDA 上完成。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>所有关键输入输出 shape 可解释。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>C 与 D 两次最小 forward 的输出 shape 一致。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>没有把 VAE 或完整采样管线混入实验对象。</li>
-</ul></div><div class="el-h3"><h3 data-heading="任务卡 CL6：核对 latent 空间形状" dir="auto" class="heading" id="任务卡_CL6：核对_latent_空间形状_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 CL6：核对 latent 空间形状</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>VAE downscale 记录、config、L0–L3 输入表。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>shape 计算表、错误案例日志。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">从 config 读取 latent channels 和空间下采样倍率。</li>
-<li data-line="1" dir="auto">若要测试 512×256 像素，按倍率反算 latent 空间尺寸；倍率为 8 时得到 64×32，而不是无条件使用 32×32。</li>
-<li data-line="2" dir="auto">将候选 L0–L3 转成内部 latent 尺寸。</li>
-<li data-line="3" dir="auto">用每个候选尺寸检查模型是否接受。</li>
-<li data-line="4" dir="auto">把最终 shape 写入配置，不在每次运行中临时计算。</li>
-</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>B：解释 shape 与模型结构关系。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>C：准备 Baseline 候选配置。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>D：检查 Treatment 是否兼容同一 shape。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>A：监控显存和实例状态。</li>
-<li data-line="4" dir="auto"><span class="list-bullet"></span>E：交叉验证 shape 计算和记录。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>latent 尺寸来自 config 和实际 forward，不来自文档示例。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>L0–L3 每个候选输入都有可解释的内部 shape。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>发现 shape 不匹配时已修正，而不是继续运行错误实验。</li>
-</ul></div><div class="el-h3"><h3 data-heading="任务卡 CL7：执行 L0–L3 显存预检" dir="auto" class="heading" id="任务卡_CL7：执行_L0–L3_显存预检_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 CL7：执行 L0–L3 显存预检</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>L0–L3 配置表、显存统计脚本、独立进程运行脚本。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span><code>memory_preflight.csv</code>、OOM 错误日志、GPU 状态日志。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">从 L0 开始逐级执行一次 forward。</li>
-<li data-line="1" dir="auto">每轮前重置峰值统计。</li>
-<li data-line="2" dir="auto">记录 <code>max_memory_allocated()</code>、<code>max_memory_reserved()</code> 和是否 OOM。</li>
-<li data-line="3" dir="auto">每级独立进程运行，失败后继续下一级。</li>
-<li data-line="4" dir="auto">找到 Baseline 和 Treatment 共同可运行的候选配置。</li>
-</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>C：执行 Baseline 显存预检。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>D：执行 Treatment 显存预检并旁证 Baseline。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>A：检查 GPU 使用率和租户配额。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>B：确认每级输入到达正确模型入口。</li>
-<li data-line="4" dir="auto"><span class="list-bullet"></span>E：整理 OOM 记录和共同可运行集合。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>L0–L3 均有“通过/OOM/错误”的明确结果。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>Baseline 和 Treatment 的候选交集已列出。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>峰值显存与运行错误都有原始日志。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>没有把不同显存统计口径混在一起。</li>
-</ul></div><div class="el-h3"><h3 data-heading="任务卡 CL8：锁定共同输入级别" dir="auto" class="heading" id="任务卡_CL8：锁定共同输入级别_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 CL8：锁定共同输入级别</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>预检交集、配置模板、运行断言、<code>selected_config.json</code>。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">选择 Baseline 与 Treatment 都能运行的最高级别。</li>
-<li data-line="1" dir="auto">对共同级别连续运行 5 次 forward。</li>
-<li data-line="2" dir="auto">写入固定输入 shape、batch、帧数、dtype、seed。</li>
-<li data-line="3" dir="auto">在脚本中加入 <code>BASELINE_LEVEL == TREATMENT_LEVEL</code> 断言。</li>
-<li data-line="4" dir="auto">将配置文件设为共享只读。</li>
-</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>C：验证 Baseline 连续运行。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>D：验证 Treatment 连续运行。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>B：审核输入配置与模型 config。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>A：检查 GPU 显存和实例容量。</li>
-<li data-line="4" dir="auto"><span class="list-bullet"></span>E：冻结配置哈希并记录共同级别。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span><code>selected_config.json</code> 唯一且只读。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>双方连续 5 次 forward 无 OOM。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>输入 shape、dtype、随机种子和 GPU 编号有记录。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>后续任何配置变化都需要新 run ID 和新数据目录。</li>
-</ul></div><div class="el-h3"><h3 data-heading="任务卡 CL9：定位 FFN 模块和权重" dir="auto" class="heading" id="任务卡_CL9：定位_FFN_模块和权重_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 CL9：定位 FFN 模块和权重</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span><code>named_modules()</code> 输出、Linear/Conv 参数表、模型结构记录。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span><code>ffn_catalog.json</code>、FFN 前缀审计表。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">打印所有 Linear、Conv、attention 相关模块的完整名称和输入输出维度。</li>
-<li data-line="1" dir="auto">找到 attention 后的连续线性层及其激活。</li>
-<li data-line="2" dir="auto">排除 <code>to_q</code>、<code>to_k</code>、<code>to_v</code>、<code>to_out</code> 等注意力投影。</li>
-<li data-line="3" dir="auto">把 FFN 模块完整前缀写入 <code>ffn_catalog.json</code>。</li>
-<li data-line="4" dir="auto">由第二名成员独立核对模块数量。</li>
-</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>B：主导 FFN 定位和结构解释。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>C：核对 Baseline 中 FFN 的覆盖范围。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>D：确认后续替换能在相同名称下工作。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>A：无需模型判断，负责运行资源。</li>
-<li data-line="4" dir="auto"><span class="list-bullet"></span>E：独立检查模块名和目录字段。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>FFN 前缀由实际模块树确定。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>注意力投影没有被列入 FFN。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>模块数量、Linear 维度和参数大小均有记录。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span><code>ffn_catalog.json</code> 能被另一名成员用于重建模块列表。</li>
-</ul></div><div class="el-h3"><h3 data-heading="任务卡 CL10：计算 FFN 占比并执行决策" dir="auto" class="heading" id="任务卡_CL10：计算_FFN_占比并执行决策_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 CL10：计算 FFN 占比并执行决策</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>Baseline 分层 FLOPs、FFN 模块清单、占比公式和决策记录。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span><code>ffn_decision.md</code>。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">计算 FFN FLOPs 占整个 UNet 的比例。</li>
-<li data-line="1" dir="auto">记录分子、分母、统计覆盖范围和计算脚本版本。</li>
-<li data-line="2" dir="auto">若占比不低于 15%，执行纯 FFN 方案。</li>
-<li data-line="3" dir="auto">若占比低于 15%，按项目文档在“通道压缩模块”中并入注意投影。</li>
-<li data-line="4" dir="auto">将最终 RQ 表述和实验标签写入决策记录。</li>
-</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>C：计算 Baseline 占比并提供原始数据。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>B：确认 FFN 分组没有漏掉结构。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>D：依据决策准备 Treatment 范围。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>A：确认测量环境没有改变。</li>
-<li data-line="4" dir="auto"><span class="list-bullet"></span>E：复算占比并审核是否达到决策阈值。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>FFN 占比和阈值判断可仅凭文件复算。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>纯 FFN 或扩展压缩模块的选择已明确。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>Treatment 的替换范围与决策一致。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>报告中不会把“通道压缩模块”误称为纯 FFN。### 任务卡 CL11：建立 hook/profiler 测量口径</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>ModuleProfiler、<code>torch.profiler</code>、小型 dry-run 模型。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>口径说明、输出 CSV 模板、独立复算脚本。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">用 hook 记录模块输入输出、dtype、device、参数量。</li>
-<li data-line="1" dir="auto">统计整体/FFN/attention/conv 的 FLOPs 和 <code>B_L1</code>。</li>
-<li data-line="2" dir="auto">用 profiler 做一次交叉检查；若 profiler 不提供 FLOPs，记录而不依赖。</li>
-<li data-line="3" dir="auto">记录未覆盖算子、einsum、baddbmm 和自定义 attention。</li>
-<li data-line="4" dir="auto">在 dummy 模型上由两人独立运行，核对结果。</li>
-</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>C：实现并运行 Baseline hook。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>D：用相同口径独立运行 Treatment dry-run。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>B：解释非标准算子和模块覆盖。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>A：保证 dry-run 不发生 OOM 或资源争用。</li>
-<li data-line="4" dir="auto"><span class="list-bullet"></span>E：复核公式、单位和两人结果是否一致。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>hook 的模块覆盖范围、FLOPs 公式和字节公式已冻结。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>两人在 dry-run 中得到可解释的一致结果。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>未覆盖算子有比例或明确说明。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>后续 Baseline/Treatment 使用同一版脚本。</li>
-</ul></div><div class="el-h3"><h3 data-heading="任务卡 CL12：云端带宽标定" dir="auto" class="heading" id="任务卡_CL12：云端带宽标定_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 CL12：云端带宽标定</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>GPU 大张量复制脚本、CUDA Event、独立进程启动脚本。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span><code>cloud_bandwidth.csv</code>、GPU 状态日志。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">选择 256 MiB、512 MiB、1 GiB 或更大缓冲区，按实际显存调整。</li>
-<li data-line="1" dir="auto">分配源/目标 GPU 张量并预热 3 次。</li>
-<li data-line="2" dir="auto">复制重复 5 次，CUDA Event 计时。</li>
-<li data-line="3" dir="auto">按读源+写目标计算总字节。</li>
-<li data-line="4" dir="auto">计算可达带宽中位数，并记录最大/最小值。</li>
-</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>A：启动独立实例和固定 GPU 环境。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>B：确认脚本不涉及模型输入。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>C：运行带宽基准。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>D：独立重跑一次主要尺寸。</li>
-<li data-line="4" dir="auto"><span class="list-bullet"></span>E：复算字节、中位数和单位。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>至少 3 组有效尺寸，每组至少 5 个计时样本。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>选择的主结果已进入平台阶段区间。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>C/D 结果在约 5% 范围内，或差异有资源/后台负载解释。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>CSV 可以从原始日志重算。</li>
-</ul></div><div class="el-h3"><h3 data-heading="任务卡 CL13：云端 FP16 GEMM 标定" dir="auto" class="heading" id="任务卡_CL13：云端_FP16_GEMM_标定_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 CL13：云端 FP16 GEMM 标定</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>FP16 GEMM 基准、CUDA Event、GPU 显存监控。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span><code>cloud_gemm.csv</code>、实例状态日志。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">从 4096³ 或 8192³ 开始测试，按显存逐步增加尺寸。</li>
-<li data-line="1" dir="auto">预热至少 5 次。</li>
-<li data-line="2" dir="auto">每个尺寸运行至少 20 次，记录实际总耗时。</li>
-<li data-line="3" dir="auto">按 <code>2MNKR/t</code> 计算实测吞吐。</li>
-<li data-line="4" dir="auto">保留未达到饱和区间的尺寸，不强行用其替代主结果。</li>
-</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>A：监控 GPU 显存和实例状态。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>B：确认 FP16 计算路径和 Torch 设置。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>C：执行主要 GEMM 标定。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>D：独立运行一个主尺寸作复测。</li>
-<li data-line="4" dir="auto"><span class="list-bullet"></span>E：核对 M/N/K、重复次数和 FLOPs 公式。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>至少一个尺寸进入可解释的饱和区间。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>取得 3 组有效吞吐结果。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>没有 OOM、MIG 误标称或 CPU fallback。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>C/D 同尺寸复测结果有记录。</li>
-</ul></div><div class="el-h3"><h3 data-heading="任务卡 CL14：冻结云端屋脊点" dir="auto" class="heading" id="任务卡_CL14：冻结云端屋脊点_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 CL14：冻结云端屋脊点</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>带宽表、GEMM 表、GPU 官方规格页。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span><code>cloud_roofline.json</code>、单位换算表。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">统一带宽为 Byte/s、算力为 FLOP/s。</li>
-<li data-line="1" dir="auto">计算 <code>I*=π_measured/β_measured</code>。</li>
-<li data-line="2" dir="auto">计算标称屋脊点并标注来源。</li>
-<li data-line="3" dir="auto">记录 GPU 是否 MIG、实例编号和测量日期。</li>
-<li data-line="4" dir="auto">冻结云端平台参数版本。</li>
-</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>A：确认 GPU 身份和实例限制。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>B：确认计算没有涉及模型 FLOPs。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>C：计算实测屋脊点。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>D：复算标称屋脊点和主口径。</li>
-<li data-line="4" dir="auto"><span class="list-bullet"></span>E：审核文件结构、单位和来源。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span><code>cloud_roofline.json</code> 同时包含实测和标称参数。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>每个参数都有测量尺寸或官方来源。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>后续模型实验使用同一冻结版本。</li>
-</ul></div><div class="el-h3"><h3 data-heading="任务卡 CL15：Baseline 结构测量" dir="auto" class="heading" id="任务卡_CL15：Baseline_结构测量_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 CL15：Baseline 结构测量</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span><code>selected_config.json</code>、Baseline 模型、冻结 hook。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span><code>run_cloud_baseline_*.json</code>、原始输出和随机种子。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">独立进程加载原尺寸 Baseline。</li>
-<li data-line="1" dir="auto">warmup 2–3 次并丢弃首次正式结果。</li>
-<li data-line="2" dir="auto">运行 5 次结构测量。</li>
-<li data-line="3" dir="auto">记录整体/FFN/attention/conv 的 FLOPs 和 <code>B_L1</code>。</li>
-<li data-line="4" dir="auto">计算各层算术强度并保存每次原始值。</li>
-</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>C：执行 Baseline 全部结构测量。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>D：在场见证并检查运行配置。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>A：监控 GPU 和实例状态。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>B：核对模块 hook 是否命中。</li>
-<li data-line="4" dir="auto"><span class="list-bullet"></span>E：复核 JSON 字段和可复算性。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>5 次 Baseline 结构结果齐全。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>整体/FFN/attention/conv 均有明确统计。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>输出 shape 和 dtype 符合配置。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>D 对该轮“只属于 Baseline”给出见证记录。</li>
-</ul></div><div class="el-h3"><h3 data-heading="任务卡 CL16：Baseline 时间与显存测量" dir="auto" class="heading" id="任务卡_CL16：Baseline_时间与显存测量_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 CL16：Baseline 时间与显存测量</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>不含 profiler 的计时脚本、独立进程、GPU 显存监控。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span><code>cloud_time.csv</code>、<code>run_*_time.json</code>。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">在独立进程加载 Baseline 并 warmup。</li>
-<li data-line="1" dir="auto">用 CUDA Event 或同步前后计时测量至少 5 次前向。</li>
-<li data-line="2" dir="auto">记录中位时间、最小/最大值和峰值显存。</li>
-<li data-line="3" dir="auto">记录当前 GPU 是否共享、是否存在其他进程。</li>
-<li data-line="4" dir="auto">与结构测量分开保存，不用 profiler 时间替代正式计时。</li>
-</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>C：执行时间和显存测量。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>D：独立确认计时脚本没有 profiler。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>A：检查 GPU 无异常负载。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>B：确认前向输入和结构未变化。</li>
-<li data-line="4" dir="auto"><span class="list-bullet"></span>E：计算中位数并记录样本分布。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>至少 5 次有效前向时间。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>中位时间和峰值显存有原始数据。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>脚本中没有混入 profiler 开销。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>运行前后配置哈希一致。</li>
-</ul></div><div class="el-h3"><h3 data-heading="任务卡 CL17：构造 Treatment" dir="auto" class="heading" id="任务卡_CL17：构造_Treatment_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 CL17：构造 Treatment</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span><code>ffn_catalog.json</code>、FFNBottleneck、Baseline 模块映射备份。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span><code>treatment_manifest.json</code>、固定 seed。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">仅替换 FFN 目标 Linear，瓶颈比例设为 0.5。</li>
-<li data-line="1" dir="auto">保持输入输出维度不变。</li>
-<li data-line="2" dir="auto">记录被替换和未替换模块。</li>
-<li data-line="3" dir="auto">运行一次形状验证 forward。</li>
-<li data-line="4" dir="auto">计算 Treatment 参数量和模块数量差异。</li>
-</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>D：实施替换。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>B：审核模型结构与 FFN 范围。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>C：确认 Baseline 未被改写。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>A：检查显存是否异常。</li>
-<li data-line="4" dir="auto"><span class="list-bullet"></span>E：逐项检查替换清单和维度。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>替换清单完整，输入输出维度一致。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>attention 投影没有被误替换。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>Treatment 输出 shape 与 Baseline 一致。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>Treatment manifest 可重新构造同一模型。</li>
-</ul></div><div class="el-h3"><h3 data-heading="任务卡 CL18：Treatment 结构、时间和复核" dir="auto" class="heading" id="任务卡_CL18：Treatment_结构、时间和复核_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 CL18：Treatment 结构、时间和复核</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>Treatment 模型、同一 hook、同一输入配置和独立日志目录。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span><code>run_cloud_treatment_*.json</code>、Baseline 复核配置。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">warmup 后执行 5 次结构测量。</li>
-<li data-line="1" dir="auto">另起无 profiler 进程执行至少 5 次计时。</li>
-<li data-line="2" dir="auto">记录整体/FFN/attention/conv 指标和峰值显存。</li>
-<li data-line="3" dir="auto">由 C 独立复跑一次 Treatment 的主要配置。</li>
-<li data-line="4" dir="auto">重跑 Baseline 一次，记录时间漂移。</li>
-</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>D：执行 Treatment 主测量。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>C：进行 Treatment 独立复跑和 Baseline 复核。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>B：确认未引入非目标结构变化。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>A：保持 GPU 实例和环境不变。</li>
-<li data-line="4" dir="auto"><span class="list-bullet"></span>E：接收并复核两套独立输出。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>Treatment 至少 5 次结构和 5 次计时数据。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>C 的复跑与 D 的主结果可比较。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>Baseline 时间漂移原则上不超过约 5%。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>配置、代码、权重哈希均与门禁时一致。</li>
-</ul></div><div class="el-h3"><h3 data-heading="任务卡 CL19：数据质控与异常处理**需要准备的材料**" dir="auto" class="heading" id="任务卡_CL19：数据质控与异常处理**需要准备的材料**_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 CL19：数据质控与异常处理<strong>需要准备的材料</strong></h3></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>Baseline/Treatment 全部 run、数据字典、异常日志。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>统计脚本、缺失字段检查表、备份目录。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">检查每个 run 的环境、配置、输入、模型变体和指标字段。</li>
-<li data-line="1" dir="auto">复核 FLOPs、<code>B_L1</code>、算术强度、时间和显存。</li>
-<li data-line="2" dir="auto">标记离群值并保留原始数据。</li>
-<li data-line="3" dir="auto">对缺失、重复和单位错误逐项修正记录。</li>
-<li data-line="4" dir="auto">生成 <code>cloud_analysis_table.csv</code>。</li>
-</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>E：主导数据质控和缺失检查。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>C：解释 Baseline 异常。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>D：解释 Treatment 和复跑差异。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>B：审核模型结构字段。</li>
-<li data-line="4" dir="auto"><span class="list-bullet"></span>A：审核 GPU 平台字段和测量环境。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>每个结论字段有 run ID。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>所有缺失/离群值都有处理状态。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>Baseline/Treatment 行数、样本数和配置一一对应。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>分析表能从原始文件重新生成。</li>
-</ul></div><div class="el-h3"><h3 data-heading="任务卡 CL20：云端 Roofline 与图件" dir="auto" class="heading" id="任务卡_CL20：云端_Roofline_与图件_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 CL20：云端 Roofline 与图件</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>冻结平台参数、<code>cloud_analysis_table.csv</code>、绘图脚本。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>云端实测/标称屋脊点和图件模板。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">对整体和四个层级计算 <code>I=FLOPs/B_L1</code>。</li>
-<li data-line="1" dir="auto">计算 <code>q=I/I*</code> 并标注 compute/memory-bound。</li>
-<li data-line="2" dir="auto">用实测屋脊点画实线，标称值画虚线。</li>
-<li data-line="3" dir="auto">用箭头连接 Baseline/Treatment。</li>
-<li data-line="4" dir="auto">保存 CSV、SVG/PNG、图注和生成脚本。</li>
-</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>E：主导数据表和图件生成。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>B：确认整体/FFN/attention/conv 的统计范围。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>C：复核 Baseline 点。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>D：复核 Treatment 点和箭头方向。</li>
-<li data-line="4" dir="auto"><span class="list-bullet"></span>A：确认实测平台屋脊点。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>整体和 FFN 点均出现在图上。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>实测/标称屋脊点清晰区分。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>每个点能追溯到 run ID。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>图可以由冻结 CSV 和脚本重新生成。</li>
-</ul></div><div class="el-h3"><h3 data-heading="任务卡 CL21：交接与最终验收" dir="auto" class="heading" id="任务卡_CL21：交接与最终验收_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 CL21：交接与最终验收</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>云端实验目录、云侧结论、跨平台交接表、README。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>关键文件 SHA-256、异常和限制清单。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">归档平台、环境、Baseline、Treatment、分析和图件。</li>
-<li data-line="1" dir="auto">生成《云侧到边缘侧的交接表》，列出方向指标而不混淆绝对值。</li>
-<li data-line="2" dir="auto">在干净进程重跑最小 forward 和一项平台基准。</li>
-<li data-line="3" dir="auto">由非主要操作者检查缺少字段、未记录异常和不可复现命令。</li>
-<li data-line="4" dir="auto">提交 A–E 五人联合验收。</li>
-</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>A：确认平台参数和资源记录完整。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>B：确认模型代码、权重和 config 可重载。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>C：确认 Baseline 数据可追溯。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>D：确认 Treatment 和复核可追溯。</li>
-<li data-line="4" dir="auto"><span class="list-bullet"></span>E：确认数据包、README 和交接表完整。</li>
-</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>云端数据包可按 README 完成最小复现。</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>交接表明确“方向可比较、绝对值不可直接比较”。</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>所有主结论能定位到 CSV/JSON/图件。</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>五人均完成签字或等效的在线确认。</li>
-</ul></div><div class="el-hr"><hr></div><div class="el-h2"><h2 data-heading="3. 云端实验的强制性通过条件" dir="auto" class="heading" id="3._云端实验的强制性通过条件_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>3. 云端实验的强制性通过条件</h2></div><div class="el-p"><p dir="auto">满足以下条件，云端对照组才可以向跨平台组交付：</p></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">GPU 型号、显存、CUDA、驱动和 PyTorch 版本明确；</li>
-<li data-line="1" dir="auto">环境和模型工件有哈希；</li>
-<li data-line="2" dir="auto">SVD UNet 最小 forward 成功，实验范围不含 VAE 解码；</li>
-<li data-line="3" dir="auto">latent shape 来自 config 和实际 forward；</li>
-<li data-line="4" dir="auto">Baseline/Treatment 使用同一输入级别、FP16、同一模型代码口径；</li>
-<li data-line="5" dir="auto">FFN 前缀经过独立复核；</li>
-<li data-line="6" dir="auto">Baseline 至少 5 次结构测量和 5 次时间测量；</li>
-<li data-line="7" dir="auto">Treatment 至少 5 次结构测量和 5 次时间测量；</li>
-<li data-line="8" dir="auto">至少 1 次 Baseline 复核，漂移有量化说明；</li>
-<li data-line="9" dir="auto">平台实测和标称屋脊点分开记录；</li>
-<li data-line="10" dir="auto">原始日志、结构化结果和图件齐全；</li>
-<li data-line="11" dir="auto">数据包通过 A–E 五人联合验收。</li>
-</ol></div><div class="el-hr"><hr></div><div class="el-h2"><h2 data-heading="4. 云端组与其他组的交接格式" dir="auto" class="heading" id="4._云端组与其他组的交接格式_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>4. 云端组与其他组的交接格式</h2></div><div class="el-p"><p dir="auto">交接表至少包含：</p></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
-<thead>
-<tr>
-<th dir="ltr">字段</th>
-<th dir="ltr">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td dir="ltr"><code>run_id</code></td>
-<td dir="ltr">唯一运行编号</td>
-</tr>
-<tr>
-<td dir="ltr"><code>variant</code></td>
-<td dir="ltr">baseline/treatment</td>
-</tr>
-<tr>
-<td dir="ltr"><code>input_level</code></td>
-<td dir="ltr">L0–L3</td>
-</tr>
-<tr>
-<td dir="ltr"><code>gpu_id</code></td>
-<td dir="ltr">实例与 GPU 编号</td>
-</tr>
-<tr>
-<td dir="ltr"><code>model_commit</code></td>
-<td dir="ltr">代码 commit</td>
-</tr>
-<tr>
-<td dir="ltr"><code>weights_sha256</code></td>
-<td dir="ltr">权重哈希</td>
-</tr>
-<tr>
-<td dir="ltr"><code>config_sha256</code></td>
-<td dir="ltr">输入/config 哈希</td>
-</tr>
-<tr>
-<td dir="ltr"><code>flops_total</code></td>
-<td dir="ltr">整体 FLOPs</td>
-</tr>
-<tr>
-<td dir="ltr"><code>bytes_l1_total</code></td>
-<td dir="ltr">整体访存下界</td>
-</tr>
-<tr>
-<td dir="ltr"><code>intensity_total</code></td>
-<td dir="ltr">整体算术强度</td>
-</tr>
-<tr>
-<td dir="ltr"><code>flops_ffn</code></td>
-<td dir="ltr">FFN FLOPs</td>
-</tr>
-<tr>
-<td dir="ltr"><code>bytes_l1_ffn</code></td>
-<td dir="ltr">FFN 访存下界</td>
-</tr>
-<tr>
-<td dir="ltr"><code>intensity_ffn</code></td>
-<td dir="ltr">FFN 算术强度</td>
-</tr>
-<tr>
-<td dir="ltr"><code>peak_memory</code></td>
-<td dir="ltr">峰值显存</td>
-</tr>
-<tr>
-<td dir="ltr"><code>forward_time_median</code></td>
-<td dir="ltr">仅辅助，不用于跨平台绝对值比较</td>
-</tr>
-<tr>
-<td dir="ltr"><code>roofline_region</code></td>
-<td dir="ltr">compute/memory-bound</td>
-</tr>
-<tr>
-<td dir="ltr"><code>delta_intensity_sign</code></td>
-<td dir="ltr">与 Baseline 相比的符号</td>
-</tr>
-<tr>
-<td dir="ltr"><code>validity</code></td>
-<td dir="ltr">valid / invalid / degraded</td>
-</tr>
-</tbody>
-</table></div><div class="el-p"><p dir="auto">云端组不向边缘组交接的东西：</p></div><div class="el-ul"><ul class="has-list-bullet">
-<li data-line="0" dir="auto"><span class="list-bullet"></span>不交接“云端性能优于边缘”的绝对值结论；</li>
-<li data-line="1" dir="auto"><span class="list-bullet"></span>不交接云端功耗 <code>/J</code> 结论；</li>
-<li data-line="2" dir="auto"><span class="list-bullet"></span>不把完整 SVD 生成时间当作 UNet 性能；</li>
-<li data-line="3" dir="auto"><span class="list-bullet"></span>不把 MIG 实例标称参数当作全 GPU 参数。</li>
-</ul></div><div class="el-hr"><hr></div><div class="el-h2"><h2 data-heading="5. 五人任务矩阵" dir="auto" class="heading" id="5._五人任务矩阵_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>5. 五人任务矩阵</h2></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
-<thead>
-<tr>
-<th dir="ltr">任务段</th>
-<th dir="ltr">A</th>
-<th dir="ltr">B</th>
-<th dir="ltr">C</th>
-<th dir="ltr">D</th>
-<th dir="ltr">E</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td dir="ltr">资源和平台</td>
-<td dir="ltr">主责</td>
-<td dir="ltr">支持</td>
-<td dir="ltr">支持</td>
-<td dir="ltr">支持</td>
-<td dir="ltr">审计</td>
-</tr>
-<tr>
-<td dir="ltr">模型和 config</td>
-<td dir="ltr">支持</td>
-<td dir="ltr">主责</td>
-<td dir="ltr">支持</td>
-<td dir="ltr">复核</td>
-<td dir="ltr">哈希审计</td>
-</tr>
-<tr>
-<td dir="ltr">平台标定</td>
-<td dir="ltr">主责</td>
-<td dir="ltr">支持</td>
-<td dir="ltr">复算</td>
-<td dir="ltr">独立复测</td>
-<td dir="ltr">数据审计</td>
-</tr>
-<tr>
-<td dir="ltr">Baseline</td>
-<td dir="ltr">支持</td>
-<td dir="ltr">结构审核</td>
-<td dir="ltr">主责</td>
-<td dir="ltr">见证/复核</td>
-<td dir="ltr">独立复算</td>
-</tr>
-<tr>
-<td dir="ltr">Treatment</td>
-<td dir="ltr">支持</td>
-<td dir="ltr">结构审核</td>
-<td dir="ltr">见证</td>
-<td dir="ltr">主责</td>
-<td dir="ltr">独立审计</td>
-</tr>
-<tr>
-<td dir="ltr">Roofline</td>
-<td dir="ltr">参数审核</td>
-<td dir="ltr">模型口径</td>
-<td dir="ltr">Baseline 复核</td>
-<td dir="ltr">Treatment 复核</td>
-<td dir="ltr">主责</td>
-</tr>
-<tr>
-<td dir="ltr">报告和答辩</td>
-<td dir="ltr">资源限制</td>
-<td dir="ltr">模型语义</td>
-<td dir="ltr">测量说明</td>
-<td dir="ltr">对照说明</td>
-<td dir="ltr">主责与汇总</td>
-</tr>
-</tbody>
-</table></div><div class="el-hr"><hr></div><div class="el-h2"><h2 data-heading="6. 最终交付目录" dir="auto" class="heading" id="6._最终交付目录_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>6. 最终交付目录</h2></div><div class="el-pre"><pre class="language-text"><code data-line="0" class="language-text is-loaded">cloud/
-├── 00_charter/
-│   └── cloud_team_charter.md
-├── 01_platform/
-│   ├── platform_inventory.md
-│   ├── environment.lock
-│   ├── cloud_roofline.json
-│   ├── cloud_bandwidth.csv
-│   └── cloud_gemm.csv
-├── 02_model/
-│   ├── model_manifest.json
-│   ├── selected_config.json
-│   ├── ffn_catalog.json
-│   └── ffn_decision.md
-├── 03_gate/
-│   ├── memory_preflight.csv
-│   └── hook_validation.md
-├── 04_baseline/
-│   ├── run_cloud_baseline_*.json
-│   └── cloud_time.csv
-├── 05_treatment/
-│   ├── treatment_manifest.json
-│   └── run_cloud_treatment_*.json
-├── 06_analysis/
-│   ├── cloud_analysis_table.csv
-│   ├── cloud_roofline.svg
-│   └── cloud_conclusions.md
-├── 07_handoff/
-│   └── cloud_to_cross_platform.md
-└── README.md
-</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-hr"><hr></div><div class="el-h2"><h2 data-heading="7. 云端组常见风险与处理" dir="auto" class="heading" id="7._云端组常见风险与处理_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>7. 云端组常见风险与处理</h2></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
-<thead>
-<tr>
-<th dir="ltr">风险</th>
-<th dir="ltr">责任角色</th>
-<th dir="ltr">处理</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td dir="ltr">GPU 为 MIG/共享实例</td>
-<td dir="ltr">A</td>
-<td dir="ltr">标称参数作废，主图只用实测；记录并发状态</td>
-</tr>
-<tr>
-<td dir="ltr">FP16 权重误载成 FP32</td>
-<td dir="ltr">B、E</td>
-<td dir="ltr">检查哈希、dtype 和显存；回退到正确权重</td>
-</tr>
-<tr>
-<td dir="ltr">latent shape 写错</td>
-<td dir="ltr">B、C</td>
-<td dir="ltr">从 config 和 VAE downscale 反算，禁止复制示例</td>
-</tr>
-<tr>
-<td dir="ltr">profiler FLOPs 为 0</td>
-<td dir="ltr">C、E</td>
-<td dir="ltr">hook 为主口径，profiler 只作交叉检查</td>
-</tr>
-<tr>
-<td dir="ltr">FFN 前缀误包住 attention</td>
-<td dir="ltr">B、C</td>
-<td dir="ltr">排除 q/k/v/out，独立复核模块清单</td>
-</tr>
-<tr>
-<td dir="ltr">Treatment 改动非目标模块</td>
-<td dir="ltr">D、E</td>
-<td dir="ltr">对比参数量和模块名，恢复 Baseline 后重做</td>
-</tr>
-<tr>
-<td dir="ltr">Baseline 两次漂移</td>
-<td dir="ltr">C、D</td>
-<td dir="ltr">冷却/清理 GPU 后重跑，记录后台负载和 MIG 状态</td>
-</tr>
-<tr>
-<td dir="ltr">云端无可靠功耗</td>
-<td dir="ltr">A、E</td>
-<td dir="ltr">不填造数据，RQ4 交给边缘组</td>
-</tr>
-<tr>
-<td dir="ltr">把绝对值用于跨平台</td>
-<td dir="ltr">E、D</td>
-<td dir="ltr">只交变化符号、分层指标和有效性声明</td>
-</tr>
-</tbody>
-</table></div><div class="el-h2"><h2 data-heading="8. 方案结论" dir="auto" class="heading" id="8._方案结论_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>8. 方案结论</h2></div><div class="el-p"><p dir="auto">云端组的职责是建立一个可复现、可审计的“原尺寸 SVD UNet Baseline 与 FFN Treatment”参照系。最重要的不是追求某个漂亮的墙钟时间，而是保证：</p></div><div class="el-ol"><ol>
-<li data-line="0" dir="auto">Baseline 和 Treatment 的结构、输入和统计口径严格一致；</li>
-<li data-line="1" dir="auto">平台参数来自实际云端 GPU；</li>
-<li data-line="2" dir="auto">所有数据能够回溯和复算；</li>
-<li data-line="3" dir="auto">向跨平台组交付“方向数据”而不是未经说明的绝对性能比较。</li>
-</ol></div><div class="el-p"><p dir="auto">只要 CL0–CL21 全部通过，云端对照组就可以作为项目 v5.0 的合格对照平台，与边缘组的 8 GB 降配实验共同回答 FFN 压缩在不同算力—带宽约束下是否发生方向一致的瓶颈迁移。</p></div><div class="footer"><div class="data-bar"></div></div></div></div></div><div id="right-content" class="leaf" style="--sidebar-width: var(--sidebar-width-right);"><div id="right-sidebar" class="sidebar"><div class="sidebar-handle"></div><div class="sidebar-topbar"><div class="topbar-content"><label class="theme-toggle-container" for="theme-toggle-input" id=""><input class="theme-toggle-input" type="checkbox" id="theme-toggle-input"><div class="toggle-background"></div></label></div><div class="clickable-icon sidebar-collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M21 3H3C1.89543 3 1 3.89543 1 5V19C1 20.1046 1.89543 21 3 21H21C22.1046 21 23 20.1046 23 19V5C23 3.89543 22.1046 3 21 3Z"></path><path d="M10 4V20"></path><path d="M4 7H7"></path><path d="M4 10H7"></path><path d="M4 13H7"></path></svg></div></div><div class="sidebar-content-wrapper"><div id="right-sidebar-content" class="leaf-content"><div class="graph-view-wrapper"><div class="feature-header"><div class="feature-title">Interactive Graph</div></div><div class="graph-view-placeholder">
+</table></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>每级使用独立 Python 进程，记录峰值分配、峰值保留、系统内存余量和完整 OOM 文本。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>选择 Baseline 与 Treatment 都能连续运行 5 次的最高级别。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>CPU offload 只允许用于 shape、hook 和结构验证，其运行时间不得进入性能或 Roofline 结论。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>如果全部级别 OOM，实验降级为平台标定、模型静态结构分析和容量墙分析。</li>
+</ul></div><div class="el-h3"><h3 data-heading="5. FFN 定位与 Treatment" dir="auto" class="heading" id="5._FFN_定位与_Treatment_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>5. FFN 定位与 Treatment</h3></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>输出所有 Linear、Conv 和 Attention 模块名称。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>排除 <code>to_q/to_k/to_v/to_out</code>，生成经过审计的 <code>ffn_catalog.json</code>。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>计算 FFN FLOPs 占总 FLOPs 的比例；低于 15% 时，按课程方案并入注意力投影并修改术语。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>Treatment 仅在审计通过的 FFN Linear 上应用 <code>r=0.5</code> 瓶颈层：<br>
+<code>h=max(1,int(0.5*d_out))</code>。</li>
+<li data-line="5" dir="auto"><span class="list-bullet"></span>不新增激活函数，不改变输入输出维度，不替换注意力投影。</li>
+<li data-line="6" dir="auto"><span class="list-bullet"></span>逐层计算参数变化比例。若某层替换后参数或 FLOPs 增加，报告中必须如实标记。</li>
+</ul></div><div class="el-h3"><h3 data-heading="6. Baseline/Treatment 测量" dir="auto" class="heading" id="6._Baseline/Treatment_测量_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>6. Baseline/Treatment 测量</h3></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>结构测量：用统一 hook 统计整体、FFN、Attention、Conv 的 FLOPs、<code>B_L1</code> 和算术强度。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>正式计时：使用独立非 profiler 进程，预热 3 次，执行 10 次前向并保存全部样本。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>每个变体至少完成 5 次结构测量和 10 次有效计时样本。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>执行 <code>Baseline → Treatment → Baseline</code> 复核。</li>
+<li data-line="4" dir="auto"><span class="list-bullet"></span>Baseline 复核漂移超过约 5% 时，检查背景负载、显存、时钟和热状态后重跑。</li>
+<li data-line="5" dir="auto"><span class="list-bullet"></span>原始 run 只追加、不覆盖；每次运行必须有唯一 <code>run_id</code> 和配置哈希。</li>
+</ul></div><div class="el-h3"><h3 data-heading="7. 分析与报告" dir="auto" class="heading" id="7._分析与报告_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>7. 分析与报告</h3></div><div class="el-p"><p dir="auto">对整体、FFN、Attention、Conv 分别计算：</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span><code>I = FLOPs / B_L1</code></li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span><code>q = I / I*</code></li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>compute-bound 或 memory-bound 分类</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>Treatment 相对 Baseline 的 FLOPs、字节和算术强度变化方向</li>
+</ul></div><div class="el-p"><p dir="auto">报告明确区分三种证据等级：</p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">GPU 完整前向加有效计时：可用于 RQ1、RQ2。</li>
+<li data-line="1" dir="auto">降级输入、offload 或结构-only 运行：只用于结构和容量分析。</li>
+<li data-line="2" dir="auto">仅静态分析：不能声称实测性能结论。</li>
+</ol></div><div class="el-h2"><h2 data-heading="Interfaces and Outputs" dir="auto" class="heading" id="Interfaces_and_Outputs_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>Interfaces and Outputs</h2></div><div class="el-p"><p dir="auto">固定命令：</p></div><div class="el-pre"><pre class="language-powershell"><code data-line="0" class="language-powershell is-loaded">python scripts/smoke<span class="token punctuation">.</span>py
+python scripts/platform_bench<span class="token punctuation">.</span>py <span class="token operator">--</span>suite all
+python scripts/inspect_model<span class="token punctuation">.</span>py
+python scripts/memory_ladder<span class="token punctuation">.</span>py <span class="token operator">--</span>levels L0<span class="token punctuation">,</span>L1<span class="token punctuation">,</span>L2<span class="token punctuation">,</span>L3
+python scripts/run<span class="token punctuation">.</span>py <span class="token operator">--</span>variant baseline <span class="token operator">--</span>mode structure
+python scripts/run<span class="token punctuation">.</span>py <span class="token operator">--</span>variant baseline <span class="token operator">--</span>mode timing
+python scripts/run<span class="token punctuation">.</span>py <span class="token operator">--</span>variant treatment <span class="token operator">--</span>mode structure
+python scripts/run<span class="token punctuation">.</span>py <span class="token operator">--</span>variant treatment <span class="token operator">--</span>mode timing
+python scripts/analyze<span class="token punctuation">.</span>py
+python scripts/validate_package<span class="token punctuation">.</span>py
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-p"><p dir="auto">最终产出：</p></div><div class="el-pre"><pre class="language-text"><code data-line="0" class="language-text is-loaded">local_svd_ffn_roofline/
+├── README.md
+├── environment.lock
+├── configs/selected_config.json
+├── platform/platform_inventory.json
+├── platform/bandwidth.csv
+├── platform/gemm.csv
+├── platform/local_roofline.json
+├── model/model_manifest.json
+├── model/ffn_catalog.json
+├── model/treatment_manifest.json
+├── runs/baseline/*.json
+├── runs/treatment/*.json
+├── analysis/analysis_table.csv
+├── analysis/fig_local_roofline.svg
+├── analysis/fig_local_roofline.png
+├── analysis/rq_results.md
+├── report/local_platform_report.md
+├── report/limitations.md
+└── manifest.sha256
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-p"><p dir="auto">报告首页固定写明：</p></div><div class="el-pre"><pre class="language-text"><code data-line="0" class="language-text is-loaded">平台类别：本机 RTX 5060 Laptop 8 GB
+实验角色：单平台替代实验
+不使用云 GPU 数据
+不包含完整跨平台 RQ3 或功耗 RQ4 结论
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h2"><h2 data-heading="Test Plan and Acceptance" dir="auto" class="heading" id="Test_Plan_and_Acceptance_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>Test Plan and Acceptance</h2></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>CUDA、FP16 GEMM 和最小 UNet forward 必须真实运行，不能静默回退 CPU。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>模型 commit、权重、配置和环境必须具有可追溯哈希。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>Baseline 与 Treatment 必须使用相同输入、精度、seed 和 attention backend。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>Treatment 必须证明没有替换注意力投影，且输出 shape 与 Baseline 一致。</li>
+<li data-line="4" dir="auto"><span class="list-bullet"></span>所有 OOM、降级、offload 和异常运行必须保留原始错误或状态。</li>
+<li data-line="5" dir="auto"><span class="list-bullet"></span>Roofline 图必须能由冻结 CSV/JSON 和绘图脚本重新生成。</li>
+<li data-line="6" dir="auto"><span class="list-bullet"></span>在干净进程中按 README 重跑最小 forward 和一项平台基准。</li>
+<li data-line="7" dir="auto"><span class="list-bullet"></span><code>validate_package.py</code> 必须检查字段、哈希、run ID、样本数和平台标签。</li>
+<li data-line="8" dir="auto"><span class="list-bullet"></span>只有具备有效 GPU 计时数据的运行才能进入 RQ2 性能结论。</li>
+</ul></div><div class="footer"><div class="data-bar"></div></div></div></div></div><div id="right-content" class="leaf" style="--sidebar-width: var(--sidebar-width-right);"><div id="right-sidebar" class="sidebar"><div class="sidebar-handle"></div><div class="sidebar-topbar"><div class="topbar-content"><label class="theme-toggle-container" for="theme-toggle-input" id=""><input class="theme-toggle-input" type="checkbox" id="theme-toggle-input"><div class="toggle-background"></div></label></div><div class="clickable-icon sidebar-collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M21 3H3C1.89543 3 1 3.89543 1 5V19C1 20.1046 1.89543 21 3 21H21C22.1046 21 23 20.1046 23 19V5C23 3.89543 22.1046 3 21 3Z"></path><path d="M10 4V20"></path><path d="M4 7H7"></path><path d="M4 10H7"></path><path d="M4 13H7"></path></svg></div></div><div class="sidebar-content-wrapper"><div id="right-sidebar-content" class="leaf-content"><div class="graph-view-wrapper"><div class="feature-header"><div class="feature-title">Interactive Graph</div></div><div class="graph-view-placeholder">
 		<div class="graph-view-container">
 			<div class="graph-icon graph-expand" role="button" aria-label="Expand" data-tooltip-position="top"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
 			<div class="graph-icon graph-global" role="button" aria-label="Global Graph" data-tooltip-position="top"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-git-fork"><circle cx="12" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><circle cx="18" cy="6" r="3"></circle><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"></path><path d="M12 12v3"></path></svg></div>
 			<canvas id="graph-canvas" class="hide" width="512px" height="512px"></canvas>
 		</div>
-		</div></div><div id="outline" class=" tree-container"><div class="feature-header"><div class="feature-title">Table Of Contents</div><button class="clickable-icon nav-action-button tree-collapse-all" aria-label="Collapse All"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg></button></div><div class="tree-item mod-collapsible" data-depth="1"><a class="tree-item-self is-clickable mod-collapsible" href="gpu实验方案.html#GPU实验方案_0" data-path="#GPU实验方案_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="GPU实验方案">GPU实验方案</div></a><div class="tree-item-children"><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="gpu实验方案.html#0._实验边界与五人配置_0" data-path="#0._实验边界与五人配置_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="0. 实验边界与五人配置">0. 实验边界与五人配置</div></a><div class="tree-item-children"><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#0.1_必须锁定的边界_0" data-path="#0.1_必须锁定的边界_0"><div class="tree-item-inner heading-link" heading-name="0.1 必须锁定的边界">0.1 必须锁定的边界</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#0.2_五名成员_0" data-path="#0.2_五名成员_0"><div class="tree-item-inner heading-link" heading-name="0.2 五名成员">0.2 五名成员</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#0.3_数据职责分离原则_0" data-path="#0.3_数据职责分离原则_0"><div class="tree-item-inner heading-link" heading-name="0.3 数据职责分离原则">0.3 数据职责分离原则</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item" data-depth="2"><a class="tree-item-self is-clickable" href="gpu实验方案.html#1._实验阶段和最小交付_0" data-path="#1._实验阶段和最小交付_0"><div class="tree-item-inner heading-link" heading-name="1. 实验阶段和最小交付">1. 实验阶段和最小交付</div></a><div class="tree-item-children"></div></div><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="gpu实验方案.html#2._可执行任务卡_0" data-path="#2._可执行任务卡_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="2. 可执行任务卡">2. 可执行任务卡</div></a><div class="tree-item-children"><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#任务卡_CL0：冻结项目问题和实验对象_0" data-path="#任务卡_CL0：冻结项目问题和实验对象_0"><div class="tree-item-inner heading-link" heading-name="任务卡 CL0：冻结项目问题和实验对象">任务卡 CL0：冻结项目问题和实验对象</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#任务卡_CL1：申请与验收云_GPU_资源_0" data-path="#任务卡_CL1：申请与验收云_GPU_资源_0"><div class="tree-item-inner heading-link" heading-name="任务卡 CL1：申请与验收云 GPU 资源">任务卡 CL1：申请与验收云 GPU 资源</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#任务卡_CL2：记录_GPU_身份和标称参数_0" data-path="#任务卡_CL2：记录_GPU_身份和标称参数_0"><div class="tree-item-inner heading-link" heading-name="任务卡 CL2：记录 GPU 身份和标称参数">任务卡 CL2：记录 GPU 身份和标称参数</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#任务卡_CL3：冻结环境镜像和运行命令_0" data-path="#任务卡_CL3：冻结环境镜像和运行命令_0"><div class="tree-item-inner heading-link" heading-name="任务卡 CL3：冻结环境镜像和运行命令">任务卡 CL3：冻结环境镜像和运行命令</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#任务卡_CL4：校验代码、权重和_config_0" data-path="#任务卡_CL4：校验代码、权重和_config_0"><div class="tree-item-inner heading-link" heading-name="任务卡 CL4：校验代码、权重和 config">任务卡 CL4：校验代码、权重和 config</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#任务卡_CL5：建立最小_SVD_UNet_forward_0" data-path="#任务卡_CL5：建立最小_SVD_UNet_forward_0"><div class="tree-item-inner heading-link" heading-name="任务卡 CL5：建立最小 SVD UNet forward">任务卡 CL5：建立最小 SVD UNet forward</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#任务卡_CL6：核对_latent_空间形状_0" data-path="#任务卡_CL6：核对_latent_空间形状_0"><div class="tree-item-inner heading-link" heading-name="任务卡 CL6：核对 latent 空间形状">任务卡 CL6：核对 latent 空间形状</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#任务卡_CL7：执行_L0–L3_显存预检_0" data-path="#任务卡_CL7：执行_L0–L3_显存预检_0"><div class="tree-item-inner heading-link" heading-name="任务卡 CL7：执行 L0–L3 显存预检">任务卡 CL7：执行 L0–L3 显存预检</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#任务卡_CL8：锁定共同输入级别_0" data-path="#任务卡_CL8：锁定共同输入级别_0"><div class="tree-item-inner heading-link" heading-name="任务卡 CL8：锁定共同输入级别">任务卡 CL8：锁定共同输入级别</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#任务卡_CL9：定位_FFN_模块和权重_0" data-path="#任务卡_CL9：定位_FFN_模块和权重_0"><div class="tree-item-inner heading-link" heading-name="任务卡 CL9：定位 FFN 模块和权重">任务卡 CL9：定位 FFN 模块和权重</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#任务卡_CL10：计算_FFN_占比并执行决策_0" data-path="#任务卡_CL10：计算_FFN_占比并执行决策_0"><div class="tree-item-inner heading-link" heading-name="任务卡 CL10：计算 FFN 占比并执行决策">任务卡 CL10：计算 FFN 占比并执行决策</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#任务卡_CL12：云端带宽标定_0" data-path="#任务卡_CL12：云端带宽标定_0"><div class="tree-item-inner heading-link" heading-name="任务卡 CL12：云端带宽标定">任务卡 CL12：云端带宽标定</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#任务卡_CL13：云端_FP16_GEMM_标定_0" data-path="#任务卡_CL13：云端_FP16_GEMM_标定_0"><div class="tree-item-inner heading-link" heading-name="任务卡 CL13：云端 FP16 GEMM 标定">任务卡 CL13：云端 FP16 GEMM 标定</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#任务卡_CL14：冻结云端屋脊点_0" data-path="#任务卡_CL14：冻结云端屋脊点_0"><div class="tree-item-inner heading-link" heading-name="任务卡 CL14：冻结云端屋脊点">任务卡 CL14：冻结云端屋脊点</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#任务卡_CL15：Baseline_结构测量_0" data-path="#任务卡_CL15：Baseline_结构测量_0"><div class="tree-item-inner heading-link" heading-name="任务卡 CL15：Baseline 结构测量">任务卡 CL15：Baseline 结构测量</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#任务卡_CL16：Baseline_时间与显存测量_0" data-path="#任务卡_CL16：Baseline_时间与显存测量_0"><div class="tree-item-inner heading-link" heading-name="任务卡 CL16：Baseline 时间与显存测量">任务卡 CL16：Baseline 时间与显存测量</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#任务卡_CL17：构造_Treatment_0" data-path="#任务卡_CL17：构造_Treatment_0"><div class="tree-item-inner heading-link" heading-name="任务卡 CL17：构造 Treatment">任务卡 CL17：构造 Treatment</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#任务卡_CL18：Treatment_结构、时间和复核_0" data-path="#任务卡_CL18：Treatment_结构、时间和复核_0"><div class="tree-item-inner heading-link" heading-name="任务卡 CL18：Treatment 结构、时间和复核">任务卡 CL18：Treatment 结构、时间和复核</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#任务卡_CL19：数据质控与异常处理**需要准备的材料**_0" data-path="#任务卡_CL19：数据质控与异常处理**需要准备的材料**_0"><div class="tree-item-inner heading-link" heading-name="任务卡 CL19：数据质控与异常处理**需要准备的材料**">任务卡 CL19：数据质控与异常处理<strong>需要准备的材料</strong></div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#任务卡_CL20：云端_Roofline_与图件_0" data-path="#任务卡_CL20：云端_Roofline_与图件_0"><div class="tree-item-inner heading-link" heading-name="任务卡 CL20：云端 Roofline 与图件">任务卡 CL20：云端 Roofline 与图件</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#任务卡_CL21：交接与最终验收_0" data-path="#任务卡_CL21：交接与最终验收_0"><div class="tree-item-inner heading-link" heading-name="任务卡 CL21：交接与最终验收">任务卡 CL21：交接与最终验收</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item" data-depth="2"><a class="tree-item-self is-clickable" href="gpu实验方案.html#3._云端实验的强制性通过条件_0" data-path="#3._云端实验的强制性通过条件_0"><div class="tree-item-inner heading-link" heading-name="3. 云端实验的强制性通过条件">3. 云端实验的强制性通过条件</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="2"><a class="tree-item-self is-clickable" href="gpu实验方案.html#4._云端组与其他组的交接格式_0" data-path="#4._云端组与其他组的交接格式_0"><div class="tree-item-inner heading-link" heading-name="4. 云端组与其他组的交接格式">4. 云端组与其他组的交接格式</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="2"><a class="tree-item-self is-clickable" href="gpu实验方案.html#5._五人任务矩阵_0" data-path="#5._五人任务矩阵_0"><div class="tree-item-inner heading-link" heading-name="5. 五人任务矩阵">5. 五人任务矩阵</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="2"><a class="tree-item-self is-clickable" href="gpu实验方案.html#6._最终交付目录_0" data-path="#6._最终交付目录_0"><div class="tree-item-inner heading-link" heading-name="6. 最终交付目录">6. 最终交付目录</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="2"><a class="tree-item-self is-clickable" href="gpu实验方案.html#7._云端组常见风险与处理_0" data-path="#7._云端组常见风险与处理_0"><div class="tree-item-inner heading-link" heading-name="7. 云端组常见风险与处理">7. 云端组常见风险与处理</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="2"><a class="tree-item-self is-clickable" href="gpu实验方案.html#8._方案结论_0" data-path="#8._方案结论_0"><div class="tree-item-inner heading-link" heading-name="8. 方案结论">8. 方案结论</div></a><div class="tree-item-children"></div></div></div></div></div></div></div><script defer="">let rs = document.querySelector("#right-sidebar"); rs.classList.toggle("is-collapsed", window.innerWidth < 768); rs.style.setProperty("--sidebar-width", localStorage.getItem("sidebar-right-width"));</script></div></div></div></div></body></html>
+		</div></div><div id="outline" class=" tree-container"><div class="feature-header"><div class="feature-title">Table Of Contents</div><button class="clickable-icon nav-action-button tree-collapse-all" aria-label="Collapse All"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg></button></div><div class="tree-item mod-collapsible" data-depth="1"><a class="tree-item-self is-clickable mod-collapsible" href="gpu实验方案.html#GPU实验方案_0" data-path="#GPU实验方案_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="GPU实验方案">GPU实验方案</div></a><div class="tree-item-children"><div class="tree-item" data-depth="2"><a class="tree-item-self is-clickable" href="gpu实验方案.html#Summary_0" data-path="#Summary_0"><div class="tree-item-inner heading-link" heading-name="Summary">Summary</div></a><div class="tree-item-children"></div></div><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="gpu实验方案.html#Implementation_0" data-path="#Implementation_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="Implementation">Implementation</div></a><div class="tree-item-children"><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#1._环境与平台冻结_0" data-path="#1._环境与平台冻结_0"><div class="tree-item-inner heading-link" heading-name="1. 环境与平台冻结">1. 环境与平台冻结</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#2._模型实现与入口门禁_0" data-path="#2._模型实现与入口门禁_0"><div class="tree-item-inner heading-link" heading-name="2. 模型实现与入口门禁">2. 模型实现与入口门禁</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#3._本机平台标定_0" data-path="#3._本机平台标定_0"><div class="tree-item-inner heading-link" heading-name="3. 本机平台标定">3. 本机平台标定</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#4._输入级别与显存门禁_0" data-path="#4._输入级别与显存门禁_0"><div class="tree-item-inner heading-link" heading-name="4. 输入级别与显存门禁">4. 输入级别与显存门禁</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#5._FFN_定位与_Treatment_0" data-path="#5._FFN_定位与_Treatment_0"><div class="tree-item-inner heading-link" heading-name="5. FFN 定位与 Treatment">5. FFN 定位与 Treatment</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#6._Baseline/Treatment_测量_0" data-path="#6._Baseline/Treatment_测量_0"><div class="tree-item-inner heading-link" heading-name="6. Baseline/Treatment 测量">6. Baseline/Treatment 测量</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="gpu实验方案.html#7._分析与报告_0" data-path="#7._分析与报告_0"><div class="tree-item-inner heading-link" heading-name="7. 分析与报告">7. 分析与报告</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item" data-depth="2"><a class="tree-item-self is-clickable" href="gpu实验方案.html#Interfaces_and_Outputs_0" data-path="#Interfaces_and_Outputs_0"><div class="tree-item-inner heading-link" heading-name="Interfaces and Outputs">Interfaces and Outputs</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="2"><a class="tree-item-self is-clickable" href="gpu实验方案.html#Test_Plan_and_Acceptance_0" data-path="#Test_Plan_and_Acceptance_0"><div class="tree-item-inner heading-link" heading-name="Test Plan and Acceptance">Test Plan and Acceptance</div></a><div class="tree-item-children"></div></div></div></div></div></div></div><script defer="">let rs = document.querySelector("#right-sidebar"); rs.classList.toggle("is-collapsed", window.innerWidth < 768); rs.style.setProperty("--sidebar-width", localStorage.getItem("sidebar-right-width"));</script></div></div></div></div></body></html>
