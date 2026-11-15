@@ -1,0 +1,1359 @@
+<!DOCTYPE html> <html lang="zh-cn"><head>
+<title>边缘设备实验方案</title>
+<base href=".">
+<meta name="pathname" content="边缘设备实验方案.html">
+<meta name="description" content="计算机组成原理项目作业 - 边缘设备实验方案">
+<meta property="og:title" content="边缘设备实验方案">
+<meta property="og:description" content="计算机组成原理项目作业 - 边缘设备实验方案">
+<meta property="og:type" content="website">
+<meta property="og:url" content="边缘设备实验方案.html">
+<meta property="og:image" content="undefined">
+<meta charset="UTF-8"><meta property="og:site_name" content="计算机组成原理项目作业"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0, maximum-scale=5.0"><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="site-lib/rss.xml"><script async="" id="webpage-script" src="site-lib/scripts/webpage.js" onload="this.onload=null;this.setAttribute(&quot;loaded&quot;, &quot;true&quot;)"></script><script async="" id="graph-wasm-script" src="site-lib/scripts/graph-wasm.js" onload="this.onload=null;this.setAttribute(&quot;loaded&quot;, &quot;true&quot;)"></script><script async="" id="graph-render-worker-script" src="site-lib/scripts/graph-render-worker.js" onload="this.onload=null;this.setAttribute(&quot;loaded&quot;, &quot;true&quot;)"></script><link rel="icon" href="site-lib/media/favicon.png"><link rel="stylesheet" href="site-lib/styles/obsidian.css"><link rel="preload" href="site-lib/styles/global-variable-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/global-variable-styles.css"></noscript><link rel="preload" href="site-lib/styles/main-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="site-lib/styles/main-styles.css"></noscript><style>body{--line-width:40em;--line-width-adaptive:40em;--file-line-width:40em;--sidebar-width:min(20em, 80vw);--collapse-arrow-size:11px;--tree-vertical-spacing:1.3em;--sidebar-margin:12px}:root{background-color:#202124}.sidebar{height:100%;font-size:14px;z-index:10;min-width:calc(var(--sidebar-width) + var(--divider-width-hover));max-width:calc(var(--sidebar-width) + var(--divider-width-hover));position:relative;overflow:hidden;overflow:clip;transition:min-width ease-in-out,max-width ease-in-out;transition-duration:.2s;contain:size}#left-sidebar{left:0}#right-sidebar{right:0}.sidebar.is-collapsed{min-width:0;max-width:0}.sidebar.floating{position:absolute}.sidebar .leaf-content{height:100%;min-width:calc(var(--sidebar-width) - var(--divider-width-hover));top:0;padding:var(--sidebar-margin);padding-top:4em;line-height:var(--line-height-tight);background-color:var(--background-secondary);transition:background-color,border-right,border-left,box-shadow;transition-duration:var(--color-fade-speed);transition-timing-function:ease-in-out;position:absolute;display:flex;flex-direction:column}.sidebar:not(.is-collapsed) .leaf-content{min-width:calc(max(100%,var(--sidebar-width)) - 3px);max-width:calc(max(100%,var(--sidebar-width)) - 3px)}#left-sidebar-content{left:0;border-top-right-radius:var(--radius-l);border-bottom-right-radius:var(--radius-l)}#right-sidebar-content{right:0;border-top-left-radius:var(--radius-l);border-bottom-left-radius:var(--radius-l)}.sidebar #left-sidebar-content,.sidebar #right-sidebar-content{contain:none!important;container-type:normal!important;animation:none!important}.sidebar:has(.leaf-content:empty):has(.topbar-content:empty){display:none}.sidebar-topbar{height:calc(2.3em + 2 * var(--sidebar-margin));width:var(--sidebar-width);padding:var(--sidebar-margin);z-index:1;position:fixed;display:flex;align-items:center;transition:width ease-in-out;transition-duration:inherit}.sidebar.is-collapsed .sidebar-topbar{width:calc(2.3em + var(--sidebar-margin) * 2)}.sidebar .sidebar-topbar.is-collapsed{width:0}#left-sidebar .sidebar-topbar{left:0;flex-direction:row;border-top-right-radius:var(--radius-l)}#right-sidebar .sidebar-topbar{right:0;flex-direction:row-reverse;border-top-left-radius:var(--radius-l)}#left-sidebar .topbar-content{margin-right:calc(2.3em + var(--sidebar-margin));flex-direction:row}#right-sidebar .topbar-content{margin-left:calc(2.3em + var(--sidebar-margin));flex-direction:row-reverse}.topbar-content{overflow:hidden visible;overflow:clip visible;width:100%;height:100%;display:flex;align-items:center;transition:inherit}.sidebar.is-collapsed .topbar-content{width:0;transition:inherit}.clickable-icon.sidebar-collapse-icon{background-color:transparent;color:var(--icon-color-focused);padding:2px!important;margin:0!important;height:100%!important;width:2.3em!important;margin-inline:0.14em!important;position:absolute}#left-sidebar .clickable-icon.sidebar-collapse-icon{transform:rotateY(180deg);right:var(--sidebar-margin)}#right-sidebar .clickable-icon.sidebar-collapse-icon{transform:rotateY(180deg);left:var(--sidebar-margin)}.clickable-icon.sidebar-collapse-icon svg.svg-icon{width:100%;height:100%}.feature-title{margin-left:1px;text-transform:uppercase;letter-spacing:.06em;margin-top:.75em;margin-bottom:.75em}.feature-header{display:flex;align-items:center;padding-top:0;font-size:1em;padding-left:0}body.floating-sidebars .sidebar{position:absolute}body{transition:background-color var(--color-fade-speed) ease-in-out}#navbar:not(:empty){display:flex;align-items:center;justify-content:space-between;padding:.5em 1em;width:100%}#main{display:flex;flex-direction:column;height:100%;width:100%;align-items:stretch;justify-content:center}#main-horizontal{display:flex;flex-direction:row;flex-grow:1;width:100%;align-items:stretch;justify-content:center}#center-content{flex-basis:100%;max-width:100%;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;transition:opacity .2s ease-in-out;contain:inline-size}.hide{opacity:0!important;transition:opacity .2s ease-in-out;pointer-events:none}#center-content>.obsidian-document{padding-left:2em;padding-right:1em;margin-bottom:0;width:100%;width:-webkit-fill-available;width:-moz-available;width:fill-available;transition:background-color var(--color-fade-speed) ease-in-out;border-top-right-radius:var(--window-radius,var(--radius-m));border-top-left-radius:var(--window-radius,var(--radius-m));overflow-x:hidden!important;overflow-y:auto!important;display:flex!important;flex-direction:column!important;align-items:center!important;contain:inline-size}body #center-content>.obsidian-document>.markdown-preview-sizer{padding-bottom:80vh;width:100%;max-width:var(--line-width);flex-basis:var(--line-width);transition:background-color var(--color-fade-speed) ease-in-out;contain:inline-size}#center-content>.obsidian-document>div{width:100%!important;transition:background-color var(--color-fade-speed) ease-in-out;contain:inline-size}#center-content>.obsidian-document:not([data-type=markdown]).embed{display:flex;padding:1em;height:100%;width:100%;align-items:center;justify-content:center}#center-content>.obsidian-document:not([data-type=markdown]).embed>*{max-width:100%;max-height:100%;object-fit:contain}:not(h1,h2,h3,h4,h5,h6,li):has(> :is(.math,table)){overflow-x:auto!important}#center-content>.obsidian-document:not([data-type=markdown]){overflow-x:auto;contain:content;padding:0;margin:0;height:100%}.obsidian-document[data-type=attachment]{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;width:100%}.obsidian-document[data-type=attachment]>*{outline:0;border:none;box-shadow:none}.obsidian-document[data-type=attachment] :is(img){max-width:90%;max-height:90%;object-fit:contain}.obsidian-document[data-type=attachment]>:is(audio){width:100%;max-width:min(90%,var(--line-width))}.obsidian-document[data-type=attachment]>:is(embed,iframe,video){width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain}.canvas-wrapper>:is(.header,.footer){z-index:100;position:absolute;display:flex;justify-content:center;flex-direction:column;width:100%;align-items:center}.scroll-highlight{position:absolute;width:100%;height:100%;pointer-events:none;z-index:1000;background-color:hsla(var(--color-accent-hsl),.25);opacity:0;padding:1em;inset:50%;translate:-50% -50%;border-radius:var(--radius-s)}</style><script defer="">async function loadIncludes(){let e=document.querySelectorAll("link[itemprop='include']");for(const t of e){let e=t.getAttribute("href");try{let o="";if(e.startsWith("https:")||e.startsWith("http:")||"file:"!=window.location.protocol){const n=await fetch(e);if(!n.ok){console.log("Could not include file: "+e),t?.remove();continue}o=await n.text()}else{const t=document.getElementById(btoa(encodeURI(e)));if(t){const e=JSON.parse(decodeURI(atob(t.getAttribute("value")??"")));o=e?.data??""}}let n=document.createRange().createContextualFragment(o);t.before(n),t.remove(),console.log("Included text: "+o),console.log("Included file: "+e)}catch(o){t?.remove(),console.log("Could not include file: "+e,o);continue}}}document.addEventListener("DOMContentLoaded",(()=>{loadIncludes()}));let isFileProtocol="file:"==location.protocol;function waitLoadScripts(e,t){let o=e.map((e=>document.getElementById(e+"-script")));!function e(n){let l=o[n],c=n+1;l?(l&&"true"!=l.getAttribute("loaded")||n<o.length&&e(c),n<o.length&&l.addEventListener("load",(()=>e(c)))):n<o.length?e(c):t()}(0)}</script></head><body class="publish css-settings-manager styled-scrollbars show-inline-title show-ribbon"><script defer="">let theme=localStorage.getItem("theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");"dark"==theme?(document.body.classList.add("theme-dark"),document.body.classList.remove("theme-light")):(document.body.classList.add("theme-light"),document.body.classList.remove("theme-dark")),window.innerWidth<480?document.body.classList.add("is-phone"):window.innerWidth<768?document.body.classList.add("is-tablet"):window.innerWidth<1024?document.body.classList.add("is-small-screen"):document.body.classList.add("is-large-screen")</script><div class="parsed-feature-container" style="display: contents;"><link itemprop="include" href="site-lib/html/custom-head-content-content.html"></div><div id="main"><div id="navbar"></div><div id="main-horizontal"><div id="left-content" class="leaf" style="--sidebar-width: var(--sidebar-width-left);"><div id="left-sidebar" class="sidebar"><div class="sidebar-handle"></div><div class="sidebar-topbar"><div class="topbar-content"><div id="search-container"><div id="search-wrapper"><input enterkeyhint="search" type="search" spellcheck="false" placeholder="Search..."><div aria-label="Clear search" id="search-clear-button"></div></div></div></div><div class="clickable-icon sidebar-collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M21 3H3C1.89543 3 1 3.89543 1 5V19C1 20.1046 1.89543 21 3 21H21C22.1046 21 23 20.1046 23 19V5C23 3.89543 22.1046 3 21 3Z"></path><path d="M10 4V20"></path><path d="M4 7H7"></path><path d="M4 10H7"></path><path d="M4 13H7"></path></svg></div></div><div class="sidebar-content-wrapper"><div id="left-sidebar-content" class="leaf-content"><link itemprop="include" href="site-lib/html/file-tree-content.html"></div></div><script defer="">let ls = document.querySelector("#left-sidebar"); ls.classList.toggle("is-collapsed", window.innerWidth < 768); ls.style.setProperty("--sidebar-width", localStorage.getItem("sidebar-left-width"));</script></div></div><div id="center-content" class="leaf"><div class="obsidian-document markdown-preview-view markdown-rendered node-insert-event is-readable-line-width allow-fold-headings allow-fold-lists show-indentation-guide show-properties" data-type="markdown"><style id="MJX-CHTML-styles"></style><div class="markdown-preview-sizer markdown-preview-section"><div class="header"><h1 class="page-title heading inline-title" id="边缘设备实验方案_0">边缘设备实验方案</h1><div class="data-bar"></div></div><div class="markdown-preview-pusher" style="width: 1px; height: 0.1px; margin-bottom: 0px;"></div><div class="el-p"><p dir="auto">在边缘设备上的实验将采用学校发的边缘大模型设备，也就是 NVIDIA Jetson Orin Nano Super，设备内存有8 GB，配备了电线和各种插件，相关资料请参考<a data-href="Jetson Orin Nano Super 8B 使用指南" href="jetson-orin-nano-super-8b-使用指南.html" class="internal-link" target="_self" rel="noopener nofollow">Jetson Orin Nano Super 8B 使用指南</a></p></div><div class="el-p"><p dir="auto">本实验需要测量的指标有：</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>边缘平台可达带宽、FP16 GEMM 算力、功耗和热状态；</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>降配 UNet 的 Baseline/Treatment FLOPs、访存下界、算术强度和 Roofline 区域；</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>FFN 压缩引起的算术强度变化方向；</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>整板功耗代理下的 FLOP/J 和 Byte/J 趋势。</li>
+</ul></div><div class="el-h2"><h2 data-heading="1. 实验前置条件与器材" dir="auto" class="heading" id="1._实验前置条件与器材_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>1. 实验前置条件与器材</h2></div><div class="el-h3"><h3 data-heading="1.1 器材清单" dir="auto" class="heading" id="1.1_器材清单_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>1.1 器材清单</h3></div><div class="el-p"><p dir="auto">根据老师确认，学校发的器材和配备软件应该够我们进行实验，以下内容应该是了解即可：</p></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr">类别</th>
+<th dir="ltr">要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="ltr">边缘设备</td>
+<td dir="ltr">Jetson Orin Nano Developer Kit，确认模组型号、内存容量和底板版本</td>
+</tr>
+<tr>
+<td dir="ltr">电源</td>
+<td dir="ltr">官方随附 19 V DC 适配器；插头中心针为正极</td>
+</tr>
+<tr>
+<td dir="ltr">显示与外设</td>
+<td dir="ltr">DisplayPort 显示器、USB 键盘鼠标；正式测试可通过 SSH 运行</td>
+</tr>
+<tr>
+<td dir="ltr">网络</td>
+<td dir="ltr">千兆以太网或已配置的无线网络，用于下载环境、传输日志和远程操作</td>
+</tr>
+<tr>
+<td dir="ltr">存储</td>
+<td dir="ltr">建议 NVMe SSD 存放模型、数据集和日志；记录其剩余空间</td>
+</tr>
+<tr>
+<td dir="ltr">散热</td>
+<td dir="ltr">官方 4-pin 风扇或等效主动散热，正式测量时保持固定策略</td>
+</tr>
+<tr>
+<td dir="ltr">防静电</td>
+<td dir="ltr">防静电手环或可靠接地；底板属于 ESD 敏感器件</td>
+</tr>
+<tr>
+<td dir="ltr">记录工具</td>
+<td dir="ltr">秒表或系统时间、空白记录表、SHA-256 校验工具</td>
+</tr>
+<tr>
+<td dir="ltr">可选</td>
+<td dir="ltr">功率计；若没有，则使用 <code>tegrastats</code> 的 <code>VDD_IN</code> 整板功耗代理</td>
+</tr>
+</tbody>
+</table></div><div class="el-h3"><h3 data-heading="1.2 上电前安全检查" dir="auto" class="heading" id="1.2_上电前安全检查_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>1.2 上电前安全检查</h3></div><div class="el-p"><p dir="auto">这个安全检查步骤仅供参考，AI搞的很复杂，实际上直接参考老师在canvas上发的教学视频就够用了。以及：我们没有防静电措施，请务必确保组装的时候没插电！！！</p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">断开 DC 电源。</li>
+<li data-line="1" dir="auto">佩戴防静电手环，确认工作台无裸露强电。</li>
+<li data-line="2" dir="auto">先连接 DisplayPort、USB、网线和风扇。</li>
+<li data-line="3" dir="auto">如需摄像头或 NVMe，必须断电安装；禁止在通电状态插拔摄像头排线、M.2 卡或 40-pin 扩展设备。</li>
+<li data-line="4" dir="auto">核对电源为 19 V、中心正极，接口没有松动或短路。</li>
+<li data-line="5" dir="auto">保持底板通风；官方底板的工作环境温度为 0–35 ℃，不要把设备放在密闭盒内。</li>
+<li data-line="6" dir="auto">最后连接电源并上电。</li>
+</ol></div><div class="el-h3"><h3 data-heading="1.3 软件记录" dir="auto" class="heading" id="1.3_软件记录_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>1.3 软件记录</h3></div><div class="el-p"><p dir="auto">边缘端需要记录完整软件栈，也就是我们在实验过程中都使用了哪些软件。以下是一些可能要留痕的软件栈：</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>L4T / JetPack；</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>CUDA；</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>cuDNN；</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>TensorRT；</li>
+<li data-line="4" dir="auto"><span class="list-bullet"></span>PyTorch；</li>
+<li data-line="5" dir="auto"><span class="list-bullet"></span>torchvision，如模型依赖；</li>
+<li data-line="6" dir="auto"><span class="list-bullet"></span>Python；</li>
+<li data-line="7" dir="auto"><span class="list-bullet"></span>模型代码 commit；</li>
+<li data-line="8" dir="auto"><span class="list-bullet"></span>权重文件 SHA-256；</li>
+<li data-line="9" dir="auto"><span class="list-bullet"></span>运行模式：venv、conda 或容器镜像 digest。</li>
+</ul></div><div class="el-h2"><h2 data-heading="2. 实验阶段总览" dir="auto" class="heading" id="2._实验阶段总览_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>2. 实验阶段总览</h2></div><div class="el-p"><p dir="auto">其中E0,E1,E2,E3都可以通过学习Canvas上视频和官方手册来完成。官方手册在老师发的套件里有。（目前在我手里）</p></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr">阶段</th>
+<th dir="ltr">目标</th>
+<th align="right" dir="ltr">预计用时</th>
+<th dir="ltr">通过条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="ltr">E0 平台识别</td>
+<td dir="ltr">确认实际模组、底板、JetPack 和供电</td>
+<td align="right" dir="ltr">0.5 h</td>
+<td dir="ltr">所有型号字段有证据</td>
+</tr>
+<tr>
+<td dir="ltr">E1 系统验收</td>
+<td dir="ltr">启动、网络、存储、显示、散热正常</td>
+<td align="right" dir="ltr">1 h</td>
+<td dir="ltr">可远程运行命令</td>
+</tr>
+<tr>
+<td dir="ltr">E2 功耗与热门禁</td>
+<td dir="ltr">固定可复现功耗/时钟模式</td>
+<td align="right" dir="ltr">1.5 h</td>
+<td dir="ltr">无热降频，模式可重现</td>
+</tr>
+<tr>
+<td dir="ltr">E3 平台标定</td>
+<td dir="ltr">测可达带宽、FP16 GEMM、功耗代理</td>
+<td align="right" dir="ltr">2–3 h</td>
+<td dir="ltr">至少 3 轮有效数据</td>
+</tr>
+<tr>
+<td dir="ltr">E4 软件/模型门禁</td>
+<td dir="ltr">确认降配 UNet 可运行且口径一致</td>
+<td align="right" dir="ltr">3–4 h</td>
+<td dir="ltr">Baseline/Treatment 同配置</td>
+</tr>
+<tr>
+<td dir="ltr">E5 平台级门禁</td>
+<td dir="ltr">选双方共同可跑输入级别</td>
+<td align="right" dir="ltr">1–2 h</td>
+<td dir="ltr">连续前向不 OOM</td>
+</tr>
+<tr>
+<td dir="ltr">E6 边缘 Baseline</td>
+<td dir="ltr">测分层 FLOPs、字节、吞吐、功耗</td>
+<td align="right" dir="ltr">3–4 h</td>
+<td dir="ltr">完成原始记录</td>
+</tr>
+<tr>
+<td dir="ltr">E7 边缘 Treatment</td>
+<td dir="ltr">插入同一 FFN 瓶颈并重测</td>
+<td align="right" dir="ltr">3–4 h</td>
+<td dir="ltr">仅 FFN 发生结构变化</td>
+</tr>
+<tr>
+<td dir="ltr">E8 复核与分析</td>
+<td dir="ltr">AB 交替、异常复核、绘图</td>
+<td align="right" dir="ltr">2–3 h</td>
+<td dir="ltr">两次 Baseline 漂移可解释</td>
+</tr>
+<tr>
+<td dir="ltr">E9 降级/结题</td>
+<td dir="ltr">降级路径、报告和复现打包</td>
+<td align="right" dir="ltr">1–2 h</td>
+<td dir="ltr">证据等级明确</td>
+</tr>
+</tbody>
+</table></div><div class="el-h2"><h2 data-heading="3. 实验步骤" dir="auto" class="heading" id="3._实验步骤_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>3. 实验步骤</h2></div><div class="el-h3"><h3 data-heading="E0：平台识别" dir="auto" class="heading" id="E0：平台识别_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>E0：平台识别</h3></div><div class="el-h4"><h4 data-heading="3.1 操作" dir="auto" class="heading" id="3.1_操作_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>3.1 操作</h4></div><div class="el-p"><p dir="auto">启动设备后打开终端，依次执行：</p></div><div class="el-pre"><pre class="language-bash"><code data-line="0" class="language-bash is-loaded"><span class="token function">cat</span> /proc/device-tree/model<span class="token punctuation">;</span> <span class="token builtin class-name">echo</span>
+<span class="token function">cat</span> /etc/nv_tegra_release
+<span class="token function">cat</span> /etc/nv_boot_control.conf
+<span class="token function">uname</span> <span class="token parameter variable">-a</span>
+<span class="token function">free</span> <span class="token parameter variable">-h</span>
+lsblk <span class="token parameter variable">-o</span> NAME,SIZE,TYPE,MOUNTPOINT
+nvpmodel <span class="token parameter variable">-q</span> <span class="token parameter variable">--verbose</span>
+jetson_release <span class="token parameter variable">-v</span>
+python3 <span class="token parameter variable">--version</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-p"><p dir="auto">再检查 NVIDIA 软件栈：```bash<br>
+/usr/local/cuda/bin/nvcc --version<br>
+python3 -c "import torch; print(torch.<strong>version</strong>); print(torch.cuda.is_available()); print(torch.version.cuda)"</p></div><div class="el-pre"><pre><code data-line="0">
+如果设备预装 TensorRT，再记录：
+
+```bash
+python3 -c "import tensorrt as trt; print(trt.__version__)"
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h4"><h4 data-heading="3.2 记录字段" dir="auto" class="heading" id="3.2_记录字段_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>3.2 记录字段</h4></div><div class="el-p"><p dir="auto">这是我们需要填写的表格：</p></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr">项目</th>
+<th dir="ltr">实测值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="ltr">设备型号字符串</td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">模组型号（Nano/Nano Super/Orin NX）</td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">内存容量与类型</td>
+<td dir="ltr"><strong>已确认 8 GB；类型与位宽待命令核对</strong></td>
+</tr>
+<tr>
+<td dir="ltr">底板文档版本/标签</td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">L4T / JetPack</td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">CUDA / cuDNN / TensorRT</td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">PyTorch / torchvision</td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">Python</td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">NVMe/SD 类型及剩余空间</td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr"><code>nvpmodel</code> 模式列表</td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">当前运行模式</td>
+<td dir="auto"></td>
+</tr>
+</tbody>
+</table></div><div class="el-h3"><h3 data-heading="E1：系统验收" dir="auto" class="heading" id="E1：系统验收_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>E1：系统验收</h3></div><div class="el-h4"><h4 data-heading="4.1 启动和接口检查" dir="auto" class="heading" id="4.1_启动和接口检查_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>4.1 启动和接口检查</h4></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">接电后确认风扇转动、显示输出正常。</li>
+<li data-line="1" dir="auto">登录系统，检查 <code>date</code> 和时区是否正确。</li>
+<li data-line="2" dir="auto">用显示器确认系统没有进入恢复模式；USB Type-C 主要用于主机/设备连接和 Recovery，不是通用显示口。</li>
+<li data-line="3" dir="auto">使用 DisplayPort 连接显示器。</li>
+<li data-line="4" dir="auto">通过 RJ45 或无线网络联网。</li>
+<li data-line="5" dir="auto">测试网络：</li>
+</ol></div><div class="el-pre"><pre class="language-bash"><code data-line="0" class="language-bash is-loaded"><span class="token function">ip</span> <span class="token parameter variable">-br</span> addr
+<span class="token function">ping</span> <span class="token parameter variable">-c</span> <span class="token number">4</span> <span class="token number">1.1</span>.1.1
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-ol"><ol start="7">
+<li data-line="0" dir="auto">在主机端通过 SSH 连接开发板，并确认稳定：</li>
+</ol></div><div class="el-pre"><pre class="language-bash"><code data-line="0" class="language-bash is-loaded"><span class="token function">ssh</span> <span class="token operator">&lt;</span>用户名<span class="token operator">&gt;</span>@<span class="token operator">&lt;</span>设备IP<span class="token operator">&gt;</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-ol"><ol start="8">
+<li data-line="0" dir="auto">用 <code>dmesg -T</code> 检查启动错误，重点搜索 OOM、PCIe、I2C、摄像头、thermal 和 fan。</li>
+<li data-line="1" dir="auto">检查散热读数：</li>
+</ol></div><div class="el-pre"><pre class="language-bash"><code data-line="0" class="language-bash is-loaded">tegrastats <span class="token parameter variable">--interval</span> <span class="token number">1000</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-p"><p dir="auto">按 <code>Ctrl+C</code> 停止。记录空载温度、风扇状态和 <code>VDD_IN</code> 是否存在。</p></div><div class="el-h3"><h3 data-heading="E2：功耗模式、散热与时钟门禁" dir="auto" class="heading" id="E2：功耗模式、散热与时钟门禁_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>E2：功耗模式、散热与时钟门禁</h3></div><div class="el-h4"><h4 data-heading="5.1 编号记录" dir="auto" class="heading" id="5.1_编号记录_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>5.1 编号记录</h4></div><div class="el-pre"><pre class="language-bash"><code data-line="0" class="language-bash is-loaded"><span class="token function">sudo</span> nvpmodel <span class="token parameter variable">-q</span> <span class="token parameter variable">--verbose</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-p"><p dir="auto">记录每个模式的编号、功耗上限和在线 CPU/GPU 配置。然后选择一个能在实验期间稳定运行、且散热允许的最高模式。常用的高功耗模式并不必然编号为 0。</p></div><div class="el-p"><p dir="auto">示例命令，仅将 <code>&lt;MODE_ID&gt;</code> 替换成刚刚查到的模式号：</p></div><div class="el-pre"><pre class="language-bash"><code data-line="0" class="language-bash is-loaded"><span class="token function">sudo</span> nvpmodel <span class="token parameter variable">-m</span> <span class="token operator">&lt;</span>MODE_ID<span class="token operator">&gt;</span>
+<span class="token function">sudo</span> jetson_clocks
+<span class="token function">sudo</span> jetson_clocks <span class="token parameter variable">--show</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-p"><p dir="auto">若 <code>jetson_clocks</code> 不存在：</p></div><div class="el-pre"><pre class="language-bash"><code data-line="0" class="language-bash is-loaded"><span class="token builtin class-name">command</span> <span class="token parameter variable">-v</span> jetson_clocks
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-p"><p dir="auto">记录缺失原因，不要伪造“已锁定时钟”。如果工具可用但无法保持频率，降低到更稳定的功耗模式。</p></div><div class="el-h4"><h4 data-heading="5.2 热基线" dir="auto" class="heading" id="5.2_热基线_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>5.2 热基线</h4></div><div class="el-p"><p dir="auto">正式实验前：</p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">让设备在目标模式下空载 10 分钟；</li>
+<li data-line="1" dir="auto">运行目标模型配置的 2–3 次 warmup；</li>
+<li data-line="2" dir="auto">再运行 10 分钟等效负载；</li>
+<li data-line="3" dir="auto">观察 GPU/CPU 频率、温度和功耗是否进入稳定平台。</li>
+</ol></div><div class="el-p"><p dir="auto">验收建议：</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>没有 thermal throttling 日志；</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>冷却稳定后，GPU 主频波动不超过约 5%；</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>正式记录段没有突然的温度跳变；</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>环境温度处于底板官方 0–35 ℃ 范围内；</li>
+<li data-line="4" dir="auto"><span class="list-bullet"></span>连续多次运行的功耗/性能上升趋势不能表明仍在升温。</li>
+</ul></div><div class="el-p"><p dir="auto">若不满足，依次：</p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">提高固定风扇转速；</li>
+<li data-line="1" dir="auto">降低 <code>nvpmodel</code> 功耗模式；</li>
+<li data-line="2" dir="auto">缩短单轮测量并重新预热；</li>
+<li data-line="3" dir="auto">记录该调整及其对 RQ3/RQ4 的影响。</li>
+</ol></div><div class="el-h4"><h4 data-heading="5.3 记录表" dir="auto" class="heading" id="5.3_记录表_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>5.3 记录表</h4></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr">项目</th>
+<th dir="ltr">记录</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="ltr">选定模式编号</td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">模式标称功耗上限</td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">实际在线 CPU/GPU 数</td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">是否运行 <code>jetson_clocks</code></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">空载稳定功耗/温度</td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">负载稳定功耗/温度</td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">是否发现降频</td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">环境温度</td>
+<td dir="auto"></td>
+</tr>
+</tbody>
+</table></div><div class="el-hr"><hr></div><div class="el-h3"><h3 data-heading="E3：边缘平台参数标定" dir="auto" class="heading" id="E3：边缘平台参数标定_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>E3：边缘平台参数标定</h3></div><div class="el-h4"><h4 data-heading="6.1 标定口径" dir="auto" class="heading" id="6.1_标定口径_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>6.1 标定口径</h4></div><div class="el-p"><p dir="auto">Roofline 使用两个参数：</p></div><div class="el-p"><p dir="auto">[<br>
+I^*<em>{\text{edge}}=\frac{\pi</em>{\text{measured}}}{\beta_{\text{measured}}}<br>
+]</p></div><div class="el-p"><p dir="auto">其中：</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>(\pi_{\text{measured}})：实测 FP16 GEMM 吞吐，单位 FLOP/s；</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>(\beta_{\text{measured}})：实测可持续内存带宽，单位 Byte/s；</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>(I^*)：屋脊点，单位 FLOP/Byte。</li>
+</ul></div><div class="el-p"><p dir="auto">标称值和实测值都要记录。主图用实测算力/带宽画实线，标称值仅作虚线对照。</p></div><div class="el-h4"><h4 data-heading="6.2 实测带宽" dir="auto" class="heading" id="6.2_实测带宽_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>6.2 实测带宽</h4></div><div class="el-p"><p dir="auto"><strong>目的：</strong> 测达到平台可持续 DRAM 带宽，而不是测小数组缓存命中。</p></div><div class="el-p"><p dir="auto">建议使用 GPU 端大张量复制或多个足够大的数组，分别测试 256 MiB、512 MiB 和 1 GiB 级别的缓冲区。对小尺寸到较大尺寸绘制曲线，选择吞吐已进入平台的区间。</p></div><div class="el-p"><p dir="auto">核心流程：</p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">分配源、目标 GPU 张量；</li>
+<li data-line="1" dir="auto">预热至少 3 次；</li>
+<li data-line="2" dir="auto">用 CUDA Event 而不是 Python 墙钟计时；</li>
+<li data-line="3" dir="auto">每次计时至少 1 秒，重复 5 次；</li>
+<li data-line="4" dir="auto">丢弃首次结果，取中位数；</li>
+<li data-line="5" dir="auto">记录张量大小、dtype、设备、次数和中位数。</li>
+</ol></div><div class="el-p"><p dir="auto">对于一次复制：</p></div><div class="el-p"><p dir="auto">[<br>
+\text{Bytes}=2\cdot N\cdot \text{itemsize}<br>
+]</p></div><div class="el-p"><p dir="auto">[<br>
+\beta_{\text{copy}}=\frac{\text{Bytes}}{t}<br>
+]</p></div><div class="el-p"><p dir="auto">说明：</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>读源和写目标都要算入字节；</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>不能只除一次元素数；</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>CPU 侧拷贝与 GPU 侧拷贝分别记录，不用 CPU 带宽替代 GPU 带宽；</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>若不同缓冲区大小结果差异很大，选已经进入平台的一段，并在报告中给出曲线。</li>
+</ul></div><div class="el-h4"><h4 data-heading="6.3 实测 FP16 GEMM" dir="auto" class="heading" id="6.3_实测_FP16_GEMM_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>6.3 实测 FP16 GEMM</h4></div><div class="el-p"><p dir="auto">已确认设备为 8 GB 统一内存，GEMM 标定首先使用 <code>M=N=K=2048</code>。只有 2048³ 稳定且统一内存余量充足时，才尝试 4096³；不要直接使用 16384³，也不要在运行模型的同时做 GEMM 标定。</p></div><div class="el-p"><p dir="auto">流程：</p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">创建 FP16 输入矩阵；</li>
+<li data-line="1" dir="auto">预热 5 次；</li>
+<li data-line="2" dir="auto">运行至少 20 次，保证总计时跨过功耗采样分辨率；</li>
+<li data-line="3" dir="auto">CUDA Event 同步计时；</li>
+<li data-line="4" dir="auto">根据实际浮点运算量计算吞吐。</li>
+</ol></div><div class="el-p"><p dir="auto">[<br>
+\text{FLOPs}_{GEMM}=2MNK\cdot R<br>
+]</p></div><div class="el-p"><p dir="auto">[<br>
+\pi<em>{\text{measured}}=\frac{\text{FLOPs}</em>{GEMM}}{t}<br>
+]</p></div><div class="el-p"><p dir="auto">其中 (R) 是有效重复次数。</p></div><div class="el-p"><p dir="auto">记录：</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>实际 M/N/K；</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>重复次数；</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>每次中位耗时；</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>中位吞吐；</li>
+<li data-line="4" dir="auto"><span class="list-bullet"></span>最小/最大值；</li>
+<li data-line="5" dir="auto"><span class="list-bullet"></span>是否发生 OOM；</li>
+<li data-line="6" dir="auto"><span class="list-bullet"></span>是否发生热降频；</li>
+<li data-line="7" dir="auto"><span class="list-bullet"></span>功耗采样区间。</li>
+</ul></div><div class="el-p"><p dir="auto">如果 4096³ 能运行但吞吐尚未稳定，可比较 2048/4096，不要为了追求更大矩阵而牺牲可复现性。</p></div><div class="el-h4"><h4 data-heading="6.4 功耗采样" dir="auto" class="heading" id="6.4_功耗采样_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>6.4 功耗采样</h4></div><div class="el-p"><p dir="auto">用固定采样间隔记录整板功耗：</p></div><div class="el-pre"><pre class="language-bash"><code data-line="0" class="language-bash is-loaded">tegrastats <span class="token parameter variable">--interval</span> <span class="token number">200</span> <span class="token operator">|</span> <span class="token function">tee</span> edge_power_calibration.log
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-p"><p dir="auto">同步记录每次标定的起止时间。测试结束后：</p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">提取稳定负载段，不用启动瞬间；</li>
+<li data-line="1" dir="auto">排除 warmup；</li>
+<li data-line="2" dir="auto">统计 <code>VDD_IN</code> 的样本数、中位数、均值和范围；</li>
+<li data-line="3" dir="auto">若输出单位是 mW，计算能量前统一换成 W。</li>
+</ol></div><div class="el-p"><p dir="auto"><code>VDD_IN</code> 是整板功耗，不是 GPU 核功耗。所有 Baseline/Treatment 必须在同一功耗模式、同一温度窗口、同一采样方式下比较。### 6.5 标定结果表</p></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr">参数</th>
+<th align="right" dir="ltr">标称值</th>
+<th align="right" dir="ltr">实测值</th>
+<th dir="ltr">测量尺寸/模式</th>
+<th dir="ltr">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="ltr">FP16 GEMM</td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">GPU 可持续带宽</td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">屋脊点</td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td dir="auto"></td>
+<td dir="ltr">实测 π/β</td>
+</tr>
+<tr>
+<td dir="ltr">空载整板功耗</td>
+<td align="right" dir="auto">—</td>
+<td align="right" dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">负载整板功耗</td>
+<td align="right" dir="auto">—</td>
+<td align="right" dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">运行模式</td>
+<td align="right" dir="auto">—</td>
+<td align="right" dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">环境温度</td>
+<td align="right" dir="auto">—</td>
+<td align="right" dir="auto"></td>
+<td dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+</tbody>
+</table></div><div class="el-hr"><hr></div><div class="el-h3"><h3 data-heading="E4：软件栈、模型与算子门禁" dir="auto" class="heading" id="E4：软件栈、模型与算子门禁_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>E4：软件栈、模型与算子门禁</h3></div><div class="el-h4"><h4 data-heading="7.1 创建可冻结环境" dir="auto" class="heading" id="7.1_创建可冻结环境_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>7.1 创建可冻结环境</h4></div><div class="el-p"><p dir="auto">选择以下一种：</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>NVIDIA Jetson 容器；</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>基于 venv 的隔离环境；</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>设备上已有的、版本完全匹配的官方环境。</li>
+</ul></div><div class="el-p"><p dir="auto">记录镜像 digest 或 <code>pip freeze</code> 输出。不要在实验中途升级 CUDA、PyTorch 或 TensorRT。</p></div><div class="el-p"><p dir="auto">运行最小自检：</p></div><div class="el-pre"><pre class="language-bash"><code data-line="0" class="language-bash is-loaded">python3 - <span class="token operator">&lt;&lt;</span><span class="token string">'PY'
+import torch
+print("torch", torch.__version__)
+print("cuda", torch.cuda.is_available())
+print("device", torch.cuda.get_device_name(0) if torch.cuda.is_available() else None)
+x = torch.randn(2048, 2048, device="cuda", dtype=torch.float16)
+y = x @ x
+torch.cuda.synchronize()
+print("half gemm", y.shape, y.dtype)
+PY</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-p"><p dir="auto">必须确认：</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span><code>torch.cuda.is_available()</code> 为 <code>True</code>；</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>FP16 GEMM 能执行；</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>输出 dtype 与实验声明一致；</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>不是悄悄回退到 CPU。</li>
+</ul></div><div class="el-h4"><h4 data-heading="7.2 冻结模型" dir="auto" class="heading" id="7.2_冻结模型_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>7.2 冻结模型</h4></div><div class="el-p"><p dir="auto">固定：</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>降配 UNet 代码 commit；</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>权重文件 SHA-256；</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>分辨率、帧数、batch；</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>latent 形状；</li>
+<li data-line="4" dir="auto"><span class="list-bullet"></span>随机种子；</li>
+<li data-line="5" dir="auto"><span class="list-bullet"></span>condition 生成方式；</li>
+<li data-line="6" dir="auto"><span class="list-bullet"></span>模型是否使用 FP16；</li>
+<li data-line="7" dir="auto"><span class="list-bullet"></span>目标 FFN 模块前缀。</li>
+</ul></div><div class="el-p"><p dir="auto">Baseline 和 Treatment 必须是同一份代码、同一份输入、同一环境下的两个条件。不能一边跑 FP32、一边跑 TensorRT 量化版本。</p></div><div class="el-h4"><h4 data-heading="7.3 算子兼容性检查" dir="auto" class="heading" id="7.3_算子兼容性检查_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>7.3 算子兼容性检查</h4></div><div class="el-p"><p dir="auto">优先走 PyTorch/TensorRT 以外的同一路径，以保持与云端相同的 hook 口径：</p></div><div class="el-pre"><pre class="language-python"><code data-line="0" class="language-python is-loaded">unet <span class="token operator">=</span> unet<span class="token punctuation">.</span>half<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">(</span><span class="token string">"cuda"</span><span class="token punctuation">)</span>
+unet<span class="token punctuation">.</span><span class="token builtin">eval</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">with</span> torch<span class="token punctuation">.</span>inference_mode<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    out <span class="token operator">=</span> unet<span class="token punctuation">(</span>x<span class="token punctuation">,</span> t<span class="token punctuation">,</span> cond<span class="token punctuation">)</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-p"><p dir="auto">逐个记录是否出现：</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span><code>not implemented for 'Half'</code>；</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>3D 卷积回退；</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>attention 的 <code>einsum</code>/<code>baddbmm</code> 回退；</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>CPU fallback；</li>
+<li data-line="4" dir="auto"><span class="list-bullet"></span>OOM；</li>
+<li data-line="5" dir="auto"><span class="list-bullet"></span>TensorRT 不支持的算子。</li>
+</ul></div><div class="el-p"><p dir="auto">判定规则：</p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto"><strong>同一 PyTorch FP16 路径可运行：</strong> 可进入定量比较，且与云端方法最一致。</li>
+<li data-line="1" dir="auto"><strong>少量非核心算子回退 CPU：</strong> 可保留该方法，但必须记录算子名，并禁止把该运行的墙钟时间当作平台峰值或 Roofline 实测点。</li>
+<li data-line="2" dir="auto"><strong>FFN、主要卷积或 attention 大量回退：</strong> 当前运行不能代表 GPU 数据通路，转入平台参数标定 + 云端算术强度外推的降级路径。</li>
+<li data-line="3" dir="auto"><strong>必须改为 INT8/低精度才能运行：</strong> 另立实验条件，不能直接与 FP16 结果作单变量比较。</li>
+</ol></div><div class="el-h3"><h3 data-heading="E5：内存与输入级别门禁" dir="auto" class="heading" id="E5：内存与输入级别门禁_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>E5：内存与输入级别门禁</h3></div><div class="el-h4"><h4 data-heading="8.1 阶梯" dir="auto" class="heading" id="8.1_阶梯_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>8.1 阶梯</h4></div><div class="el-p"><p dir="auto">以下尺寸是课程方案中的候选，不是对实际设备能力的预先承诺：</p></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr">级别</th>
+<th dir="ltr">像素分辨率</th>
+<th align="right" dir="ltr">帧数</th>
+<th align="right" dir="ltr">Batch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="ltr">L0</td>
+<td dir="auto">512×256</td>
+<td align="right" dir="auto">14</td>
+<td align="right" dir="auto">1</td>
+</tr>
+<tr>
+<td dir="ltr">L1</td>
+<td dir="auto">512×256</td>
+<td align="right" dir="auto">8</td>
+<td align="right" dir="auto">1</td>
+</tr>
+<tr>
+<td dir="ltr">L2</td>
+<td dir="auto">384×192</td>
+<td align="right" dir="auto">14</td>
+<td align="right" dir="auto">1</td>
+</tr>
+<tr>
+<td dir="ltr">L3</td>
+<td dir="auto">256×256</td>
+<td align="right" dir="auto">8</td>
+<td align="right" dir="auto">1</td>
+</tr>
+</tbody>
+</table></div><div class="el-p"><p dir="auto">8 GB 统一内存不足以稳妥运行完整 SVD XT 推理管线，因此边缘侧不把完整 SVD 管线作为 Baseline，而使用 W1 门禁确定的降配 UNet。L0 仍需做一次快速尝试，用来记录“容量墙”在哪里发生；L0 OOM 本身就是有效实验现象，不代表实验失败。</p></div><div class="el-p"><p dir="auto">若模型代码只接受 latent，必须先根据 VAE 缩放因子和 config 反算 latent 尺寸，不能把像素尺寸直接当作 UNet 输入。</p></div><div class="el-h4"><h4 data-heading="8.2 测试顺序" dir="auto" class="heading" id="8.2_测试顺序_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>8.2 测试顺序</h4></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">从 L0 开始；</li>
+<li data-line="1" dir="auto">用相同固定输入各跑一次；</li>
+<li data-line="2" dir="auto">每轮前执行 <code>gc.collect()</code> 和 <code>torch.cuda.empty_cache()</code>；</li>
+<li data-line="3" dir="auto">记录 <code>max_memory_allocated()</code>、<code>max_memory_reserved()</code> 和运行时错误；</li>
+<li data-line="4" dir="auto">如果 OOM，记录失败级别和错误文本；</li>
+<li data-line="5" dir="auto">找到 Baseline 与 Treatment 共同可运行的最高级别；</li>
+<li data-line="6" dir="auto">在该级别连续运行至少 5 次，确认不是偶然成功。</li>
+</ol></div><div class="el-p"><p dir="auto">由于设备只有 8 GB 统一内存，建议把“连续 5 次前向后仍有至少 1 GiB <code>MemAvailable</code>”作为本课程实验的项目安全线，同时记录 <code>max_memory_allocated()</code>、<code>max_memory_reserved()</code> 和 <code>/proc/meminfo</code>。只看到峰值分配未达到 8 GB，不能证明运行安全，因为 CUDA 缓存、桌面和内存碎片仍可能造成后续 OOM。若实验需要关闭图形界面以提高余量，必须将其作为环境差异单独记录，且 Baseline/Treatment 均使用同一状态。</p></div><div class="el-h4"><h4 data-heading="8.3 验收" dir="auto" class="heading" id="8.3_验收_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>8.3 验收</h4></div><div class="el-p"><p dir="auto">满足全部条件才锁定：</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>Baseline 和 Treatment 均通过；</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>连续 5 次无 OOM；</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>输出形状一致；</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>无重大 CPU fallback；</li>
+<li data-line="4" dir="auto"><span class="list-bullet"></span>运行后温度和功耗仍稳定；</li>
+<li data-line="5" dir="auto"><span class="list-bullet"></span>配置常量写入实验配置文件和报告。</li>
+</ul></div><div class="el-p"><p dir="auto">如果只有 L0 能跑 Baseline、Treatment 需要降到 L1，则不能跨级比较，统一回退到 L1。</p></div><div class="el-hr"><hr></div><div class="el-h3"><h3 data-heading="E6：边缘 Baseline 分层测量" dir="auto" class="heading" id="E6：边缘_Baseline_分层测量_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>E6：边缘 Baseline 分层测量</h3></div><div class="el-h4"><h4 data-heading="9.1 测量顺序" dir="auto" class="heading" id="9.1_测量顺序_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>9.1 测量顺序</h4></div><div class="el-p"><p dir="auto">每个变体独立进程运行，避免缓存池和热状态相互污染：</p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">加载环境；</li>
+<li data-line="1" dir="auto">固定随机种子；</li>
+<li data-line="2" dir="auto">创建固定输入；</li>
+<li data-line="3" dir="auto">2–3 次 warmup；</li>
+<li data-line="4" dir="auto">5 次正式测量；</li>
+<li data-line="5" dir="auto">丢弃首次；</li>
+<li data-line="6" dir="auto">取中位数并保存原始数据。</li>
+</ol></div><div class="el-h4"><h4 data-heading="9.2 FLOPs 与访存下界" dir="auto" class="heading" id="9.2_FLOPs_与访存下界_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>9.2 FLOPs 与访存下界</h4></div><div class="el-p"><p dir="auto">以 hook 计算为主口径。至少分为：</p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">整个 UNet；</li>
+<li data-line="1" dir="auto">FFN；</li>
+<li data-line="2" dir="auto">attention；</li>
+<li data-line="3" dir="auto">卷积。</li>
+</ol></div><div class="el-p"><p dir="auto">权重访存：</p></div><div class="el-p"><p dir="auto">[<br>
+B_{\text{weight}}=\sum_i \text{numel}(W_i)\cdot 2<br>
+]</p></div><div class="el-p"><p dir="auto">激活访存下界：</p></div><div class="el-p"><p dir="auto">[<br>
+B_{\text{act}}=\sum_j<br>
+\left[\text{numel}(X_j)+\text{numel}(Y_j)\right]\cdot 2<br>
+]</p></div><div class="el-p"><p dir="auto">总访存下界：</p></div><div class="el-p"><p dir="auto">[<br>
+B<em>{\text{L1}}=B</em>{\text{weight}}+B_{\text{act}}<br>
+]</p></div><div class="el-p"><p dir="auto">[<br>
+I=\frac{\text{FLOPs}}{B_{\text{L1}}}<br>
+]</p></div><div class="el-p"><p dir="auto">报告必须声明：</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>这是理论下界，不是 FPGA/DRAM 性能计数器；</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>同一张量被多层引用时，按每层独立计入，是当前口径的一部分；</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>Baseline 和 Treatment 使用同一套 hook；</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>FFN 前缀由 <code>named_modules()</code> 实际打印后确定，不能靠猜测命名。</li>
+</ul></div><div class="el-h4"><h4 data-heading="9.3 时间与功耗分开测" dir="auto" class="heading" id="9.3_时间与功耗分开测_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>9.3 时间与功耗分开测</h4></div><div class="el-p"><p dir="auto">为减少 profiler 对功耗和墙钟的干扰，采用两类运行：</p></div><div class="el-p"><p dir="auto"><strong>运行 A：结构归因</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>hook 记录 FLOPs、输入输出形状、dtype、device；</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>profiler 只用来交叉检查算子分布；</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>不使用这一轮的耗时作为最终能效时间。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>运行 B：计时和功耗</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>不开启 profiler；</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>连续运行 10–20 次前向；</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>外层用 <code>time.perf_counter()</code> 计总时间；</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>同步用 <code>tegrastats</code> 记录功耗；</li>
+<li data-line="4" dir="auto"><span class="list-bullet"></span>第 (i) 次平均时间为总时间除以有效次数。</li>
+</ul></div><div class="el-h3"><h3 data-heading="E7：Treatment 与单变量控制" dir="auto" class="heading" id="E7：Treatment_与单变量控制_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>E7：Treatment 与单变量控制</h3></div><div class="el-h4"><h4 data-heading="10.1 插入 FFN 瓶颈" dir="auto" class="heading" id="10.1_插入_FFN_瓶颈_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>10.1 插入 FFN 瓶颈</h4></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">用 Baseline 的层级数据确认 FFN 占比；</li>
+<li data-line="1" dir="auto">记录被替换 Linear 的完整模块名；</li>
+<li data-line="2" dir="auto">只替换 FFN 内部 Linear，<code>in_features</code> 和 <code>out_features</code> 保持不变；</li>
+<li data-line="3" dir="auto">设置瓶颈比例 (r=0.5)；</li>
+<li data-line="4" dir="auto">保存模块列表和替换数量；</li>
+<li data-line="5" dir="auto">检查注意力投影未被误替换。</li>
+</ol></div><div class="el-h4"><h4 data-heading="10.2 结构验收" dir="auto" class="heading" id="10.2_结构验收_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>10.2 结构验收</h4></div><div class="el-p"><p dir="auto">替换后检查：</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>输出形状与 Baseline 一致；</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>参数更新只发生在预期模块；</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>hook 覆盖的层数与预期一致；</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>没有自动 dtype 转换或 CPU 回退；</li>
+<li data-line="4" dir="auto"><span class="list-bullet"></span>经过相同输入时 forward 不报错；</li>
+<li data-line="5" dir="auto"><span class="list-bullet"></span>模型总参数和 FFN 参数变化能被记录。</li>
+</ul></div><div class="el-h4"><h4 data-heading="10.3 重测" dir="auto" class="heading" id="10.3_重测_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>10.3 重测</h4></div><div class="el-p"><p dir="auto">对 Treatment 重复 E6 的全部步骤，不改变：</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>输入；</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>batch；</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>分辨率；</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>帧数；</li>
+<li data-line="4" dir="auto"><span class="list-bullet"></span>dtype；</li>
+<li data-line="5" dir="auto"><span class="list-bullet"></span>功耗模式；</li>
+<li data-line="6" dir="auto"><span class="list-bullet"></span>冷却策略；</li>
+<li data-line="7" dir="auto"><span class="list-bullet"></span>hook 统计口径；</li>
+<li data-line="8" dir="auto"><span class="list-bullet"></span>测量轮数。</li>
+</ul></div><div class="el-p"><p dir="auto">为了控制时漂移，建议顺序执行：</p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">Baseline；</li>
+<li data-line="1" dir="auto">Treatment；</li>
+<li data-line="2" dir="auto">Baseline 复核。</li>
+</ol></div><div class="el-p"><p dir="auto">第二次 Baseline 与第一次中位数差异原则上应小于约 5%，或者能够由热/频率变化解释。否则数据不可用于方向比较。</p></div><div class="el-hr"><hr></div><div class="el-h3"><h3 data-heading="E8：Roofline 与能效分析" dir="auto" class="heading" id="E8：Roofline_与能效分析_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>E8：Roofline 与能效分析</h3></div><div class="el-h4"><h4 data-heading="11.1 平台定位" dir="auto" class="heading" id="11.1_平台定位_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>11.1 平台定位</h4></div><div class="el-p"><p dir="auto">对每个层级计算：</p></div><div class="el-p"><p dir="auto">[<br>
+I<em>{level}=\frac{\text{FLOPs}</em>{level}}{B_{level}}<br>
+]</p></div><div class="el-p"><p dir="auto">[<br>
+q<em>{level}=\frac{I</em>{level}}{I^*}<br>
+]</p></div><div class="el-p"><p dir="auto">其中：</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>(q&lt;1)：相对该平台为 memory-bound；</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>(q&gt;1)：相对该平台为 compute-bound；</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>(q\approx 1)：接近屋脊点。</li>
+</ul></div><div class="el-p"><p dir="auto">同时输出：</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>用实测 (\pi,\beta) 绘制的屋脊点；</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>用标称值绘制的虚线屋脊点；</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>Baseline 和 Treatment 点；</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>箭头方向和变化百分比。</li>
+</ul></div><div class="el-h4"><h4 data-heading="11.2 方向一致性" dir="auto" class="heading" id="11.2_方向一致性_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>11.2 方向一致性</h4></div><div class="el-p"><p dir="auto">定义：</p></div><div class="el-p"><p dir="auto">[<br>
+\Delta I=I<em>{\text{treatment}}-I</em>{\text{baseline}}<br>
+]</p></div><div class="el-p"><p dir="auto">只比较符号：</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>同为增加：方向一致；</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>同为减少：方向一致；</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>一增一减：方向相反；</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>变化在测量波动内：判为“不显著”，不要强行判方向。</li>
+</ul></div><div class="el-p"><p dir="auto">跨平台不使用绝对 FLOPs 或绝对访存下界作直接数值比较，因为云端与边缘侧的降配模型不是同一个基线。</p></div><div class="el-h4"><h4 data-heading="11.3 能效指标修正" dir="auto" class="heading" id="11.3_能效指标修正_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>11.3 能效指标修正</h4></div><div class="el-p"><p dir="auto">原方案中的</p></div><div class="el-p"><p dir="auto">[<br>
+\text{FLOPs}/(\text{Bytes}\times P_{avg})<br>
+]</p></div><div class="el-p"><p dir="auto">更接近“每瓦每字节的计算量”，不是标准的每焦耳计算量。建议改用：</p></div><div class="el-p"><p dir="auto">单次前向的能量代理为：</p></div><div class="el-p"><p dir="auto">[<br>
+E<em>{\text{forward}}=<br>
+\frac{P</em>{avg}\cdot t_{\text{loop}}}{N}<br>
+]</p></div><div class="el-p"><p dir="auto">其中 (N) 是功耗测试循环中的有效前向次数，(t_{\text{loop}}) 是这 (N) 次前向的总时间。若只测一次完整前向，则 (N=1)。</p></div><div class="el-p"><p dir="auto">[<br>
+\eta<em>{\text{FLOP/J}}=<br>
+\frac{\text{FLOPs}}{E</em>{\text{forward}}}<br>
+]</p></div><div class="el-p"><p dir="auto">[<br>
+\eta<em>{\text{Byte/J}}=<br>
+\frac{B</em>{\text{L1}}}{E_{\text{forward}}}<br>
+]</p></div><div class="el-p"><p dir="auto">其中 (P_{avg}) 取稳定负载段的时间加权均值；若采样间隔固定，可同时报告中位数和均值。不要把空载功耗当作前向功耗，也不要把 <code>VDD_IN</code> 说成 GPU 核功耗。</p></div><div class="el-h4"><h4 data-heading="11.4 结果表" dir="auto" class="heading" id="11.4_结果表_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>11.4 结果表</h4></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr">指标</th>
+<th align="right" dir="ltr">边缘 Baseline</th>
+<th align="right" dir="ltr">边缘 Treatment</th>
+<th align="right" dir="ltr">变化</th>
+<th dir="ltr">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="ltr">整体 FLOPs</td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">FFN FLOPs</td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">整体 (B_{L1})</td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">FFN (B_{L1})</td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">整体 (I)</td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">FFN (I)</td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">整体 (q=I/I^*)</td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">FFN (q)</td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">中位前向时间</td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td dir="ltr">仅作辅助</td>
+</tr>
+<tr>
+<td dir="ltr">平均整板功耗</td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">FLOP/J</td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+<tr>
+<td dir="ltr">Byte/J</td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td align="right" dir="auto"></td>
+<td dir="auto"></td>
+</tr>
+</tbody>
+</table></div><div class="el-hr"><hr></div><div class="el-h3"><h3 data-heading="12. 统一数据记录格式" dir="auto" class="heading" id="12._统一数据记录格式_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>12. 统一数据记录格式</h3></div><div class="el-p"><p dir="auto">每次 run 至少保存以下 JSON 字段：</p></div><div class="el-pre"><pre class="language-json"><code data-line="0" class="language-json is-loaded"><span class="token punctuation">{</span>
+  <span class="token property">"run_id"</span><span class="token operator">:</span> <span class="token string">"edge_baseline_L3_r01"</span><span class="token punctuation">,</span>
+  <span class="token property">"timestamp"</span><span class="token operator">:</span> <span class="token string">"ISO-8601"</span><span class="token punctuation">,</span>
+  <span class="token property">"device_model"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+  <span class="token property">"memory_total_bytes"</span><span class="token operator">:</span> <span class="token number">8589934592</span><span class="token punctuation">,</span>
+  <span class="token property">"memory_available_after_bytes"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+  <span class="token property">"jetpack"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+  <span class="token property">"l4t"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+  <span class="token property">"cuda"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+  <span class="token property">"pytorch"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+  <span class="token property">"tensorrt"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+  <span class="token property">"nvpmodel"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+  <span class="token property">"jetson_clocks"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token property">"ambient_temp_c"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+  <span class="token property">"input"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"level"</span><span class="token operator">:</span> <span class="token string">"L3"</span><span class="token punctuation">,</span>
+    <span class="token property">"batch"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token property">"frames"</span><span class="token operator">:</span> <span class="token number">8</span><span class="token punctuation">,</span>
+    <span class="token property">"height"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token property">"width"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token property">"dtype"</span><span class="token operator">:</span> <span class="token string">"float16"</span><span class="token punctuation">,</span>
+    <span class="token property">"seed"</span><span class="token operator">:</span> <span class="token number">20261109</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"model"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"variant"</span><span class="token operator">:</span> <span class="token string">"baseline"</span><span class="token punctuation">,</span>
+    <span class="token property">"commit"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"weights_sha256"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"ffn_prefix"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"bottleneck_ratio"</span><span class="token operator">:</span> <span class="token null keyword">null</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"metrics"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"flops_total"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">"bytes_l1_total"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">"arithmetic_intensity_total"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">"flops_ffn"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">"bytes_l1_ffn"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">"arithmetic_intensity_ffn"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">"forward_time_s_median"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">"peak_memory_allocated_bytes"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">"peak_memory_reserved_bytes"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">"power_avg_w"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">"power_median_w"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">"samples"</span><span class="token operator">:</span> <span class="token number">0</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"valid"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token property">"notes"</span><span class="token operator">:</span> <span class="token string">""</span>
+<span class="token punctuation">}</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-p"><p dir="auto">日志文件命名：</p></div><div class="el-pre"><pre class="language-text"><code data-line="0" class="language-text is-loaded">edge_&lt;variant&gt;_&lt;level&gt;_&lt;mode&gt;_&lt;timestamp&gt;.log
+edge_&lt;variant&gt;_&lt;level&gt;_&lt;mode&gt;_&lt;timestamp&gt;.json
+edge_&lt;variant&gt;_&lt;level&gt;_&lt;mode&gt;_&lt;timestamp&gt;_power.log
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-hr"><hr></div><div class="el-h3"><h3 data-heading="13. 故障处理" dir="auto" class="heading" id="13._故障处理_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>13. 故障处理</h3></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr">现象</th>
+<th dir="ltr">优先检查</th>
+<th dir="ltr">处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="ltr">上电无显示</td>
+<td dir="ltr">电源、DP、外设连接</td>
+<td dir="ltr">断电重连；确认使用 DP，不要把 Type-C 当显示口</td>
+</tr>
+<tr>
+<td dir="ltr">系统反复重启</td>
+<td dir="ltr">电源功率、散热、线缆</td>
+<td dir="ltr">换官方适配器；检查温度；断电 5 分钟</td>
+</tr>
+<tr>
+<td dir="ltr">风扇不转</td>
+<td dir="ltr">J13 连接、风扇策略</td>
+<td dir="ltr">断电检查 4-pin 连接；记录温升，不要在高温下继续压测</td>
+</tr>
+<tr>
+<td dir="ltr">SSH 断开</td>
+<td dir="ltr">网线、IP、休眠</td>
+<td dir="ltr">固定 IP/DHCP 租约；禁用休眠；改用串口记录</td>
+</tr>
+<tr>
+<td dir="ltr"><code>nvidia-smi</code> 不存在</td>
+<td dir="ltr">Jetson 平台工具与原版驱动差异</td>
+<td dir="ltr">改用 <code>tegrastats</code>、<code>torch</code> 和 JetPack 工具检查</td>
+</tr>
+<tr>
+<td dir="ltr"><code>nvpmodel</code> 模式与草案不一致</td>
+<td dir="ltr">JetPack/模组版本</td>
+<td dir="ltr">以 <code>nvpmodel -q --verbose</code> 为准，记录模式说明</td>
+</tr>
+<tr>
+<td dir="ltr"><code>jetson_clocks</code> 不存在</td>
+<td dir="ltr">工具未装或路径不同</td>
+<td dir="ltr">记录缺失；采用固定模式和稳定预热；不要把未锁定写成已锁定</td>
+</tr>
+<tr>
+<td dir="ltr">FP16 GEMM OOM</td>
+<td dir="ltr">矩阵过大</td>
+<td dir="ltr">从 4096³ 降到 2048³，记录尺寸；不要用 CPU 结果代替 GPU 结果</td>
+</tr>
+<tr>
+<td dir="ltr">模型 OOM</td>
+<td dir="ltr">8 GB 统一内存、输入级别、缓存残留、GUI 占用</td>
+<td dir="ltr">回退 L 级别；独立进程；清缓存；连续运行后保持至少 1 GiB <code>MemAvailable</code></td>
+</tr>
+<tr>
+<td dir="ltr"><code>not implemented for Half</code></td>
+<td dir="ltr">算子 FP16 不支持</td>
+<td dir="ltr">记录算子；尝试局部 FP32，并在报告中声明精度差异</td>
+</tr>
+<tr>
+<td dir="ltr">算子回退 CPU</td>
+<td dir="ltr">自定义 attention/卷积</td>
+<td dir="ltr">检查 profiler；核心算子回退时转入理论外推路径</td>
+</tr>
+<tr>
+<td dir="ltr">TensorRT 转换失败</td>
+<td dir="ltr">不支持的算子/版本</td>
+<td dir="ltr">保留 PyTorch 路径结果；不用 TRT 结果与 PyTorch 结果混算</td>
+</tr>
+<tr>
+<td dir="ltr"><code>VDD_IN</code> 剧烈波动</td>
+<td dir="ltr">背景负载、热降频、采样频率</td>
+<td dir="ltr">关闭无关程序；固定功耗模式；取稳定段并记录样本分布</td>
+</tr>
+<tr>
+<td dir="ltr">前向过短</td>
+<td dir="ltr">小模型/低分辨率</td>
+<td dir="ltr">在功耗测试中循环 10–20 次，不改变单次理论 FLOPs 和字节</td>
+</tr>
+<tr>
+<td dir="ltr">Baseline 两次结果漂移</td>
+<td dir="ltr">热、频率、缓存、后台任务</td>
+<td dir="ltr">冷却回基线温度；重新运行；记录漂移原因</td>
+</tr>
+</tbody>
+</table></div><div class="el-h3"><h3 data-heading="14. 验收标准" dir="auto" class="heading" id="14._验收标准_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>14. 验收标准</h3></div><div class="el-p"><p dir="auto">边缘分册至少需要满足：</p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">实际模组、底板、JetPack 和功耗模式均有可追溯记录；</li>
+<li data-line="1" dir="auto">标称参数与实测参数分开；</li>
+<li data-line="2" dir="auto">平台带宽和 FP16 GEMM 至少有 3 轮有效测量；</li>
+<li data-line="3" dir="auto">Baseline/Treatment 使用相同输入级别和相同统计口径；</li>
+<li data-line="4" dir="auto">连续 5 次前向无 OOM；</li>
+<li data-line="5" dir="auto">主要计算算子没有大面积 CPU 回退；</li>
+<li data-line="6" dir="auto">每轮有原始日志、结构化结果和图件；</li>
+<li data-line="7" dir="auto">边缘 Roofline 同时画实测和标称屋脊点；</li>
+<li data-line="8" dir="auto">能效结论标明这是整板 <code>VDD_IN</code> 代理；</li>
+<li data-line="9" dir="auto">若进入降级路径，明确写出“理论外推，非边缘实测”。</li>
+</ol></div><div class="el-hr"><hr></div><div class="el-h2"><h2 data-heading="4. 交付物与建议排期" dir="auto" class="heading" id="4._交付物与建议排期_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>4. 交付物与建议排期</h2></div><div class="el-h3"><h3 data-heading="4.1 交付物" dir="auto" class="heading" id="4.1_交付物_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>4.1 交付物</h3></div><div class="el-pre"><pre class="language-text"><code data-line="0" class="language-text is-loaded">edge/
+├── 00_platform/
+│   ├── board_inventory.md
+│   ├── software_versions.txt
+│   └── nvpmodel_verbose.txt
+├── 01_calibration/
+│   ├── bandwidth.csv
+│   ├── gemm.csv
+│   ├── power_calibration.log
+│   └── platform_roofline.json
+├── 02_gate/
+│   ├── operator_compatibility.csv
+│   ├── memory_ladder.csv
+│   └── selected_config.json
+├── 03_baseline/
+│   ├── run_*.json
+│   └── run_*_power.log
+├── 04_treatment/
+│   ├── run_*.json
+│   └── module_replacement.json
+├── 05_analysis/
+│   ├── edge_results.csv
+│   ├── roofline_edge.svg
+│   ├── roofline_cross_platform.svg
+│   └── conclusions.md
+└── README.md
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-h3"><h3 data-heading="4.2 建议排期" dir="auto" class="heading" id="4.2_建议排期_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>4.2 建议排期</h3></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr">实验日</th>
+<th dir="ltr">内容</th>
+<th dir="ltr">结束时应得到</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="ltr">第 1 天上午</td>
+<td dir="ltr">E0、E1</td>
+<td dir="ltr">平台识别表、网络与散热验收</td>
+</tr>
+<tr>
+<td dir="ltr">第 1 天下午</td>
+<td dir="ltr">E2</td>
+<td dir="ltr">固定功耗模式、热基线记录</td>
+</tr>
+<tr>
+<td dir="ltr">第 2 天上午</td>
+<td dir="ltr">E3 带宽与 GEMM</td>
+<td dir="ltr">实测屋脊点</td>
+</tr>
+<tr>
+<td dir="ltr">第 2 天下午</td>
+<td dir="ltr">E3 功耗与复测</td>
+<td dir="ltr">平台参数标定表</td>
+</tr>
+<tr>
+<td dir="ltr">第 3 天</td>
+<td dir="ltr">E4 软件与模型门禁</td>
+<td dir="ltr">可运行基线、算子记录</td>
+</tr>
+<tr>
+<td dir="ltr">第 3 天末</td>
+<td dir="ltr">E5 内存阶梯</td>
+<td dir="ltr">共同可跑输入级别</td>
+</tr>
+<tr>
+<td dir="ltr">第 4 天</td>
+<td dir="ltr">E6 Baseline</td>
+<td dir="ltr">Baseline 分层数据</td>
+</tr>
+<tr>
+<td dir="ltr">第 5 天</td>
+<td dir="ltr">E7 Treatment</td>
+<td dir="ltr">Treatment 分层数据</td>
+</tr>
+<tr>
+<td dir="ltr">第 6 天</td>
+<td dir="ltr">E8 复核</td>
+<td dir="ltr">两次 Baseline 对照、跨方向判断</td>
+</tr>
+<tr>
+<td dir="ltr">第 7 天</td>
+<td dir="ltr">报告与复现</td>
+<td dir="ltr">数据包、图件和限制说明</td>
+</tr>
+</tbody>
+</table></div><div class="el-hr"><hr></div><div class="el-h2"><h2 data-heading="5. 可执行任务卡：材料、最小步骤、分工与阶段成功标志" dir="auto" class="heading" id="5._可执行任务卡：材料、最小步骤、分工与阶段成功标志_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>5. 可执行任务卡：材料、最小步骤、分工与阶段成功标志</h2></div><div class="el-p"><p dir="auto">本节把前面的技术步骤转化为可直接排班执行的任务卡。每个任务卡只规定<strong>必须完成的最小闭环</strong>；若要追加探索，不得破坏该任务卡的数据口径。</p></div><div class="el-h3"><h3 data-heading="15A.1 人员配置约定" dir="auto" class="heading" id="15A.1_人员配置约定_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>15A.1 人员配置约定</h3></div><div class="el-p"><p dir="auto">假设团队最低为 3 人；人数更多时可以拆分职责，但不能改变数据口径。</p></div><div class="el-table" dir="ltr" style="overflow-x: auto;"><table>
+<thead>
+<tr>
+<th dir="ltr">角色</th>
+<th dir="ltr">代号</th>
+<th dir="ltr">主要职责</th>
+<th dir="ltr">不得兼任的情形</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td dir="ltr">平台与硬件负责人</td>
+<td dir="ltr">A</td>
+<td dir="ltr">上电、接线、功耗模式、散热、设备状态、现场安全</td>
+<td dir="ltr">不得独自签署自己操作导致异常的因果结论</td>
+</tr>
+<tr>
+<td dir="ltr">模型与测量负责人</td>
+<td dir="ltr">B</td>
+<td dir="ltr">环境冻结、模型加载、hook、forward、GEMM/带宽脚本</td>
+<td dir="ltr">不得独自修改 Baseline 数据而不留日志</td>
+</tr>
+<tr>
+<td dir="ltr">数据质控与复核负责人</td>
+<td dir="ltr">C</td>
+<td dir="ltr">独立记录、哈希、原始日志、配置核对、重复性检查</td>
+<td dir="ltr">不得只抄 B 的终端截图，必须保存原始输出</td>
+</tr>
+<tr>
+<td dir="ltr">跨平台与报告负责人</td>
+<td dir="ltr">D（可选）</td>
+<td dir="ltr">跨平台对比、图表、报告、答辩</td>
+<td dir="ltr">3 人队可由 A/B/C 轮值，但不可省略复核</td>
+</tr>
+</tbody>
+</table></div><div class="el-p"><p dir="auto"><strong>3 人最低分工：</strong> A 负责平台、B 负责模型测量、C 负责质控。报告由三人共同完成，每个阶段至少由一名非操作者复核。</p></div><div class="el-p"><p dir="auto"><strong>4 人建议分工：</strong> A 平台、B 模型测量、C 数据质控、D 跨平台与报告。</p></div><div class="el-h3"><h3 data-heading="任务卡 T0：上电前安全与器材验收" dir="auto" class="heading" id="任务卡_T0：上电前安全与器材验收_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 T0：上电前安全与器材验收</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>Jetson Orin Nano 8 GB 开发套件、官方 19 V DC 电源、DisplayPort 显示器、USB 键盘鼠标、网线、风扇。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>防静电手环或接地措施、器材清单、手机或相机、上电前检查表。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>官方底板规格书第 5、9、26、29–32 页的安全和接口说明。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">断电并释放静电。</li>
+<li data-line="1" dir="auto">按“显示器、USB、网线、风扇、扩展卡、最后电源”的顺序连接。</li>
+<li data-line="2" dir="auto">运行前逐项勾选器材清单，拍摄底板与接口全貌。</li>
+<li data-line="3" dir="auto">上电后只做“风扇、显示、供电灯、无异味、无异常重启”的观察。</li>
+<li data-line="4" dir="auto">任何外设插拔前先断电，并等待电源指示灯熄灭。</li>
+</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>A：执行接线、上电和现场安全判断。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>B：核对实验所需的存储、网络和模型安装介质是否齐全。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>C：按检查表独立复核，不允许带电插拔，记录照片编号和异常。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>所有计划使用的接口均已接线并拍照记录。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>设备正常上电，风扇和显示正常，10 分钟内没有异常重启或供电报警。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>A 与 C 共同签署《上电前检查表》；有异常时，设备不进入性能实验。</li>
+</ul></div><div class="el-h3"><h3 data-heading="任务卡 T1：型号、内存与软件基线识别" dir="auto" class="heading" id="任务卡_T1：型号、内存与软件基线识别_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 T1：型号、内存与软件基线识别</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>可登录的 Jetson 终端、<code>platform_inventory.md</code>、<code>software_versions.txt</code>。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>课程草案、本次官方底板规格书、设备包装/标签信息。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">执行 <code>cat /proc/device-tree/model; echo</code>。</li>
+<li data-line="1" dir="auto">执行 <code>cat /etc/nv_tegra_release</code>、<code>uname -a</code>、<code>free -h</code>、<code>jetson_release -v</code>。</li>
+<li data-line="2" dir="auto">执行 <code>nvpmodel -q --verbose</code>，保存完整模式列表。</li>
+<li data-line="3" dir="auto">执行 CUDA、cuDNN、TensorRT、PyTorch 版本检查。</li>
+<li data-line="4" dir="auto">填写型号、8 GB 内存、底板、JetPack 和模式记录；发现信息冲突立即停止性能测试。</li>
+</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>A：执行硬件相关命令，确认实际设备身份。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>B：核对软件栈与模型代码兼容性。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>C：保存终端原始输出和哈希，检查“8 GB”与型号信息是否自洽。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>明确记录是否为原版 Orin Nano、Nano Super 或 Orin NX。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>8 GB 容量得到系统命令确认。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>软件版本齐全，环境无未解释的冲突。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>名义带宽字段已标注来源：68 GB/s 仅作为当前官方底板文件的临时参考，最终使用实测值。</li>
+</ul></div><div class="el-h3"><h3 data-heading="任务卡 T2：系统、网络、存储与远程操作验收" dir="auto" class="heading" id="任务卡_T2：系统、网络、存储与远程操作验收_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 T2：系统、网络、存储与远程操作验收</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>千兆网线或可用无线网络、SSH 客户端、3 GB 以上可用存储。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span><code>dmesg</code>、<code>ip</code>、<code>ping</code>、<code>tegrastats</code>、日志目录。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">检查 <code>ip -br addr</code>，完成网络连通性测试。</li>
+<li data-line="1" dir="auto">从主机通过 SSH 登录设备，连续保持 10 分钟。</li>
+<li data-line="2" dir="auto">检查目标磁盘剩余空间，建立 <code>edge/</code> 日志目录。</li>
+<li data-line="3" dir="auto">运行 <code>tegrastats --interval 1000</code>，确认温度和 <code>VDD_IN</code> 是否存在。</li>
+<li data-line="4" dir="auto">用 <code>dmesg -T</code> 检查 OOM、PCIe、I2C、thermal 和 fan 错误。</li>
+</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>A：检查供电、温度和风扇状态。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>B：建立远程登录和实验目录。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>C：独立测试长时间 SSH、磁盘写入和日志完整性。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>设备可连续联网和 SSH 操作 10 分钟。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>日志目录可写，存储足够保存模型与多轮结果。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>温度和功耗字段可从 <code>tegrastats</code> 读取；若无法读取 <code>VDD_IN</code>，已经明确启动 RQ4 降级记录。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>关键硬件错误无未解释项。</li>
+</ul></div><div class="el-h3"><h3 data-heading="任务卡 T3：功耗模式、时钟和热门槛锁定" dir="auto" class="heading" id="任务卡_T3：功耗模式、时钟和热门槛锁定_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 T3：功耗模式、时钟和热门槛锁定</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span><code>nvpmodel -q --verbose</code> 的输出、风扇控制策略、环境温度计或房间温度记录。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span><code>tegrastats</code>、<code>jetson_clocks</code>（若存在）、空白稳定性记录表。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">从模式列表选择散热能够长期承受的最高稳定模式，不假定 <code>-m 0</code> 是 MAXN。</li>
+<li data-line="1" dir="auto">应用目标模式，并在工具存在时运行 <code>jetson_clocks</code>。</li>
+<li data-line="2" dir="auto">空载 10 分钟，记录频率、温度、功耗。</li>
+<li data-line="3" dir="auto">运行 2–3 次目标模型 warmup，再运行 10 分钟等效负载。</li>
+<li data-line="4" dir="auto">观察是否有热降频；若出现，降低功耗模式并重复。</li>
+</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong>- A：设置功耗模式和风扇策略，读取温度与频率。</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>B：准备并运行等效能耗负载或目标模型 warmup。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>C：按时间打点记录，检查日志中是否有降频和频率跳变。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>选定模式编号、功耗上限、实际模式和散热条件全部写入记录。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>稳定负载段 GPU 频率波动原则上不超过约 5%。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>正式测量前没有未解释的热降频。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>Baseline 与 Treatment 使用同一功耗模式和环境基线。</li>
+</ul></div><div class="el-h3"><h3 data-heading="任务卡 T4：GPU 可达带宽标定" dir="auto" class="heading" id="任务卡_T4：GPU_可达带宽标定_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 T4：GPU 可达带宽标定</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>独立带宽基准脚本、CUDA Event、256 MiB/512 MiB/1 GiB 测试缓冲区。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span><code>bandwidth.csv</code>、原始控制台日志、固定的功耗模式。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">在独立进程分配源、目标 GPU 张量。</li>
+<li data-line="1" dir="auto">预热至少 3 次。</li>
+<li data-line="2" dir="auto">用 CUDA Event 测量 GPU 复制，重复 5 次，丢弃首次。</li>
+<li data-line="3" dir="auto">按“读源 + 写目标”计算总字节，记录 256 MiB、512 MiB、1 GiB 的结果。</li>
+<li data-line="4" dir="auto">选择已进入平台的结果，计算中位带宽并保留全部原始值。</li>
+</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>B：编写/运行带宽脚本并计算字节数与吞吐。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>A：保持功耗模式和散热不变，观察温度与降频。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>C：独立复核计数公式、样本数和中位数计算。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>至少 3 组有效带宽数据，包含张量大小、重复次数、dtype 和单位。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>已识别缓存明显影响的区间，主结果来自可持续平台段。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>结果写入 <code>bandwidth.csv</code>，A/C 可以仅凭文件复算中位数。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>若重复性差于约 5%，已完成复测或写明原因。</li>
+</ul></div><div class="el-h3"><h3 data-heading="任务卡 T5：FP16 GEMM 算力标定" dir="auto" class="heading" id="任务卡_T5：FP16_GEMM_算力标定_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 T5：FP16 GEMM 算力标定</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>8 GB 统一内存适配的 GEMM 基准脚本、固定 FP16 输入、CUDA Event。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span><code>gemm.csv</code>、功耗模式记录、温度日志。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">首先运行 2048³ GEMM，预热 5 次。</li>
+<li data-line="1" dir="auto">在内存余量允许时测试 4096³，不直接尝试 16384³。</li>
+<li data-line="2" dir="auto">每个尺寸运行至少 20 次，CUDA Event 同步计时。</li>
+<li data-line="3" dir="auto">按 <code>2×M×N×K×重复次数/耗时</code> 计算 FLOP/s。</li>
+<li data-line="4" dir="auto">记录中位吞吐、最小/最大值、OOM 和降频情况。</li>
+</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>B：运行基准和计算理论 FLOPs。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>A：监控统一内存、温度和功耗模式。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>C：检查实际矩阵尺寸、同步方式、单位和中位数。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>2048³ 至少取得 3 组有效结果。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>GEMM 不是 CPU 运行，也没有被 OOM 或交换区严重影响。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>已得到实测 FP16 吞吐及重复性范围。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>如果 4096³ 失败，只记录为容量限制，不影响 2048³ 主结果。</li>
+</ul></div><div class="el-h3"><h3 data-heading="任务卡 T6：屋脊点计算与平台参数锁定" dir="auto" class="heading" id="任务卡_T6：屋脊点计算与平台参数锁定_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 T6：屋脊点计算与平台参数锁定</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span><code>bandwidth.csv</code>、<code>gemm.csv</code>、标称带宽来源、标称算力来源和功耗记录。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">将带宽统一为 Byte/s，将 GEMM 吞吐统一为 FLOP/s。</li>
+<li data-line="1" dir="auto">计算 <code>I* = π_measured / β_measured</code>。</li>
+<li data-line="2" dir="auto">计算标称屋脊点，并明确标称数据是否有型号依据。</li>
+<li data-line="3" dir="auto">形成 <code>platform_roofline.json</code>，冻结主口径。</li>
+<li data-line="4" dir="auto">记录测量模式、环境温度、日期和工具版本。</li>
+</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>B：计算实测屋脊点和标称屋脊点。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>A：确认型号、模式、冷却和硬件来源。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>C：独立复算数值和小数位数，检查单位换算。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span><code>platform_roofline.json</code> 同时包含实测、标称、来源和单位。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>实测主口径与标称参考值清晰分开。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>后续 Baseline/Treatment 不再修改该文件，除非重新完成标定并版本化。</li>
+</ul></div><div class="el-h3"><h3 data-heading="任务卡 T7：软件环境与模型工件冻结" dir="auto" class="heading" id="任务卡_T7：软件环境与模型工件冻结_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 T7：软件环境与模型工件冻结</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>降配 UNet 代码 commit、权重文件、config、固定随机种子。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>NVIDIA 官方 Jetson PyTorch 环境或容器、依赖清单、哈希工具。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">创建独立 venv 或容器，记录镜像 digest 或 <code>pip freeze</code>。</li>
+<li data-line="1" dir="auto">检查 <code>torch.cuda.is_available()</code>、CUDA 版本和 FP16 GEMM。</li>
+<li data-line="2" dir="auto">计算代码 commit、权重 SHA-256 和 config 哈希。</li>
+<li data-line="3" dir="auto">冻结 input shape、batch、帧数、dtype、seed、condition 生成方式。</li>
+<li data-line="4" dir="auto">把环境与输入配置写入一个只读配置文件。</li>
+</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>B：安装/加载环境，完成最小 CUDA 自检。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>A：检查设备内存、温度和供电余量。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>C：计算工件哈希并保存依赖清单，防止“同名文件不同内容”。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>最小 FP16 前向可执行，输出 device 和 dtype 符合声明。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>代码、权重、config、环境均有可追溯标识。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>Baseline 和 Treatment 只允许指定的 FFN 结构差异。</li>
+</ul></div><div class="el-h3"><h3 data-heading="任务卡 T8：算子兼容性与 PyTorch/TensorRT 路径门禁" dir="auto" class="heading" id="任务卡_T8：算子兼容性与_PyTorch/TensorRT_路径门禁_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 T8：算子兼容性与 PyTorch/TensorRT 路径门禁</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>降配 UNet 最小输入、<code>named_modules()</code> 清单、profiler 或算子日志。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>可选 TensorRT/Torch-TensorRT 环境、算子回退记录表。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">用同一 PyTorch FP16 路径执行一次完整降配 UNet forward。</li>
+<li data-line="1" dir="auto">记录 <code>not implemented for Half</code>、CPU fallback、OOM 和不支持算子。</li>
+<li data-line="2" dir="auto">只替换必要的算子；不得悄悄改变全模型精度。</li>
+<li data-line="3" dir="auto">若需 TensorRT，另建条件并记录转换、回退和融合结果。</li>
+<li data-line="4" dir="auto">按“同一PyTorch可跑 / 少量回退 / 核心回退”判定证据等级。</li>
+</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>B：运行 Python/TensorRT 路径并定位算子。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>A：监控统一内存、温度和运行状态。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>C：逐项记录错误、回退位置和是否改变实验口径。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>已获得一条明确可用的主实验执行路径。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>核心 FFN、卷积和 attention 没有大面积 CPU 回退。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>TensorRT 若被使用，其精度和融合变化已单独声明。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>如果门禁失败，已决定转理论外推或降低配置，而不是把失败数据当成功。</li>
+</ul></div><div class="el-h3"><h3 data-heading="任务卡 T9：8 GB 内存阶梯与共同输入级别" dir="auto" class="heading" id="任务卡_T9：8_GB_内存阶梯与共同输入级别_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 T9：8 GB 内存阶梯与共同输入级别</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>L0–L3 输入配置、<code>memory_ladder.csv</code>、<code>/proc/meminfo</code> 读取脚本。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>Baseline 和 Treatment 的最小可加载模型。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">从 L0 开始逐级执行一次快速 forward，记录 OOM 和峰值内存。</li>
+<li data-line="1" dir="auto">每轮独立清缓存并记录 <code>max_memory_allocated()</code>、<code>max_memory_reserved()</code>。</li>
+<li data-line="2" dir="auto">选择 Baseline 与 Treatment 共同可运行的最高级别。</li>
+<li data-line="3" dir="auto">在锁定级别连续运行 5 次。</li>
+<li data-line="4" dir="auto">5 次结束后检查 <code>MemAvailable</code>，要求至少保留约 1 GiB。</li>
+</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>B：切换配置并执行 forward。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>A：观察温度、统一内存余量和系统响应。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>C：记录 OOM、峰值、可用内存和连续运行结果。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>已写入唯一的 <code>selected_config.json</code>。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>Baseline/Treatment 同级别，连续 5 次无 OOM。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>峰值和运行后可用内存均满足安全线，或已清楚记录降级。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>L0 OOM 被作为容量墙证据保留。</li>
+</ul></div><div class="el-h3"><h3 data-heading="任务卡 T10：Hook、FFN 前缀和 FLOPs 覆盖校验" dir="auto" class="heading" id="任务卡_T10：Hook、FFN_前缀和_FLOPs_覆盖校验_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 T10：Hook、FFN 前缀和 FLOPs 覆盖校验</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span><code>named_modules()</code> 输出、模块 hook 类、profiler 结果、替换前模型。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span><code>module_replacement.json</code> 草案和 FFN 前缀清单。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">打印所有 Linear、Conv 和 attention 模块名。</li>
+<li data-line="1" dir="auto">确定 FFN 前缀，排除 <code>to_q/to_k/to_v/to_out</code>。</li>
+<li data-line="2" dir="auto">运行一次 hook 和一次 profiler，比较整体 FLOPs。</li>
+<li data-line="3" dir="auto">记录未覆盖算子、被覆盖比例和异常重复计数。</li>
+<li data-line="4" dir="auto">固定同一 hook 版本供 Baseline/Treatment 使用。</li>
+</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>B：建立 hook 并定位模块前缀。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>C：独立核对前缀、替换数量和 FLOPs 覆盖。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>A：确保运行期间没有额外的模型或后台负载。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>FFN、attention、卷积和整体的统计范围有明确名称。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>被替换 Linear 数量与预期一致。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>hook 覆盖的显著算子已解释，未覆盖率不会影响后续方向判断。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>模块清单和脚本版本已经冻结。### 任务卡 T11：Baseline 结构数据测量</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>锁定的 Baseline 模型、<code>selected_config.json</code>、hook 脚本。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>5 个正式运行目录、原始 JSON、随机种子记录。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">独立进程加载 Baseline。</li>
+<li data-line="1" dir="auto">预热 2–3 次，丢弃首次正式结果。</li>
+<li data-line="2" dir="auto">运行 5 次，记录整体/FFN/attention/conv 的 FLOPs 与 <code>B_L1</code>。</li>
+<li data-line="3" dir="auto">计算各层算术强度，保存每次原始数值。</li>
+<li data-line="4" dir="auto">核对输出 shape、dtype、device 和 hook 触发数。</li>
+</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>B：运行 Baseline 和保存结构数据。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>C：复核原始 JSON、计算公式和 5 次中位数。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>A：维持同一功耗、散热和系统状态。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>Baseline 至少 5 次有效结构测量。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>整体和 FFN 的 FLOPs、字节、算术强度均可复算。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>无关键 hook 缺失，无异常 CPU fallback。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span><code>run_*.json</code> 和日志齐全，下一阶段可以只凭文件复现。</li>
+</ul></div><div class="el-h3"><h3 data-heading="任务卡 T12：Baseline 时间与功耗测量" dir="auto" class="heading" id="任务卡_T12：Baseline_时间与功耗测量_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 T12：Baseline 时间与功耗测量</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>不含 profiler 的计时脚本、CUDA Event 或同步计时器、<code>tegrastats</code>。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span><code>run_*_power.log</code>、温度日志、固定的功耗模式。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">独立进程加载 Baseline 并 warmup。</li>
+<li data-line="1" dir="auto">连续运行 10–20 次 forward，记录总时间。</li>
+<li data-line="2" dir="auto">同步采集 <code>VDD_IN</code> 和温度。</li>
+<li data-line="3" dir="auto">计算单次中位时间和稳定段平均功耗。</li>
+<li data-line="4" dir="auto">不把 profiler 运行的时间用于能耗计算。</li>
+</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>B：运行 forward 并记录时间。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>A：启动功耗采样并监控热状态。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>C：同步时间戳、提取稳定段、计算平均值和样本数。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>至少 3 轮计时/功耗结果可比较。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span><code>VDD_IN</code> 样本覆盖主要运行区间，样本数明确。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>日志包含时间、批次、模式和温度。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>能耗计算输入齐全，未把空载功耗混入。</li>
+</ul></div><div class="el-h3"><h3 data-heading="任务卡 T13：Treatment 构造与单变量审计" dir="auto" class="heading" id="任务卡_T13：Treatment_构造与单变量审计_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 T13：Treatment 构造与单变量审计</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>FFN 前缀清单、<code>FFNBottleneck</code> 实现、Baseline 模块映射备份。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span><code>module_replacement.json</code>、固定 seed、输出形状参考。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">只对 FFN 内目标 Linear 应用 <code>r=0.5</code> 瓶颈。</li>
+<li data-line="1" dir="auto">检查 <code>in_features/out_features</code> 保持一致。</li>
+<li data-line="2" dir="auto">确认注意力投影未被替换。</li>
+<li data-line="3" dir="auto">用同一输入运行一次 forward，核对输出 shape。</li>
+<li data-line="4" dir="auto">保存替换模块列表、参数变化和代码哈希。</li>
+</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>B：实现替换并进行前向验证。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>C：逐项审计模块名，独立确认“只改 FFN”。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>A：检查内存和温度是否因替换出现异常。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span><code>module_replacement.json</code> 完整列出被替换和未替换模块。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>输出 shape 一致，无注意力误替换。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>Treatment 仅引入规定结构差异，输入、精度、功耗模式和随机种子未改变。</li>
+</ul></div><div class="el-h3"><h3 data-heading="任务卡 T14：Treatment 结构、时间与功耗测量" dir="auto" class="heading" id="任务卡_T14：Treatment_结构、时间与功耗测量_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 T14：Treatment 结构、时间与功耗测量</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>审计通过的 Treatment、同一 hook 和计时脚本。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>相同 <code>selected_config.json</code>、<code>tegrastats</code> 和独立运行目录。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">独立进程加载 Treatment。</li>
+<li data-line="1" dir="auto">重复 Baseline 的 2–3 次 warmup。</li>
+<li data-line="2" dir="auto">执行 5 次结构测量，记录整体/FFN/attention/conv 指标。</li>
+<li data-line="3" dir="auto">另起一轮执行 10–20 次无 profiler 的前向。</li>
+<li data-line="4" dir="auto">同步采集时间、<code>VDD_IN</code>、温度和内存峰值。</li>
+</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>B：运行 Treatment 全部测量。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>A：保持硬件模式、风扇和温度一致。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>C：逐字段对照 Baseline，检查是否只有预期模块不同。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>Treatment 至少 5 次结构数据和 3 轮时间/功耗数据。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>同输入、同精度、同级别、同功耗模式。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>原始日志和哈希完整，能与 Baseline 一一对应。</li>
+</ul></div><div class="el-h3"><h3 data-heading="任务卡 T15：Baseline 复核与异常判定" dir="auto" class="heading" id="任务卡_T15：Baseline_复核与异常判定_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 T15：Baseline 复核与异常判定</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>Baseline 第一次结果、Treatment 结果、Baseline 复核配置。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>数据质控表、温度日志、时钟日志。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">冷却到与第一次 Baseline 相近的温度。</li>
+<li data-line="1" dir="auto">使用完全相同的命令重跑 Baseline。</li>
+<li data-line="2" dir="auto">比较两次中位时间、功耗和关键结构统计。</li>
+<li data-line="3" dir="auto">若漂移小于约 5%，标记可接受；若更大，检查热、频率、后台负载和配置。</li>
+<li data-line="4" dir="auto">对异常值保留原始记录，不直接删除。</li>
+</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>A：恢复热/功耗条件。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>B：重跑 Baseline。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>C：主导差异审计，不能由 B 单独判断异常。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>两次 Baseline 漂移已量化。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>漂移超过阈值时有原因、复测或降级说明。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>用于最终分析的每个数字都能追溯到 run ID。</li>
+</ul></div><div class="el-h3"><h3 data-heading="任务卡 T16：边缘 Roofline 计算与图件" dir="auto" class="heading" id="任务卡_T16：边缘_Roofline_计算与图件_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 T16：边缘 Roofline 计算与图件</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span><code>platform_roofline.json</code>、Baseline/Treatment 结果表、绘图脚本。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>实测与标称屋脊点参数、单位换算表。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">计算每个层级的 <code>I=FLOPs/B_L1</code>。</li>
+<li data-line="1" dir="auto">计算 <code>q=I/I*</code>，判定 compute/memory-bound。</li>
+<li data-line="2" dir="auto">用实测值画实线，标称值画虚线。</li>
+<li data-line="3" dir="auto">用箭头连接 Baseline 与 Treatment。</li>
+<li data-line="4" dir="auto">保存 CSV 和 SVG/PNG，并附单位、样本数和图注。</li>
+</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>C：主导数据计算和图表复核。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>B：确认 FLOPs、字节和模型结构口径。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>A：确认屋脊点、功耗模式和平台参数。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>D：检查图与文字结论是否一致。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>整体和 FFN 点均可在图上找到，箭头方向清楚。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>实测/标称区分不混淆。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>任何异常离群点均有 run ID 和解释。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>图件可由 CSV 重新生成。</li>
+</ul></div><div class="el-h3"><h3 data-heading="任务卡 T17：能效指标与 RQ4 判定" dir="auto" class="heading" id="任务卡_T17：能效指标与_RQ4_判定_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 T17：能效指标与 RQ4 判定</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>Baseline/Treatment 时间、功耗、FLOPs 和 <code>B_L1</code> 数据。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>稳定段采样日志、能量公式和单位检查表。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">计算 <code>E_forward=P_avg×t_loop/N</code>。</li>
+<li data-line="1" dir="auto">计算 <code>FLOP/J</code> 和 <code>Byte/J</code>。</li>
+<li data-line="2" dir="auto">对两次 Baseline 和 Treatment 做同口径比较。</li>
+<li data-line="3" dir="auto">标注整板功耗代理、样本数和采样间隔。</li>
+<li data-line="4" dir="auto">判断能效变化方向是否与性能/Roofline 方向一致。</li>
+</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>C：主导能效计算和单位检查。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>B：提供 FLOPs、字节和前向次数。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>A：确认功耗来自同一模式、同一散热状态。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>D：撰写限制条件和答辩口径。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>每个能效数字都有时间和功耗来源。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>整板 <code>VDD_IN</code> 与 GPU 功耗的边界没有混淆。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>采样不足或无法可靠读取时，RQ4 已明确降级。</li>
+</ul></div><div class="el-h3"><h3 data-heading="任务卡 T18：跨平台方向一致性与结论" dir="auto" class="heading" id="任务卡_T18：跨平台方向一致性与结论_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 T18：跨平台方向一致性与结论</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>云侧和边缘侧的 Baseline/Treatment 同口径结果。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>两份平台参数表、图件、异常记录和“合法对比”声明。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">对每个指标计算 <code>ΔI=I_treatment−I_baseline</code>。</li>
+<li data-line="1" dir="auto">只比较变化符号和不确定性范围。</li>
+<li data-line="2" dir="auto">对“在噪声内”的变化标为“不显著”，不强行判方向。</li>
+<li data-line="3" dir="auto">用分层数据解释一致或不一致。</li>
+<li data-line="4" dir="auto">把限制、降级和外推级别写入结论。</li>
+</ol></div><div class="el-p"><p dir="auto"><strong>需要的分工成员</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>D：主导跨平台表格和结论组织。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>B：核对两侧算法/模型口径。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>C：独立复算符号、百分比和图表引用。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>A：确认两侧平台参数和功耗口径。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>每个 RQ 都有明确回答：一致、不一致、部分一致或不显著。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>结论引用具体分层指标而非只引用整体数。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>云端绝对值和边缘绝对值没有被错误直接比较。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>答辩时可以指出每条结论的证据文件。</li>
+</ul></div><div class="el-h3"><h3 data-heading="任务卡 T19：数据包、复现和阶段验收" dir="auto" class="heading" id="任务卡_T19：数据包、复现和阶段验收_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>任务卡 T19：数据包、复现和阶段验收</h3></div><div class="el-p"><p dir="auto"><strong>需要准备的材料</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>完整 <code>edge/</code> 数据目录、README、环境清单、模型哈希和所有图件。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>复现命令、最小 smoke test、空白交付清单。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>需要进行的最小步骤</strong></p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">按目录归档原始日志、CSV、JSON、图和脚本。</li>
+<li data-line="1" dir="auto">计算关键文件 SHA-256，写入清单。</li>
+<li data-line="2" dir="auto">在干净进程重跑最小 FP16 forward 和一项小型基准。</li>
+<li data-line="3" dir="auto">检查 Baseline/Treatment 行数、字段、样本数和缺项。</li>
+<li data-line="4" dir="auto">由非主要操作者完成交付审查。<strong>需要的分工成员</strong></li>
+</ol></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>A：确认硬件、模式和环境说明准确。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>B：确认脚本和模型工件可重新加载。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>C：执行文件、哈希、字段和统计复核。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>D：撰写 README、复现步骤和答辩索引。</li>
+</ul></div><div class="el-p"><p dir="auto"><strong>实验阶段性成功标志</strong></p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>数据包可在新进程中按 README 完成最小复现。</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>所有缺失值、异常和降级都有原因。</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>报告中的每个主结论能指向 CSV/JSON/图件。</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>A、B、C 至少三人完成最终阶段验收。</li>
+</ul></div><div class="el-h3"><h3 data-heading="15A.2 任务卡执行顺序" dir="auto" class="heading" id="15A.2_任务卡执行顺序_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>15A.2 任务卡执行顺序</h3></div><div class="el-p"><p dir="auto">必须按以下依赖关系推进；不能为了赶进度跳过前置门禁：</p></div><div class="el-pre"><pre class="language-text"><code data-line="0" class="language-text is-loaded">T0 → T1 → T2 → T3
+              ├→ T4 → T6
+              └→ T5 → T6
+T6 → T7 → T8 → T9 → T10
+T10 → T11 → T12 → T13 → T14 → T15
+T15 → T16 → T17 → T18 → T19
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></pre></div><div class="el-p"><p dir="auto">其中 T4 和 T5 可以分别完成，但 T6 必须同时收到带宽、GEMM 和功耗记录。T13 失败时回到 T10 修正 FFN 前缀，不得直接进入 T14。</p></div><div class="el-h3"><h3 data-heading="15A.3 每次实验结束后的五分钟检查" dir="auto" class="heading" id="15A.3_每次实验结束后的五分钟检查_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>15A.3 每次实验结束后的五分钟检查</h3></div><div class="el-p"><p dir="auto">每次离开设备前，由 C 主持完成：</p></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">原始日志是否已经从终端落到文件；</li>
+<li data-line="1" dir="auto">是否记录日期、模式、温度、模型 hash 和 run ID；</li>
+<li data-line="2" dir="auto">是否有人误改了 <code>selected_config.json</code>；</li>
+<li data-line="3" dir="auto">是否保存了失败/OOM 的完整错误；</li>
+<li data-line="4" dir="auto">是否把本轮数据备份到第二位置；</li>
+<li data-line="5" dir="auto">下一位成员是否知道从哪张任务卡继续。</li>
+</ol></div><div class="el-p"><p dir="auto">这六项未完成时，本轮只能标记为“临时数据”，不能进入最终分析。</p></div><div class="el-hr"><hr></div><div class="el-h2"><h2 data-heading="6. 与课程方案的衔接结论" dir="auto" class="heading" id="6._与课程方案的衔接结论_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>6. 与课程方案的衔接结论</h2></div><div class="el-p"><p dir="auto">本次官方底板资料能够支持以下实验设计：</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>说明边缘节点的存储层次、统一内存、接口和供电约束；</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>解释为何原尺寸 SVD UNet 在 8 GB 统一内存上可能先遭遇容量墙；</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>用实测带宽和 GEMM 算力计算边缘屋脊点；</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>用统一内存整板功耗记录做 <code>VDD_IN</code> 能耗代理；</li>
+<li data-line="4" dir="auto"><span class="list-bullet"></span>把 FFN 压缩的影响从“云 GPU 上的单平台结论”扩展成“平台约束下的方向性对照”。</li>
+</ul></div><div class="el-p"><p dir="auto">本次官方资料不能直接证明：</p></div><div class="el-ul"><ul class="has-list-bullet">
+<li data-line="0" dir="auto"><span class="list-bullet"></span>具体数据库或模型的端到端延迟；</li>
+<li data-line="1" dir="auto"><span class="list-bullet"></span>SoC 的真实 FP16 峰值；</li>
+<li data-line="2" dir="auto"><span class="list-bullet"></span>设备一定是 Nano Super；</li>
+<li data-line="3" dir="auto"><span class="list-bullet"></span>TensorRT 转换后仍保持与 PyTorch 理论下界相同的访存口径。</li>
+</ul></div><div class="el-p"><p dir="auto">因此，报告中最稳妥的表述是：</p></div><div class="el-blockquote"><blockquote dir="auto">
+<p>边缘侧先进行型号识别、功耗/热门禁和平台参数标定；在降配 UNet 上分别测 Baseline 与 FFN Treatment。通过与云端相同的方法学口径计算分层算术强度，并在边缘实测屋脊点上定位。若边缘模型无法以可接受方式运行，则仅用平台标定和云端算术强度做理论外推，并明确降低证据等级。</p>
+</blockquote></div><div class="el-hr"><hr></div><div class="el-h2"><h2 data-heading="7. 资料来源" dir="auto" class="heading" id="7._资料来源_0"><span class="heading-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>7. 资料来源</h2></div><div class="el-ol"><ol>
+<li data-line="0" dir="auto">课程项目文档《计组作业大纲》中的实验方案 v5.0。</li>
+<li data-line="1" dir="auto">课程项目文档《实验计划》中的边缘设备分册。</li>
+<li data-line="2" dir="auto"><span class="list-collapse-indicator collapse-indicator collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></span>NVIDIA, <em>Jetson Orin Nano Developer Kit Carrier Board Specification</em>, SP-11324-001 v1.0, March 20, 2023:
+<ul class="has-list-bullet">
+<li data-line="3" dir="auto"><span class="list-bullet"></span>文档 PDF 第 5 页：上电、外设连接和 ESD 警告；</li>
+<li data-line="4" dir="auto"><span class="list-bullet"></span>文档 PDF 第 6–7 页：8 GB LPDDR5/68 GB/s、接口和供电概览；</li>
+<li data-line="5" dir="auto"><span class="list-bullet"></span>文档 PDF 第 24–27 页：40-pin 扩展口及 3.3 V 电平；</li>
+<li data-line="6" dir="auto"><span class="list-bullet"></span>文档 PDF 第 29–32 页：风扇、DC 电源和 PoE 备选供电；</li>
+<li data-line="7" dir="auto"><span class="list-bullet"></span>文档 PDF 第 35–37 页：接口电源与电流能力。</li>
+</ul>
+</li>
+</ol></div><div class="footer"><div class="data-bar"></div></div></div></div></div><div id="right-content" class="leaf" style="--sidebar-width: var(--sidebar-width-right);"><div id="right-sidebar" class="sidebar"><div class="sidebar-handle"></div><div class="sidebar-topbar"><div class="topbar-content"><label class="theme-toggle-container" for="theme-toggle-input" id=""><input class="theme-toggle-input" type="checkbox" id="theme-toggle-input"><div class="toggle-background"></div></label></div><div class="clickable-icon sidebar-collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><path d="M21 3H3C1.89543 3 1 3.89543 1 5V19C1 20.1046 1.89543 21 3 21H21C22.1046 21 23 20.1046 23 19V5C23 3.89543 22.1046 3 21 3Z"></path><path d="M10 4V20"></path><path d="M4 7H7"></path><path d="M4 10H7"></path><path d="M4 13H7"></path></svg></div></div><div class="sidebar-content-wrapper"><div id="right-sidebar-content" class="leaf-content"><div class="graph-view-wrapper"><div class="feature-header"><div class="feature-title">Interactive Graph</div></div><div class="graph-view-placeholder">
+		<div class="graph-view-container">
+			<div class="graph-icon graph-expand" role="button" aria-label="Expand" data-tooltip-position="top"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
+			<div class="graph-icon graph-global" role="button" aria-label="Global Graph" data-tooltip-position="top"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-git-fork"><circle cx="12" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><circle cx="18" cy="6" r="3"></circle><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"></path><path d="M12 12v3"></path></svg></div>
+			<canvas id="graph-canvas" class="hide" width="512px" height="512px"></canvas>
+		</div>
+		</div></div><div id="outline" class=" tree-container"><div class="feature-header"><div class="feature-title">Table Of Contents</div><button class="clickable-icon nav-action-button tree-collapse-all" aria-label="Collapse All"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg></button></div><div class="tree-item mod-collapsible" data-depth="1"><a class="tree-item-self is-clickable mod-collapsible" href="边缘设备实验方案.html#边缘设备实验方案_0" data-path="#边缘设备实验方案_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="边缘设备实验方案">边缘设备实验方案</div></a><div class="tree-item-children"><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="边缘设备实验方案.html#1._实验前置条件与器材_0" data-path="#1._实验前置条件与器材_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="1. 实验前置条件与器材">1. 实验前置条件与器材</div></a><div class="tree-item-children"><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#1.1_器材清单_0" data-path="#1.1_器材清单_0"><div class="tree-item-inner heading-link" heading-name="1.1 器材清单">1.1 器材清单</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#1.2_上电前安全检查_0" data-path="#1.2_上电前安全检查_0"><div class="tree-item-inner heading-link" heading-name="1.2 上电前安全检查">1.2 上电前安全检查</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#1.3_软件记录_0" data-path="#1.3_软件记录_0"><div class="tree-item-inner heading-link" heading-name="1.3 软件记录">1.3 软件记录</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item" data-depth="2"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#2._实验阶段总览_0" data-path="#2._实验阶段总览_0"><div class="tree-item-inner heading-link" heading-name="2. 实验阶段总览">2. 实验阶段总览</div></a><div class="tree-item-children"></div></div><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="边缘设备实验方案.html#3._实验步骤_0" data-path="#3._实验步骤_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="3. 实验步骤">3. 实验步骤</div></a><div class="tree-item-children"><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="边缘设备实验方案.html#E0：平台识别_0" data-path="#E0：平台识别_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="E0：平台识别">E0：平台识别</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#3.1_操作_0" data-path="#3.1_操作_0"><div class="tree-item-inner heading-link" heading-name="3.1 操作">3.1 操作</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#3.2_记录字段_0" data-path="#3.2_记录字段_0"><div class="tree-item-inner heading-link" heading-name="3.2 记录字段">3.2 记录字段</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="边缘设备实验方案.html#E1：系统验收_0" data-path="#E1：系统验收_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="E1：系统验收">E1：系统验收</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#4.1_启动和接口检查_0" data-path="#4.1_启动和接口检查_0"><div class="tree-item-inner heading-link" heading-name="4.1 启动和接口检查">4.1 启动和接口检查</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="边缘设备实验方案.html#E2：功耗模式、散热与时钟门禁_0" data-path="#E2：功耗模式、散热与时钟门禁_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="E2：功耗模式、散热与时钟门禁">E2：功耗模式、散热与时钟门禁</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#5.1_编号记录_0" data-path="#5.1_编号记录_0"><div class="tree-item-inner heading-link" heading-name="5.1 编号记录">5.1 编号记录</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#5.2_热基线_0" data-path="#5.2_热基线_0"><div class="tree-item-inner heading-link" heading-name="5.2 热基线">5.2 热基线</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#5.3_记录表_0" data-path="#5.3_记录表_0"><div class="tree-item-inner heading-link" heading-name="5.3 记录表">5.3 记录表</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="边缘设备实验方案.html#E3：边缘平台参数标定_0" data-path="#E3：边缘平台参数标定_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="E3：边缘平台参数标定">E3：边缘平台参数标定</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#6.1_标定口径_0" data-path="#6.1_标定口径_0"><div class="tree-item-inner heading-link" heading-name="6.1 标定口径">6.1 标定口径</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#6.2_实测带宽_0" data-path="#6.2_实测带宽_0"><div class="tree-item-inner heading-link" heading-name="6.2 实测带宽">6.2 实测带宽</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#6.3_实测_FP16_GEMM_0" data-path="#6.3_实测_FP16_GEMM_0"><div class="tree-item-inner heading-link" heading-name="6.3 实测 FP16 GEMM">6.3 实测 FP16 GEMM</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#6.4_功耗采样_0" data-path="#6.4_功耗采样_0"><div class="tree-item-inner heading-link" heading-name="6.4 功耗采样">6.4 功耗采样</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="边缘设备实验方案.html#E4：软件栈、模型与算子门禁_0" data-path="#E4：软件栈、模型与算子门禁_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="E4：软件栈、模型与算子门禁">E4：软件栈、模型与算子门禁</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#7.1_创建可冻结环境_0" data-path="#7.1_创建可冻结环境_0"><div class="tree-item-inner heading-link" heading-name="7.1 创建可冻结环境">7.1 创建可冻结环境</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#7.2_冻结模型_0" data-path="#7.2_冻结模型_0"><div class="tree-item-inner heading-link" heading-name="7.2 冻结模型">7.2 冻结模型</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#7.3_算子兼容性检查_0" data-path="#7.3_算子兼容性检查_0"><div class="tree-item-inner heading-link" heading-name="7.3 算子兼容性检查">7.3 算子兼容性检查</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="边缘设备实验方案.html#E5：内存与输入级别门禁_0" data-path="#E5：内存与输入级别门禁_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="E5：内存与输入级别门禁">E5：内存与输入级别门禁</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#8.1_阶梯_0" data-path="#8.1_阶梯_0"><div class="tree-item-inner heading-link" heading-name="8.1 阶梯">8.1 阶梯</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#8.2_测试顺序_0" data-path="#8.2_测试顺序_0"><div class="tree-item-inner heading-link" heading-name="8.2 测试顺序">8.2 测试顺序</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#8.3_验收_0" data-path="#8.3_验收_0"><div class="tree-item-inner heading-link" heading-name="8.3 验收">8.3 验收</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="边缘设备实验方案.html#E6：边缘_Baseline_分层测量_0" data-path="#E6：边缘_Baseline_分层测量_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="E6：边缘 Baseline 分层测量">E6：边缘 Baseline 分层测量</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#9.1_测量顺序_0" data-path="#9.1_测量顺序_0"><div class="tree-item-inner heading-link" heading-name="9.1 测量顺序">9.1 测量顺序</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#9.2_FLOPs_与访存下界_0" data-path="#9.2_FLOPs_与访存下界_0"><div class="tree-item-inner heading-link" heading-name="9.2 FLOPs 与访存下界">9.2 FLOPs 与访存下界</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#9.3_时间与功耗分开测_0" data-path="#9.3_时间与功耗分开测_0"><div class="tree-item-inner heading-link" heading-name="9.3 时间与功耗分开测">9.3 时间与功耗分开测</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="边缘设备实验方案.html#E7：Treatment_与单变量控制_0" data-path="#E7：Treatment_与单变量控制_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="E7：Treatment 与单变量控制">E7：Treatment 与单变量控制</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#10.1_插入_FFN_瓶颈_0" data-path="#10.1_插入_FFN_瓶颈_0"><div class="tree-item-inner heading-link" heading-name="10.1 插入 FFN 瓶颈">10.1 插入 FFN 瓶颈</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#10.2_结构验收_0" data-path="#10.2_结构验收_0"><div class="tree-item-inner heading-link" heading-name="10.2 结构验收">10.2 结构验收</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#10.3_重测_0" data-path="#10.3_重测_0"><div class="tree-item-inner heading-link" heading-name="10.3 重测">10.3 重测</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="3"><a class="tree-item-self is-clickable mod-collapsible" href="边缘设备实验方案.html#E8：Roofline_与能效分析_0" data-path="#E8：Roofline_与能效分析_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="E8：Roofline 与能效分析">E8：Roofline 与能效分析</div></a><div class="tree-item-children"><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#11.1_平台定位_0" data-path="#11.1_平台定位_0"><div class="tree-item-inner heading-link" heading-name="11.1 平台定位">11.1 平台定位</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#11.2_方向一致性_0" data-path="#11.2_方向一致性_0"><div class="tree-item-inner heading-link" heading-name="11.2 方向一致性">11.2 方向一致性</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#11.3_能效指标修正_0" data-path="#11.3_能效指标修正_0"><div class="tree-item-inner heading-link" heading-name="11.3 能效指标修正">11.3 能效指标修正</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="4"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#11.4_结果表_0" data-path="#11.4_结果表_0"><div class="tree-item-inner heading-link" heading-name="11.4 结果表">11.4 结果表</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#12._统一数据记录格式_0" data-path="#12._统一数据记录格式_0"><div class="tree-item-inner heading-link" heading-name="12. 统一数据记录格式">12. 统一数据记录格式</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#13._故障处理_0" data-path="#13._故障处理_0"><div class="tree-item-inner heading-link" heading-name="13. 故障处理">13. 故障处理</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#14._验收标准_0" data-path="#14._验收标准_0"><div class="tree-item-inner heading-link" heading-name="14. 验收标准">14. 验收标准</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="边缘设备实验方案.html#4._交付物与建议排期_0" data-path="#4._交付物与建议排期_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="4. 交付物与建议排期">4. 交付物与建议排期</div></a><div class="tree-item-children"><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#4.1_交付物_0" data-path="#4.1_交付物_0"><div class="tree-item-inner heading-link" heading-name="4.1 交付物">4.1 交付物</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#4.2_建议排期_0" data-path="#4.2_建议排期_0"><div class="tree-item-inner heading-link" heading-name="4.2 建议排期">4.2 建议排期</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item mod-collapsible" data-depth="2"><a class="tree-item-self is-clickable mod-collapsible" href="边缘设备实验方案.html#5._可执行任务卡：材料、最小步骤、分工与阶段成功标志_0" data-path="#5._可执行任务卡：材料、最小步骤、分工与阶段成功标志_0"><div class="tree-item-icon collapse-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon right-triangle"><path d="M3 8L12 17L21 8"></path></svg></div><div class="tree-item-inner heading-link" heading-name="5. 可执行任务卡：材料、最小步骤、分工与阶段成功标志">5. 可执行任务卡：材料、最小步骤、分工与阶段成功标志</div></a><div class="tree-item-children"><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#15A.1_人员配置约定_0" data-path="#15A.1_人员配置约定_0"><div class="tree-item-inner heading-link" heading-name="15A.1 人员配置约定">15A.1 人员配置约定</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#任务卡_T0：上电前安全与器材验收_0" data-path="#任务卡_T0：上电前安全与器材验收_0"><div class="tree-item-inner heading-link" heading-name="任务卡 T0：上电前安全与器材验收">任务卡 T0：上电前安全与器材验收</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#任务卡_T1：型号、内存与软件基线识别_0" data-path="#任务卡_T1：型号、内存与软件基线识别_0"><div class="tree-item-inner heading-link" heading-name="任务卡 T1：型号、内存与软件基线识别">任务卡 T1：型号、内存与软件基线识别</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#任务卡_T2：系统、网络、存储与远程操作验收_0" data-path="#任务卡_T2：系统、网络、存储与远程操作验收_0"><div class="tree-item-inner heading-link" heading-name="任务卡 T2：系统、网络、存储与远程操作验收">任务卡 T2：系统、网络、存储与远程操作验收</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#任务卡_T3：功耗模式、时钟和热门槛锁定_0" data-path="#任务卡_T3：功耗模式、时钟和热门槛锁定_0"><div class="tree-item-inner heading-link" heading-name="任务卡 T3：功耗模式、时钟和热门槛锁定">任务卡 T3：功耗模式、时钟和热门槛锁定</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#任务卡_T4：GPU_可达带宽标定_0" data-path="#任务卡_T4：GPU_可达带宽标定_0"><div class="tree-item-inner heading-link" heading-name="任务卡 T4：GPU 可达带宽标定">任务卡 T4：GPU 可达带宽标定</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#任务卡_T5：FP16_GEMM_算力标定_0" data-path="#任务卡_T5：FP16_GEMM_算力标定_0"><div class="tree-item-inner heading-link" heading-name="任务卡 T5：FP16 GEMM 算力标定">任务卡 T5：FP16 GEMM 算力标定</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#任务卡_T6：屋脊点计算与平台参数锁定_0" data-path="#任务卡_T6：屋脊点计算与平台参数锁定_0"><div class="tree-item-inner heading-link" heading-name="任务卡 T6：屋脊点计算与平台参数锁定">任务卡 T6：屋脊点计算与平台参数锁定</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#任务卡_T7：软件环境与模型工件冻结_0" data-path="#任务卡_T7：软件环境与模型工件冻结_0"><div class="tree-item-inner heading-link" heading-name="任务卡 T7：软件环境与模型工件冻结">任务卡 T7：软件环境与模型工件冻结</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#任务卡_T8：算子兼容性与_PyTorch/TensorRT_路径门禁_0" data-path="#任务卡_T8：算子兼容性与_PyTorch/TensorRT_路径门禁_0"><div class="tree-item-inner heading-link" heading-name="任务卡 T8：算子兼容性与 PyTorch/TensorRT 路径门禁">任务卡 T8：算子兼容性与 PyTorch/TensorRT 路径门禁</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#任务卡_T9：8_GB_内存阶梯与共同输入级别_0" data-path="#任务卡_T9：8_GB_内存阶梯与共同输入级别_0"><div class="tree-item-inner heading-link" heading-name="任务卡 T9：8 GB 内存阶梯与共同输入级别">任务卡 T9：8 GB 内存阶梯与共同输入级别</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#任务卡_T10：Hook、FFN_前缀和_FLOPs_覆盖校验_0" data-path="#任务卡_T10：Hook、FFN_前缀和_FLOPs_覆盖校验_0"><div class="tree-item-inner heading-link" heading-name="任务卡 T10：Hook、FFN 前缀和 FLOPs 覆盖校验">任务卡 T10：Hook、FFN 前缀和 FLOPs 覆盖校验</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#任务卡_T12：Baseline_时间与功耗测量_0" data-path="#任务卡_T12：Baseline_时间与功耗测量_0"><div class="tree-item-inner heading-link" heading-name="任务卡 T12：Baseline 时间与功耗测量">任务卡 T12：Baseline 时间与功耗测量</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#任务卡_T13：Treatment_构造与单变量审计_0" data-path="#任务卡_T13：Treatment_构造与单变量审计_0"><div class="tree-item-inner heading-link" heading-name="任务卡 T13：Treatment 构造与单变量审计">任务卡 T13：Treatment 构造与单变量审计</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#任务卡_T14：Treatment_结构、时间与功耗测量_0" data-path="#任务卡_T14：Treatment_结构、时间与功耗测量_0"><div class="tree-item-inner heading-link" heading-name="任务卡 T14：Treatment 结构、时间与功耗测量">任务卡 T14：Treatment 结构、时间与功耗测量</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#任务卡_T15：Baseline_复核与异常判定_0" data-path="#任务卡_T15：Baseline_复核与异常判定_0"><div class="tree-item-inner heading-link" heading-name="任务卡 T15：Baseline 复核与异常判定">任务卡 T15：Baseline 复核与异常判定</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#任务卡_T16：边缘_Roofline_计算与图件_0" data-path="#任务卡_T16：边缘_Roofline_计算与图件_0"><div class="tree-item-inner heading-link" heading-name="任务卡 T16：边缘 Roofline 计算与图件">任务卡 T16：边缘 Roofline 计算与图件</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#任务卡_T17：能效指标与_RQ4_判定_0" data-path="#任务卡_T17：能效指标与_RQ4_判定_0"><div class="tree-item-inner heading-link" heading-name="任务卡 T17：能效指标与 RQ4 判定">任务卡 T17：能效指标与 RQ4 判定</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#任务卡_T18：跨平台方向一致性与结论_0" data-path="#任务卡_T18：跨平台方向一致性与结论_0"><div class="tree-item-inner heading-link" heading-name="任务卡 T18：跨平台方向一致性与结论">任务卡 T18：跨平台方向一致性与结论</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#任务卡_T19：数据包、复现和阶段验收_0" data-path="#任务卡_T19：数据包、复现和阶段验收_0"><div class="tree-item-inner heading-link" heading-name="任务卡 T19：数据包、复现和阶段验收">任务卡 T19：数据包、复现和阶段验收</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#15A.2_任务卡执行顺序_0" data-path="#15A.2_任务卡执行顺序_0"><div class="tree-item-inner heading-link" heading-name="15A.2 任务卡执行顺序">15A.2 任务卡执行顺序</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="3"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#15A.3_每次实验结束后的五分钟检查_0" data-path="#15A.3_每次实验结束后的五分钟检查_0"><div class="tree-item-inner heading-link" heading-name="15A.3 每次实验结束后的五分钟检查">15A.3 每次实验结束后的五分钟检查</div></a><div class="tree-item-children"></div></div></div></div><div class="tree-item" data-depth="2"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#6._与课程方案的衔接结论_0" data-path="#6._与课程方案的衔接结论_0"><div class="tree-item-inner heading-link" heading-name="6. 与课程方案的衔接结论">6. 与课程方案的衔接结论</div></a><div class="tree-item-children"></div></div><div class="tree-item" data-depth="2"><a class="tree-item-self is-clickable" href="边缘设备实验方案.html#7._资料来源_0" data-path="#7._资料来源_0"><div class="tree-item-inner heading-link" heading-name="7. 资料来源">7. 资料来源</div></a><div class="tree-item-children"></div></div></div></div></div></div></div><script defer="">let rs = document.querySelector("#right-sidebar"); rs.classList.toggle("is-collapsed", window.innerWidth < 768); rs.style.setProperty("--sidebar-width", localStorage.getItem("sidebar-right-width"));</script></div></div></div></div></body></html>
